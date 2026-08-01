@@ -1,0 +1,114 @@
+{
+  "plugins": [
+    "react",
+    "import"
+  ],
+  "rules": {
+    "react/forbid-elements": [
+      "warn",
+      {
+        "forbid": []
+      }
+    ],
+    "no-restricted-imports": [
+      "warn",
+      {
+        "patterns": [
+          {
+            "group": [
+              "assets/**"
+            ],
+            "message": "Import design-system components from 'index.js', not component internals."
+          }
+        ]
+      }
+    ],
+    "no-restricted-syntax": [
+      "warn",
+      {
+        "selector": "Literal[value=/#[0-9a-fA-F]{3,8}\\b/]",
+        "message": "Raw hex color — use a design-system color token via var()."
+      },
+      {
+        "selector": "Literal[value=/\\b\\d+px\\b/]",
+        "message": "Raw px value — use a design-system spacing token via var()."
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/index.js"
+      ],
+      "rules": {
+        "no-restricted-imports": "off"
+      }
+    }
+  ],
+  "x-omelette": {
+    "components": {},
+    "tokens": [
+      "--aqua",
+      "--blossom",
+      "--blush",
+      "--blush-2",
+      "--cream",
+      "--ease",
+      "--font-display",
+      "--font-ui",
+      "--gold",
+      "--gold-line",
+      "--green",
+      "--ink",
+      "--ink-45",
+      "--ink-70",
+      "--ivory",
+      "--line",
+      "--max",
+      "--porcelain",
+      "--r-l",
+      "--r-m",
+      "--r-pill",
+      "--r-s",
+      "--rose",
+      "--rose-deep",
+      "--rose-line",
+      "--sakura",
+      "--sh-1",
+      "--sh-2",
+      "--white"
+    ],
+    "tokenKinds": {
+      "--ivory": "color",
+      "--cream": "color",
+      "--blossom": "color",
+      "--gold": "color",
+      "--ink": "color",
+      "--rose": "color",
+      "--green": "color",
+      "--aqua": "color",
+      "--white": "color",
+      "--ink-70": "color",
+      "--ink-45": "color",
+      "--line": "color",
+      "--gold-line": "color",
+      "--font-display": "font",
+      "--font-ui": "font",
+      "--r-s": "spacing",
+      "--r-m": "spacing",
+      "--r-l": "spacing",
+      "--r-pill": "spacing",
+      "--sh-1": "shadow",
+      "--sh-2": "shadow",
+      "--max": "spacing",
+      "--ease": "other",
+      "--porcelain": "color",
+      "--blush": "color",
+      "--blush-2": "color",
+      "--sakura": "color",
+      "--rose-deep": "color",
+      "--rose-line": "color"
+    },
+    "fontFamilies": []
+  }
+}
