@@ -30,6 +30,15 @@
 
 <section style="padding-top:0"><div class="wrap shop">
 <aside class="filters">
+<div class="fsearch"><i data-lucide="search"></i><input type="search" id="q" placeholder="Търси продукт" aria-label="Търси продукт"></div>
+<div class="fgroup"><h4>Цена</h4>
+<div class="range-wrap">
+<span class="range-track"></span><span class="range-fill" id="rFill"></span>
+<input type="range" id="rMin" aria-label="Минимална цена">
+<input type="range" id="rMax" aria-label="Максимална цена">
+</div>
+<div class="range-vals"><span id="rMinVal"></span><span id="rMaxVal"></span></div>
+</div>
 <div class="fgroup"><h4>Категория</h4><div id="fCats"></div></div>
 <div class="fgroup"><h4>Нужда на кожата</h4><div id="fConcerns"></div></div>
 <div class="fgroup"><h4>Произход</h4><div id="fOrigins"></div></div>
@@ -45,6 +54,7 @@
 <option value="name">По име</option>
 </select>
 </div>
+<div class="active-filters" id="chips"></div>
 <div class="products" id="grid"></div>
 <div class="empty" id="empty" hidden><h3>Няма продукти с тези филтри</h3><p class="lead center" style="margin:10px auto 20px">Пробвайте с друга комбинация.</p><button class="btn btn-outline" onclick="document.getElementById('clear').click()">Изчисти филтрите</button></div>
 </div>
@@ -69,7 +79,9 @@
 <script src="assets/shop.js"></script>
 <script>
 const ORIGINS = [...new Set(PRODUCTS.map(p => p.specs.origin))];
-const state = { cats: [], concerns: [], origins: [], sort: 'pop' };
+const PRICE_MIN = Math.floor(Math.min(...PRODUCTS.map(p => p.price)));
+const PRICE_MAX = Math.ceil(Math.max(...PRODUCTS.map(p => p.price)));
+const state = { cats: [], concerns: [], origins: [], q: '', min: PRICE_MIN, max: PRICE_MAX, sort: 'pop' };
 const params = new URLSearchParams(location.search);
 if (params.get('c')) state.cats = [params.get('c')];
 if (params.get('need')) state.concerns = [params.get('need')];
@@ -79,16 +91,56 @@ document.getElementById('fCats').innerHTML = CATS.map(c => opt('cats', c.id, c.n
 document.getElementById('fConcerns').innerHTML = CONCERNS.map(c => opt('concerns', c.id, c.name, state.concerns.includes(c.id))).join('');
 document.getElementById('fOrigins').innerHTML = ORIGINS.map(o => opt('origins', o, o, false)).join('');
 
+/* Ценови диапазон — двата плъзгача не могат да се разминат. */
+const rMin = document.getElementById('rMin'), rMax = document.getElementById('rMax');
+for (const r of [rMin, rMax]) { r.min = PRICE_MIN; r.max = PRICE_MAX; r.step = 1; }
+rMin.value = PRICE_MIN; rMax.value = PRICE_MAX;
+
+function syncRange() {
+  const span = PRICE_MAX - PRICE_MIN || 1;
+  const fill = document.getElementById('rFill');
+  fill.style.left = ((state.min - PRICE_MIN) / span * 100) + '%';
+  fill.style.right = ((PRICE_MAX - state.max) / span * 100) + '%';
+  document.getElementById('rMinVal').textContent = money(state.min);
+  document.getElementById('rMaxVal').textContent = money(state.max);
+}
+function onRange() {
+  let lo = +rMin.value, hi = +rMax.value;
+  if (lo > hi) { if (this === rMin) hi = lo; else lo = hi; rMin.value = lo; rMax.value = hi; }
+  state.min = lo; state.max = hi;
+  syncRange(); apply();
+}
+rMin.addEventListener('input', onRange);
+rMax.addEventListener('input', onRange);
+
+const labelFor = (g, v) => g === 'cats' ? (CATS.find(c => c.id === v) || {}).name
+  : g === 'concerns' ? (CONCERNS.find(c => c.id === v) || {}).name : v;
+
+function renderChips() {
+  const parts = [];
+  for (const g of ['cats', 'concerns', 'origins'])
+    for (const v of state[g]) parts.push(`<button class="fchip" data-rm="${g}" data-val="${v}">${labelFor(g, v)}<i data-lucide="x"></i></button>`);
+  if (state.q) parts.push(`<button class="fchip" data-rm="q">„${state.q}"<i data-lucide="x"></i></button>`);
+  if (state.min > PRICE_MIN || state.max < PRICE_MAX)
+    parts.push(`<button class="fchip" data-rm="price">${money(state.min)} – ${money(state.max)}<i data-lucide="x"></i></button>`);
+  document.getElementById('chips').innerHTML = parts.join('');
+  if (window.lucide) lucide.createIcons();
+}
+
 function apply() {
+  const q = state.q.trim().toLowerCase();
   let list = PRODUCTS.filter(p =>
     (!state.cats.length || state.cats.includes(p.cat)) &&
     (!state.concerns.length || state.concerns.some(c => p.concerns.includes(c))) &&
-    (!state.origins.length || state.origins.includes(p.specs.origin)));
+    (!state.origins.length || state.origins.includes(p.specs.origin)) &&
+    p.price >= state.min && p.price <= state.max &&
+    (!q || (p.brand + ' ' + p.name + ' ' + p.short).toLowerCase().includes(q)));
   if (state.sort === 'asc') list = [...list].sort((a, b) => a.price - b.price);
   if (state.sort === 'desc') list = [...list].sort((a, b) => b.price - a.price);
   if (state.sort === 'name') list = [...list].sort((a, b) => (a.brand + a.name).localeCompare(b.brand + b.name, 'bg'));
   document.getElementById('count').textContent = list.length + (list.length === 1 ? ' продукт' : ' продукта');
   document.getElementById('empty').hidden = list.length > 0;
+  renderChips();
   renderProducts(document.getElementById('grid'), list);
 }
 document.querySelector('.filters').addEventListener('change', e => {
@@ -97,12 +149,30 @@ document.querySelector('.filters').addEventListener('change', e => {
   state[g] = [...document.querySelectorAll(`[data-group="${g}"]:checked`)].map(i => i.value);
   apply();
 });
+document.getElementById('q').addEventListener('input', e => { state.q = e.target.value; apply(); });
 document.getElementById('sort').addEventListener('change', e => { state.sort = e.target.value; apply(); });
-document.getElementById('clear').addEventListener('click', () => {
-  document.querySelectorAll('.filters input').forEach(i => i.checked = false);
-  state.cats = []; state.concerns = []; state.origins = [];
+document.getElementById('chips').addEventListener('click', e => {
+  const b = e.target.closest('[data-rm]'); if (!b) return;
+  const g = b.dataset.rm;
+  if (g === 'q') { state.q = ''; document.getElementById('q').value = ''; }
+  else if (g === 'price') { state.min = PRICE_MIN; state.max = PRICE_MAX; rMin.value = PRICE_MIN; rMax.value = PRICE_MAX; syncRange(); }
+  else {
+    state[g] = state[g].filter(v => v !== b.dataset.val);
+    const box = document.querySelector(`[data-group="${g}"][value="${CSS.escape(b.dataset.val)}"]`);
+    if (box) box.checked = false;
+  }
   apply();
 });
+document.getElementById('clear').addEventListener('click', () => {
+  document.querySelectorAll('.filters input[type=checkbox]').forEach(i => i.checked = false);
+  state.cats = []; state.concerns = []; state.origins = []; state.q = '';
+  state.min = PRICE_MIN; state.max = PRICE_MAX;
+  document.getElementById('q').value = '';
+  rMin.value = PRICE_MIN; rMax.value = PRICE_MAX;
+  syncRange();
+  apply();
+});
+syncRange();
 apply();
 </script>
 </body>

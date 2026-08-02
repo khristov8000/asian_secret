@@ -20,6 +20,7 @@
 - `assets/shop.js` — количка (localStorage), продуктови карти, известия.
 - `assets/products/` — продуктови снимки. 25 продукта имат изрязана снимка на **прозрачен фон** (`.png`, 1200 px); останалите 4 са `.jpg`. Кой продукт кой формат ползва се определя от `TRANSPARENT_SHOTS` в `assets/data.js` — при добавяне на нов PNG добавете slug-а и там.
 - `assets/overlays/` — продуктовите листове/оверлеи (1400 px).
+- `assets/instagram/` — `ig-1.jpg` … `ig-6.jpg`, квадратни изрезки (760 px) от `images/product_overlay/` за Instagram решетката на началната страница. Всяка плочка води към профила.
 - `assets/logo-as.png`, `assets/favicon.png` — лого AS.
 
 ## Какво трябва да проверите преди пускане

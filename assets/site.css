@@ -159,10 +159,35 @@ section{padding:88px 0;position:relative}
 .chip{font-size:11px;padding:5px 11px;border-radius:var(--r-pill);border:1px solid var(--line);color:var(--ink-70);background:var(--white);letter-spacing:.02em}
 
 /* filters */
-.shop{display:grid;grid-template-columns:246px 1fr;gap:48px;align-items:start}
-.filters{position:sticky;top:112px;display:flex;flex-direction:column;gap:28px}
+.shop{display:grid;grid-template-columns:186px 1fr;gap:40px;align-items:start}
+.filters{position:sticky;top:112px;display:flex;flex-direction:column;gap:22px}
 .fgroup h4{font-family:var(--font-ui);font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--rose);margin:0 0 12px}
-.fopt{display:flex;align-items:center;gap:10px;padding:6px 0;font-size:14px;cursor:pointer;color:var(--ink-70)}
+.fopt{display:flex;align-items:center;gap:10px;padding:5px 0;font-size:13.5px;cursor:pointer;color:var(--ink-70);line-height:1.35}
+
+/* Търсене в страничния панел */
+.fsearch{position:relative}
+.fsearch input{width:100%;font-family:var(--font-ui);font-size:13.5px;padding:10px 12px 10px 32px;border:1px solid var(--line);border-radius:var(--r-pill);background:var(--white);color:var(--ink)}
+.fsearch input:focus{outline:none;border-color:var(--rose-line)}
+.fsearch svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);width:14px;height:14px;stroke-width:1.6;color:var(--ink-45)}
+
+/* Ценови диапазон — двоен плъзгач */
+.range-wrap{position:relative;height:30px;margin:2px 0 4px}
+.range-track,.range-fill{position:absolute;top:13px;height:2px;border-radius:2px}
+.range-track{left:0;right:0;background:var(--line)}
+.range-fill{background:var(--rose)}
+.range-wrap input[type=range]{position:absolute;left:0;top:6px;width:100%;height:16px;margin:0;padding:0;background:none;border:0;appearance:none;-webkit-appearance:none;pointer-events:none}
+.range-wrap input[type=range]:focus{outline:none}
+.range-wrap input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;pointer-events:auto;width:15px;height:15px;border-radius:50%;background:var(--white);border:1px solid var(--rose);box-shadow:0 1px 3px rgba(20,17,16,.18);cursor:pointer}
+.range-wrap input[type=range]::-moz-range-thumb{pointer-events:auto;width:13px;height:13px;border-radius:50%;background:var(--white);border:1px solid var(--rose);box-shadow:0 1px 3px rgba(20,17,16,.18);cursor:pointer}
+.range-wrap input[type=range]::-moz-range-track{background:none;border:0}
+.range-vals{display:flex;justify-content:space-between;font-size:12px;color:var(--ink-70);letter-spacing:.02em}
+
+/* Активни филтри над решетката */
+.active-filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+.active-filters:empty{display:none}
+.fchip{display:inline-flex;align-items:center;gap:7px;font-size:12px;padding:6px 12px;border-radius:var(--r-pill);border:1px solid var(--rose-line);color:var(--rose-deep);background:var(--blush);cursor:pointer;font-family:var(--font-ui)}
+.fchip:hover{background:var(--blush-2)}
+.fchip svg{width:12px;height:12px;stroke-width:2}
 .fopt input{appearance:none;width:16px;height:16px;border:1px solid var(--line);border-radius:var(--r-s);background:var(--white);cursor:pointer;transition:.15s var(--ease)}
 .fopt input:checked{background:var(--rose);border-color:var(--rose);box-shadow:inset 0 0 0 3px var(--white)}
 .fopt:hover{color:var(--ink)}
@@ -232,6 +257,17 @@ select.sortsel{appearance:none;border:1px solid var(--line);background:var(--whi
 .band.ink h2,.band.ink a{color:#fff}
 .band.ink .lead{color:rgba(250,244,242,.7)}
 .band.ink .eyebrow{color:var(--sakura)}
+
+/* Instagram решетка — всяка плочка води към профила. */
+.ig-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;width:100%;margin:14px 0 8px}
+.ig-grid a{position:relative;display:block;aspect-ratio:1;overflow:hidden;border-radius:var(--r-m)}
+.ig-grid img{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease)}
+.ig-grid a:hover img{transform:scale(1.04)}
+.ig-ov{position:absolute;inset:0;display:grid;place-items:center;background:rgba(20,17,16,.42);color:#fff;opacity:0;transition:opacity .3s var(--ease)}
+.ig-grid a:hover .ig-ov,.ig-grid a:focus-visible .ig-ov{opacity:1}
+.ig-ov svg{width:26px;height:26px;stroke-width:1.4}
+@media(max-width:1080px){.ig-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:560px){.ig-grid{grid-template-columns:repeat(2,1fr);gap:8px}}
 .contact-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:start}
 .contact-list{display:flex;flex-direction:column;gap:2px}
 .contact-list a,.contact-list div{display:flex;gap:15px;align-items:center;padding:18px 0;border-bottom:1px solid var(--line)}
