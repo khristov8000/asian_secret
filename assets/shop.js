@@ -44,7 +44,7 @@ function toast(msg) {
 }
 
 function cardHTML(p) {
-  const tags = (p.badges || []).map(b => `<span class="tag" style="color:${p.accent}">${b}</span>`).join('');
+  const tags = (p.badges || []).map(b => `<span class="tag" style="background:${p.tint};color:${p.accent}">${b}</span>`).join('');
   return `<article class="card">
 <a class="shot" href="product.html?p=${p.slug}"><img src="${imgSrc(p.slug)}" alt="${p.brand} ${p.name}" loading="lazy"><span class="tags">${tags}</span></a>
 <div class="body">

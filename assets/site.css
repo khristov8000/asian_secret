@@ -141,7 +141,8 @@ section{padding:88px 0;position:relative}
 .card:hover h3 a{color:var(--rose)}
 .tags{position:absolute;top:4px;left:0;display:flex;flex-direction:column;gap:6px;align-items:flex-start}
 .tag{font-size:9.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:6px 11px;border-radius:var(--r-pill);background:var(--white);color:var(--ink)}
-.card .tag{padding:0;background:none;font-weight:600;letter-spacing:.2em;font-size:9px}
+/* Етикетът носи tint фона и accent цвета на самия продукт (задават се inline в shop.js). */
+.card .tag{padding:5px 10px;font-weight:600;letter-spacing:.18em;font-size:9px}
 .tag.accent{color:#fff}
 .card .body{padding:6px 2px 0;display:flex;flex-direction:column;gap:8px;flex:1}
 .card .brandline{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-45)}

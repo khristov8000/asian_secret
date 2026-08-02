@@ -41,7 +41,6 @@
 </div>
 <div class="fgroup"><h4>Категория</h4><div id="fCats"></div></div>
 <div class="fgroup"><h4>Нужда на кожата</h4><div id="fConcerns"></div></div>
-<div class="fgroup"><h4>Произход</h4><div id="fOrigins"></div></div>
 <button class="btn btn-ghost btn-sm" id="clear">Изчисти филтрите</button>
 </aside>
 <div>
@@ -78,10 +77,9 @@
 <script src="assets/data.js"></script>
 <script src="assets/shop.js"></script>
 <script>
-const ORIGINS = [...new Set(PRODUCTS.map(p => p.specs.origin))];
 const PRICE_MIN = Math.floor(Math.min(...PRODUCTS.map(p => p.price)));
 const PRICE_MAX = Math.ceil(Math.max(...PRODUCTS.map(p => p.price)));
-const state = { cats: [], concerns: [], origins: [], q: '', min: PRICE_MIN, max: PRICE_MAX, sort: 'pop' };
+const state = { cats: [], concerns: [], q: '', min: PRICE_MIN, max: PRICE_MAX, sort: 'pop' };
 const params = new URLSearchParams(location.search);
 if (params.get('c')) state.cats = [params.get('c')];
 if (params.get('need')) state.concerns = [params.get('need')];
@@ -89,7 +87,6 @@ if (params.get('need')) state.concerns = [params.get('need')];
 const opt = (group, val, label, on) => `<label class="fopt"><input type="checkbox" data-group="${group}" value="${val}"${on ? ' checked' : ''}>${label}</label>`;
 document.getElementById('fCats').innerHTML = CATS.map(c => opt('cats', c.id, c.name, state.cats.includes(c.id))).join('');
 document.getElementById('fConcerns').innerHTML = CONCERNS.map(c => opt('concerns', c.id, c.name, state.concerns.includes(c.id))).join('');
-document.getElementById('fOrigins').innerHTML = ORIGINS.map(o => opt('origins', o, o, false)).join('');
 
 /* Ценови диапазон — двата плъзгача не могат да се разминат. */
 const rMin = document.getElementById('rMin'), rMax = document.getElementById('rMax');
@@ -114,11 +111,11 @@ rMin.addEventListener('input', onRange);
 rMax.addEventListener('input', onRange);
 
 const labelFor = (g, v) => g === 'cats' ? (CATS.find(c => c.id === v) || {}).name
-  : g === 'concerns' ? (CONCERNS.find(c => c.id === v) || {}).name : v;
+  : (CONCERNS.find(c => c.id === v) || {}).name;
 
 function renderChips() {
   const parts = [];
-  for (const g of ['cats', 'concerns', 'origins'])
+  for (const g of ['cats', 'concerns'])
     for (const v of state[g]) parts.push(`<button class="fchip" data-rm="${g}" data-val="${v}">${labelFor(g, v)}<i data-lucide="x"></i></button>`);
   if (state.q) parts.push(`<button class="fchip" data-rm="q">„${state.q}"<i data-lucide="x"></i></button>`);
   if (state.min > PRICE_MIN || state.max < PRICE_MAX)
@@ -132,7 +129,6 @@ function apply() {
   let list = PRODUCTS.filter(p =>
     (!state.cats.length || state.cats.includes(p.cat)) &&
     (!state.concerns.length || state.concerns.some(c => p.concerns.includes(c))) &&
-    (!state.origins.length || state.origins.includes(p.specs.origin)) &&
     p.price >= state.min && p.price <= state.max &&
     (!q || (p.brand + ' ' + p.name + ' ' + p.short).toLowerCase().includes(q)));
   if (state.sort === 'asc') list = [...list].sort((a, b) => a.price - b.price);
@@ -165,7 +161,7 @@ document.getElementById('chips').addEventListener('click', e => {
 });
 document.getElementById('clear').addEventListener('click', () => {
   document.querySelectorAll('.filters input[type=checkbox]').forEach(i => i.checked = false);
-  state.cats = []; state.concerns = []; state.origins = []; state.q = '';
+  state.cats = []; state.concerns = []; state.q = '';
   state.min = PRICE_MIN; state.max = PRICE_MAX;
   document.getElementById('q').value = '';
   rMin.value = PRICE_MIN; rMax.value = PRICE_MAX;
