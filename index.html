@@ -104,10 +104,9 @@
 <img class="petal-accent pa-4" src="assets/sakura-petal.png" alt="">
 </div>
 
-<!-- Instagram. Двата варианта се превключват с класа .ig-vitrine / .ig-ribbon
-     върху секцията. Плочките се рендират от IG_POSTS по-долу — там се сменят
-     снимките, когато оформлението бъде избрано. -->
-<section class="band ink ig-section ig-vitrine" id="ig">
+<!-- Instagram. Плочките се рендират от IG_POSTS по-долу — там се сменят
+     снимките и линковете към конкретни публикации. -->
+<section class="band ink ig-section ig-v1" id="ig">
 <div class="wrap ig-wrap">
 <div class="ig-head">
 <span class="eyebrow">Instagram</span>
@@ -115,7 +114,7 @@
 <p class="lead">Нови продукти, съвети за грижа и реални резултати от нашите клиенти.</p>
 <a class="btn btn-outline" href="https://www.instagram.com/asiansecret.bg/" target="_blank" rel="noopener"><i data-lucide="instagram"></i>Последвай ни</a>
 </div>
-<div class="ig-strip"><div class="ig-grid" id="igGrid"></div></div>
+<div class="ig-scatter" id="igGrid"></div>
 </div></section>
 
 <!-- листенцата излизат от тъмната лента, вместо да се режат от нея -->
@@ -137,13 +136,6 @@
 <div class="fbot"><span>© 2026 Asian Secret. Всички права запазени.</span><span>Оригинални продукти от Япония, Корея и Тайланд</span></div>
 </div></footer>
 
-<!-- ВРЕМЕННО: избор на оформление за Instagram секцията. Изтрийте този блок и
-     класа .ig-switch от site.css, щом изберете вариант. -->
-<div class="ig-switch">
-<b>Instagram</b>
-<button data-v="vitrine">Витрина</button>
-<button data-v="ribbon">Лентата</button>
-</div>
 
 <script src="https://unpkg.com/lucide@0.454.0/dist/umd/lucide.js"></script>
 <script src="assets/data.js"></script>
@@ -175,40 +167,22 @@ showConcern('hydration');
    `href` може да сочи към конкретен пост вместо към профила. */
 const IG_PROFILE = 'https://www.instagram.com/asiansecret.bg/';
 const IG_POSTS = [
-  { src: 'assets/instagram/ig-1.jpg', alt: 'PuRu PuRu патчи за очи', href: IG_PROFILE },
-  { src: 'assets/instagram/ig-2.jpg', alt: 'TEMOGEY Red Propolis маска', href: IG_PROFILE },
-  { src: 'assets/instagram/ig-3.jpg', alt: 'TEMOGEY Yomogi маска', href: IG_PROFILE },
-  { src: 'assets/instagram/ig-4.jpg', alt: 'TEMOGEY Aomikan маска', href: IG_PROFILE },
-  { src: 'assets/instagram/ig-5.jpg', alt: 'ESTE QUALITY маска с муцин от охлюв', href: IG_PROFILE },
-  { src: 'assets/instagram/ig-6.jpg', alt: 'Zen no Shizuku японска тъканна маска', href: IG_PROFILE }
+  { src: 'assets/instagram/s1.jpg', alt: 'Premium Resbro маски и памучни тампони на поднос', href: IG_PROFILE },
+  { src: 'assets/instagram/s2.jpg', alt: 'Ежедневен японски ритуал с тъканни маски', href: IG_PROFILE },
+  { src: 'assets/instagram/s3.jpg', alt: 'TEMOGEY маски по съставка — прополис, йомоги, бакучиол', href: IG_PROFILE },
+  { src: 'assets/instagram/s4.jpg', alt: 'Колекцията Asian Secret', href: IG_PROFILE },
+  { src: 'assets/instagram/s5.jpg', alt: 'Нежна грижа с PuRu PuRu и TEMOGEY', href: IG_PROFILE }
 ];
 
 const igSection = document.getElementById('ig');
 function renderIg() {
-  const ribbon = igSection.classList.contains('ig-ribbon');
-  /* лентата се дублира, за да се върти безшевно; копието се скрива от екранни четци */
-  const list = ribbon ? [...IG_POSTS, ...IG_POSTS] : IG_POSTS;
-  document.getElementById('igGrid').innerHTML = list.map((p, i) => {
-    const dupe = ribbon && i >= IG_POSTS.length;
-    return `<a href="${p.href}" target="_blank" rel="noopener"${dupe ? ' aria-hidden="true" tabindex="-1"' : ` aria-label="${p.alt} в Instagram"`}>` +
-      `<img src="${p.src}" alt="${dupe ? '' : p.alt}" loading="lazy">` +
-      `<span class="ig-ov"><i data-lucide="instagram"></i></span></a>`;
-  }).join('');
+  document.getElementById('igGrid').innerHTML = IG_POSTS.map((p, i) =>
+    `<a class="ig-tile t${i + 1}" href="${p.href}" target="_blank" rel="noopener" aria-label="${p.alt} в Instagram">` +
+    `<img src="${p.src}" alt="${p.alt}" loading="lazy">` +
+    `<span class="ig-ov"><i data-lucide="instagram"></i></span></a>`).join('');
   if (window.lucide) lucide.createIcons();
 }
-function setIgVariant(v) {
-  igSection.classList.toggle('ig-vitrine', v === 'vitrine');
-  igSection.classList.toggle('ig-ribbon', v === 'ribbon');
-  document.querySelectorAll('.ig-switch button').forEach(b => b.classList.toggle('on', b.dataset.v === v));
-  try { localStorage.setItem('as_ig_variant', v); } catch (e) {}
-  renderIg();
-}
-document.querySelector('.ig-switch').addEventListener('click', e => {
-  const b = e.target.closest('[data-v]'); if (b) setIgVariant(b.dataset.v);
-});
-let igStart = 'vitrine';
-try { igStart = localStorage.getItem('as_ig_variant') || 'vitrine'; } catch (e) {}
-setIgVariant(new URLSearchParams(location.search).get('ig') || igStart);
+renderIg();
 
 const brands = ['TEMOGEY','ESTE QUALITY','Premium Resbro','TUNE UP','Earthful Beauty','PulluP','PuRu PuRu','Arbro EG','MHY'];
 document.getElementById('mq').innerHTML = [...brands, ...brands].map(b => `<span>${b}</span><i>✦</i>`).join('');

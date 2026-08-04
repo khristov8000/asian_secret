@@ -337,7 +337,7 @@ animation:float-y 8s var(--ease) infinite}
    върху фона и минават през границата. */
 .edge-igfoot{z-index:1}
 /* Самата графика пада под 26°; контра-завъртането я изправя хоризонтално. */
-.edge-igfoot .deco-edge{left:-130px;top:-132px;width:330px;opacity:.34;transform:rotate(-26deg)}
+.edge-igfoot .deco-edge{right:-40px;left:auto;top:-132px;width:330px;opacity:.34;transform:rotate(-26deg)}
 
 .edge-ig .deco-edge{right:-30px;top:-96px;width:290px;opacity:.5;transform:scaleX(-1) rotate(6deg)}
 .edge-ig .pa-3{right:262px;top:-40px;width:18px;opacity:.5;animation-delay:1.1s}
@@ -371,14 +371,16 @@ animation:float-y 8s var(--ease) infinite}
 .band.ink .eyebrow{color:var(--sakura)}
 
 /* Instagram решетка — всяка плочка води към профила. */
-/* ——— Instagram: две оформления зад класове .ig-vitrine / .ig-ribbon ——— */
-/* общо за двата */
-.ig-grid a{position:relative;display:block;aspect-ratio:1;overflow:hidden;border-radius:var(--r-m);
+/* ——— Instagram: разпръснати снимки ———
+   Плочките пазят собственото си съотношение (квадрат, 3:4, 9:16, 16:9) —
+   точно това разчупва усещането за подредена решетка. */
+.ig-tile{position:relative;display:block;overflow:hidden;border-radius:var(--r-m);
 box-shadow:var(--sh-2)}                     /* снимка = физически обект, затова носи сянка */
-.ig-grid img{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease)}
-.ig-grid a:hover img{transform:scale(1.04)}
+.ig-tile img{display:block;width:100%;height:auto;transition:transform .55s var(--ease)}
+.ig-tile:hover{z-index:9}
+.ig-tile:hover img{transform:scale(1.045)}
 .ig-ov{position:absolute;inset:0;display:grid;place-items:center;background:rgba(20,17,16,.42);color:#fff;opacity:0;transition:opacity .3s var(--ease)}
-.ig-grid a:hover .ig-ov,.ig-grid a:focus-visible .ig-ov{opacity:1}
+.ig-tile:hover .ig-ov,.ig-tile:focus-visible .ig-ov{opacity:1}
 .ig-ov svg{width:26px;height:26px;stroke-width:1.4}
 .ig-head{display:flex;flex-direction:column;align-items:flex-start;gap:18px}
 .ig-head .lead{max-width:34ch}
@@ -386,41 +388,35 @@ box-shadow:var(--sh-2)}                     /* снимка = физически
 .ig-handle{letter-spacing:-.03em;overflow-wrap:anywhere}
 .band.ink .ig-handle em{color:var(--sakura)}   /* на ink роза става сакура */
 
-/* A — Витрина: текст вляво, асиметрична мозайка вдясно */
-.ig-vitrine .ig-wrap{display:grid;grid-template-columns:.8fr 1.2fr;gap:64px;align-items:center}
-.ig-vitrine .ig-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.ig-vitrine .ig-grid a:first-child{grid-column:span 2;grid-row:span 2}
-
-/* B — Лентата: пълна ширина, бавно движеща се редица */
-.ig-ribbon .ig-wrap{display:flex;flex-direction:column;gap:36px}
-.ig-ribbon .ig-strip{margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);overflow:hidden}
-.ig-ribbon .ig-grid{display:flex;width:max-content;animation:ig-slide 56s linear infinite}
-/* отстъпът е margin, а не gap — така -50% е точно една дължина и няма прескачане */
-.ig-ribbon .ig-grid a{flex:0 0 clamp(168px,15vw,228px);margin-right:12px}
-.ig-ribbon .ig-strip:hover .ig-grid{animation-play-state:paused}
-@keyframes ig-slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+/* ——— Вариант 1 „Разпръснато": текстът вляво, снимките разпилени вдясно ——— */
+.ig-v1 .ig-wrap{display:grid;grid-template-columns:.78fr 1.22fr;gap:56px;align-items:center}
+.ig-v1 .ig-scatter{position:relative;aspect-ratio:1.42/1}
+.ig-v1 .ig-tile{position:absolute}
+.ig-v1 .t1{left:0;top:28%;width:33%;transform:rotate(-4deg)}
+.ig-v1 .t2{left:30%;top:2%;width:26%;transform:rotate(3deg);z-index:3}
+.ig-v1 .t3{left:79%;top:42%;width:21%;transform:rotate(5deg)}
+.ig-v1 .t4{left:40%;top:60%;width:38%;transform:rotate(-2deg);z-index:2}
+/* t5 слиза от горния към долния ред, за да не се редят три в една линия */
+.ig-v1 .t5{left:62%;top:20%;width:25%;transform:rotate(-6deg)}
 
 @media(max-width:1080px){
-.ig-vitrine .ig-wrap{grid-template-columns:1fr;gap:40px}
+.ig-v1 .ig-wrap{grid-template-columns:1fr;gap:40px}
+.ig-v1 .ig-scatter{aspect-ratio:1.3/1;max-width:620px}
 }
-@media(max-width:560px){
-.ig-vitrine .ig-grid{grid-template-columns:repeat(2,1fr);gap:8px}
-.ig-vitrine .ig-grid a:first-child{grid-column:span 2;grid-row:auto}
-.ig-ribbon .ig-grid a{flex-basis:150px;margin-right:8px}
+/* Под 760 px разпръскването не работи — снимките се редят в изместена колона. */
+@media(max-width:760px){
+.ig-v1 .ig-scatter{position:relative;inset:auto;aspect-ratio:auto;max-width:none;
+display:flex;flex-direction:column;gap:16px}
+.ig-v1 .ig-tile{position:static;width:76%}
+.ig-v1 .t2,.ig-v1 .t4{align-self:flex-end}
+.ig-v1 .t1{transform:rotate(-2deg)}
+.ig-v1 .t2{transform:rotate(2deg)}
+.ig-v1 .t3{transform:rotate(-1.5deg)}
+.ig-v1 .t4{transform:rotate(1.5deg)}
+.ig-v1 .t5{transform:rotate(-2.5deg)}
 }
-@media(prefers-reduced-motion:reduce){
-.ig-ribbon .ig-grid{animation:none}
-.ig-ribbon .ig-strip{overflow-x:auto}
-}
+@media(prefers-reduced-motion:reduce){.ig-tile img{transition:none}}
 
-/* Временен превключвател за избор на оформление — трие се след избора. */
-.ig-switch{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:90;
-display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:var(--r-pill);
-background:rgba(20,17,16,.92);backdrop-filter:blur(10px);box-shadow:var(--sh-2)}
-.ig-switch b{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(250,244,242,.5);padding:0 6px;font-weight:600}
-.ig-switch button{font-family:var(--font-ui);font-size:11.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
-padding:9px 16px;border-radius:var(--r-pill);border:1px solid rgba(250,244,242,.22);background:transparent;color:rgba(250,244,242,.75);cursor:pointer}
-.ig-switch button.on{background:var(--sakura);border-color:var(--sakura);color:var(--ink)}
 .contact-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:start}
 .contact-list{display:flex;flex-direction:column;gap:2px}
 .contact-list a,.contact-list div{display:flex;gap:15px;align-items:center;padding:18px 0;border-bottom:1px solid var(--line)}
