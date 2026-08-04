@@ -32,7 +32,7 @@ a:hover{color:var(--rose)}
 .sparkle-line::after{content:"✦";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:var(--porcelain);color:var(--rose);font-size:14px;padding:0 12px}
 
 /* reveal */
-[data-reveal]{opacity:0;transform:translateY(22px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+[data-reveal]{opacity:0;transform:translateY(10px);transition:opacity .55s var(--ease),transform .55s var(--ease)}
 [data-reveal].in{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){[data-reveal]{opacity:1;transform:none;transition:none}.petal,.blossom{animation:none!important}}
 
@@ -64,7 +64,7 @@ nav.main a:hover::after,nav.main a.active::after{right:0}
 .btn svg{width:16px;height:16px;stroke-width:1.6}
 .btn:active{transform:scale(.975)}
 .btn-primary{background:var(--ink);color:#fff}
-.btn-primary:hover{background:var(--rose);color:#fff;box-shadow:0 12px 26px -12px rgba(212,102,111,.7)}
+.btn-primary:hover{background:var(--rose);color:#fff}
 .btn-outline{background:transparent;color:var(--rose);border-color:var(--rose)}
 .btn-outline:hover{background:var(--rose);color:#fff}
 .btn-ghost{background:var(--white);color:var(--ink);border-color:var(--line)}
@@ -75,32 +75,21 @@ nav.main a:hover::after,nav.main a.active::after{right:0}
 
 /* decorative blossoms */
 .petal,.blossom{position:absolute;pointer-events:none;user-select:none}
-@keyframes float-y{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-16px) rotate(-3deg)}}
+@keyframes float-y{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-7px) rotate(-1.5deg)}}
 @keyframes drift{0%{transform:translate3d(0,-8%,0) rotate(0);opacity:0}12%{opacity:.85}100%{transform:translate3d(-40px,120vh,0) rotate(220deg);opacity:0}}
 .blossom{animation:float-y 9s var(--ease) infinite}
 
-/* hero */
-.hero{position:relative;overflow:hidden;background:
-radial-gradient(120% 90% at 88% 8%,var(--blush-2) 0%,rgba(246,220,216,0) 58%),
-radial-gradient(80% 70% at 6% 92%,var(--blush) 0%,rgba(251,237,234,0) 60%),
-linear-gradient(180deg,#fff 0%,var(--porcelain) 70%)}
-.hero .wrap{position:relative;z-index:2;display:grid;grid-template-columns:1.02fr .98fr;gap:60px;align-items:center;padding-top:82px;padding-bottom:96px}
-.hero-copy>*+*{margin-top:24px}
-.hero h1{max-width:15ch}
+/* hero — снимката е фон (продуктите са вдясно), текстът стои в свободното поле вляво */
+.hero{position:relative;overflow:hidden;padding:0;background:var(--blush);min-height:min(92vh,820px);display:flex;align-items:stretch}
+.hero-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:right center;z-index:0}
+/* мек воал вляво, за да се чете текстът върху всяка ширина на екрана */
+.hero::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:
+linear-gradient(260deg,rgba(251,237,234,0) 34%,rgba(251,240,238,.72) 54%,rgba(252,244,242,.94) 70%)}
+.hero .wrap{position:relative;z-index:2;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-content:center;align-items:center;padding-top:78px;padding-bottom:86px}
+.hero-copy{grid-column:1}
+.hero-copy>*+*{margin-top:22px}
+.hero h1{max-width:13ch}
 .hero-cta{display:flex;gap:14px;flex-wrap:wrap}
-.hero-meta{display:flex;gap:26px;flex-wrap:wrap;padding-top:26px;border-top:1px solid var(--line);font-size:12.5px;color:var(--ink-45);letter-spacing:.04em}
-.hero-meta b{display:block;font-family:var(--font-display);font-size:24px;color:var(--ink);letter-spacing:-.01em}
-.hero-art{position:relative;min-height:520px}
-.arch{position:relative;border-radius:999px 999px var(--r-l) var(--r-l);overflow:hidden;background:var(--blush);box-shadow:var(--sh-2)}
-.arch img{width:100%;height:100%;object-fit:contain;padding:10% 12%;aspect-ratio:.78/1}
-.hero-art .arch{width:78%;margin-left:auto;aspect-ratio:.78/1}
-.hero-art .ring-deco{position:absolute;left:2%;top:12%;width:52%;aspect-ratio:1;border:1px solid var(--rose-line);border-radius:50%;z-index:-0}
-.polaroid{position:absolute;left:0;bottom:6%;width:44%;background:#fff;padding:11px 11px 44px;border-radius:2px;box-shadow:var(--sh-2);transform:rotate(-5deg);transition:transform .5s var(--ease)}
-.polaroid:hover{transform:rotate(-2deg) translateY(-6px)}
-.polaroid img{width:100%;aspect-ratio:1;object-fit:contain;padding:8%;background:var(--blush)}
-.polaroid span{position:absolute;left:0;right:0;bottom:14px;text-align:center;font-family:var(--font-display);font-style:italic;font-size:14px;color:var(--ink-70)}
-.hero .blossom-1{right:-2%;top:-4%;width:210px;opacity:.85;z-index:1}
-.hero .blossom-2{right:3%;bottom:5%;width:86px;opacity:.55;animation-duration:11s;z-index:3}
 
 /* marquee */
 .marquee{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--white);overflow:hidden}
@@ -125,9 +114,10 @@ section{padding:88px 0;position:relative}
 
 /* category tiles */
 .cats{display:grid;grid-template-columns:repeat(5,1fr);gap:18px}
-.cat{position:relative;border-radius:999px 999px var(--r-m) var(--r-m);overflow:hidden;padding:30px 22px 24px;min-height:250px;display:flex;flex-direction:column;justify-content:flex-end;border:1px solid var(--line);transition:transform .35s var(--ease),box-shadow .35s var(--ease)}
+.cat{position:relative;border-radius:999px 999px var(--r-m) var(--r-m);overflow:hidden;padding:30px 22px 24px;min-height:250px;display:flex;flex-direction:column;justify-content:flex-end;border:1px solid var(--line);transition:transform .4s var(--ease),border-color .4s var(--ease)}
 .cat::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.5),rgba(255,255,255,0) 55%);pointer-events:none}
-.cat:hover{transform:translateY(-5px);box-shadow:var(--sh-2)}
+/* без сянка — само лек ход нагоре и по-топъл кант */
+.cat:hover{transform:translateY(-2px);border-color:var(--rose-line)}
 .cat b{font-family:var(--font-display);font-size:22px;font-weight:500;position:relative;z-index:1}
 .cat span{font-size:12.5px;color:var(--ink-70);position:relative;z-index:1}
 .cat .cnt{position:absolute;top:22px;left:0;right:0;text-align:center;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-45);z-index:1}
@@ -137,7 +127,9 @@ section{padding:88px 0;position:relative}
 /* Прозрачни, минималистични карти — без рамка, без повдигане и зуум при hover. */
 .card{background:transparent;border:0;border-radius:0;display:flex;flex-direction:column}
 .card .shot{position:relative;aspect-ratio:1/1;display:block;background:transparent}
-.card .shot img{width:100%;height:100%;object-fit:contain;padding:6% 8%}
+.card .shot img{width:100%;height:100%;object-fit:contain;padding:6% 8%;
+transition:transform .55s var(--ease)}
+.card:hover .shot img,.card .shot:focus-visible img{transform:scale(1.05)}
 .card:hover h3 a{color:var(--rose)}
 .tags{position:absolute;top:4px;left:0;display:flex;flex-direction:column;gap:6px;align-items:flex-start}
 .tag{font-size:9.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:6px 11px;border-radius:var(--r-pill);background:var(--white);color:var(--ink)}
@@ -154,6 +146,23 @@ section{padding:88px 0;position:relative}
 .card .chip{background:transparent}
 .card .foot .btn-primary{background:transparent;color:var(--ink);border-color:var(--line);box-shadow:none}
 .card .foot .btn-primary:hover{background:var(--ink);color:var(--white);border-color:var(--ink)}
+/* ——— избор на опаковка (продукти с няколко варианта) ——— */
+.vpick h4{font-family:var(--font-ui);font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--rose);margin:0 0 12px}
+.vopts{display:flex;gap:10px;flex-wrap:wrap}
+.vopt{display:flex;flex-direction:column;gap:3px;align-items:flex-start;min-width:118px;
+padding:12px 16px;border:1px solid var(--line);border-radius:var(--r-m);background:var(--white);
+cursor:pointer;font-family:var(--font-ui);color:var(--ink);text-align:left;
+transition:border-color .22s var(--ease),background .22s var(--ease)}
+.vopt b{font-size:13.5px;font-weight:600;letter-spacing:.02em}
+.vopt span{font-size:12.5px;color:var(--ink-45)}
+.vopt:hover{border-color:var(--rose-line)}
+.vopt.on{border-color:var(--rose);background:var(--blush)}
+.vopt.on span{color:var(--rose-deep)}
+/* „от" пред най-ниската цена в картата */
+.price .from{display:inline;font-family:var(--font-ui);font-size:11px;color:var(--ink-45);
+letter-spacing:.08em;text-transform:uppercase;margin-right:6px}
+.chip-variants{white-space:nowrap}
+
 .price{font-family:var(--font-display);font-size:22px}
 .price small{display:block;font-family:var(--font-ui);font-size:11px;color:var(--ink-45);letter-spacing:.02em}
 .chips{display:flex;gap:7px;flex-wrap:wrap}
@@ -199,7 +208,9 @@ select.sortsel{appearance:none;border:1px solid var(--line);background:var(--whi
 .pdp{display:grid;grid-template-columns:1.02fr .98fr;gap:64px;align-items:start;padding-top:44px}
 .gallery{display:flex;flex-direction:column;gap:14px}
 .gallery .main{border-radius:999px 999px var(--r-l) var(--r-l);overflow:hidden;border:1px solid var(--line);background:var(--white)}
-.gallery .main img{width:100%;aspect-ratio:.86/1;object-fit:contain;padding:7%}
+.gallery .main img{width:100%;aspect-ratio:.86/1;object-fit:contain;padding:7%;
+transition:transform .55s var(--ease)}
+.gallery .main:hover img{transform:scale(1.06)}
 .pdp-info>*+*{margin-top:20px}
 .pdp h1{font-size:clamp(32px,3.6vw,50px)}
 .pdp .price{font-size:34px}
@@ -247,6 +258,106 @@ select.sortsel{appearance:none;border:1px solid var(--line);background:var(--whi
 .split{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
 .prose{max-width:70ch}
 .prose p+p{margin-top:16px}
+
+/* ——— „Красотата, вдъхновена от Азия" ——— */
+.story{position:relative;overflow:hidden;background:
+radial-gradient(70% 60% at 12% 12%,var(--blush) 0%,rgba(251,237,234,0) 62%),
+linear-gradient(180deg,var(--porcelain) 0%,#fff 100%)}
+.story-grid{position:relative;z-index:2;display:grid;grid-template-columns:.92fr 1.08fr;gap:72px;align-items:center}
+
+/* Кадрите са 9:16 (портрет) и 1:1 (детайл) — рамките ги следват точно, за да
+   не се реже нищо от композицията. Ширината на портрета държи височината на
+   колоната близо до тази на текста отдясно. */
+.story-art{position:relative;width:100%;max-width:440px;margin-inline:auto}
+.story-art figure{margin:0;overflow:hidden;border-radius:var(--r-l)}
+.story-main{width:76%;aspect-ratio:9/16;box-shadow:var(--sh-2)}
+.story-main img{width:100%;height:100%;object-fit:cover}
+.story-sub{position:absolute;right:0;bottom:6%;width:47%;aspect-ratio:1;border:6px solid var(--white);box-shadow:var(--sh-2)}
+.story-sub img{width:100%;height:100%;object-fit:cover}
+/* Медальонът слиза долу вляво: новата снимка носи собствен златен пръстен с
+   „AS" горе вляво и двата знака се застъпваха. */
+.story-seal{position:absolute;left:-30px;bottom:15%;width:112px;z-index:3}
+.story-seal img{width:100%;height:auto}
+
+.story-copy>*+*{margin-top:20px}
+.story-copy .quote{font-family:var(--font-display);font-style:italic;font-size:clamp(19px,1.7vw,23px);
+line-height:1.42;color:var(--rose-deep);padding-left:20px;border-left:1px solid var(--rose-line);max-width:34ch}
+.principles{list-style:none;margin:26px 0 0;padding:0;display:flex;flex-direction:column}
+.principles li{display:grid;grid-template-columns:auto 1fr;column-gap:18px;padding:16px 0;border-top:1px solid var(--line)}
+.principles li:last-child{border-bottom:1px solid var(--line)}
+.principles .pn{grid-row:1/3;font-family:var(--font-display);font-size:15px;color:var(--sakura);padding-top:2px}
+.principles b{font-size:12.5px;letter-spacing:.1em;text-transform:uppercase}
+.principles li>span:last-child{font-size:13.5px;color:var(--ink-70);line-height:1.5;margin-top:3px}
+@media(max-width:1080px){
+.story-grid{grid-template-columns:1fr;gap:44px}
+.story-art{max-width:460px;margin-inline:auto;width:100%}
+}
+/* На телефон медальонът излизаше извън екрана и се режеше от overflow:hidden. */
+@media(max-width:760px){.story-seal{left:-12px;width:88px}}
+
+/* ——— брандови декоративни детайли (assets/deco) ———
+   Всеки елемент се ползва по веднъж, за да не се повтаря един и същ мотив. */
+.deco{position:absolute;pointer-events:none;user-select:none;z-index:0}
+.deco.float{animation:float-y 11s var(--ease) infinite}
+/* Всеки мотив се ползва точно по веднъж — никъде не се повтаря един и същ файл. */
+.deco-cats{left:-118px;top:14px;width:330px;opacity:.5;transform:rotate(90deg)}    /* corner branch */
+/* Листенцата се ползват два пъти. Графиката пада под 26°, затова първо я
+   изправяме с rotate(-26deg) и чак после я огледаляме (CSS чете отдясно наляво). */
+.deco-best{right:70px;top:-20px;width:330px;opacity:.42;transform:scaleX(-1) rotate(-26deg)} /* drifting petals */
+/* футър: ветрилото долу вдясно, листенцата се преместват вляво да не се застъпват */
+.deco-foot-fan{right:-34px;bottom:-26px;width:240px;opacity:.26;transform:rotate(-6deg)}
+/* текстът във футъра стои над декора, а не под него */
+footer.site .wrap{position:relative;z-index:2}
+.foot-petal{opacity:.5}
+.fp-1{left:8%;bottom:14%;width:26px;animation-delay:.4s}
+.fp-2{left:15%;bottom:32%;width:18px;opacity:.38;animation-delay:1.6s}
+.fp-3{left:4%;bottom:44%;width:14px;opacity:.3;animation-delay:2.8s}
+
+/* ——— клонки върху границата между два фона ———
+   Секциите са с overflow:hidden, затова декорът стои в собствен контейнер с
+   нулева височина между тях и може да излиза и нагоре, и надолу. */
+.edge-deco{position:relative;height:0;overflow:visible;z-index:5;pointer-events:none;
+max-width:var(--max);margin:0 auto;padding:0 28px}
+.edge-deco .deco-edge{position:absolute;display:block}
+.petal-accent{position:absolute;display:block;pointer-events:none;
+animation:float-y 8s var(--ease) infinite}
+
+/* полумесецът е свален по-надолу и огледален спрямо вертикалната ос */
+.edge-concerns .deco-edge{right:-46px;top:-72px;width:330px;opacity:.55;transform:scaleX(-1) rotate(4deg)}
+.edge-concerns .pa-1{right:296px;top:-14px;width:20px;opacity:.55;animation-delay:.6s}
+.edge-concerns .pa-2{right:120px;top:-88px;width:15px;opacity:.42;animation-delay:1.9s}
+
+/* Долу вляво на лентата „Според нуждите" — пресича в story секцията.
+   Графиката е вертикална (ос 58°), затова -58° я полага хоризонтално. */
+.edge-concerns-bottom .deco-edge{left:-108px;top:-140px;width:215px;opacity:.45;transform:rotate(-58deg)}
+.edge-concerns-bottom .pa-5{left:196px;top:-30px;width:16px;opacity:.45;animation-delay:1.4s}
+
+/* Листенцата долу вляво в Instagram лентата: стоят в собствен контейнер между
+   секцията и футъра, за да не ги реже overflow:hidden — така се виждат цели
+   върху фона и минават през границата. */
+.edge-igfoot{z-index:1}
+/* Самата графика пада под 26°; контра-завъртането я изправя хоризонтално. */
+.edge-igfoot .deco-edge{left:-130px;top:-132px;width:330px;opacity:.34;transform:rotate(-26deg)}
+
+.edge-ig .deco-edge{right:-30px;top:-96px;width:290px;opacity:.5;transform:scaleX(-1) rotate(6deg)}
+.edge-ig .pa-3{right:262px;top:-40px;width:18px;opacity:.5;animation-delay:1.1s}
+.edge-ig .pa-4{right:96px;top:-112px;width:14px;opacity:.4;animation-delay:2.4s}
+/* Под ~1360 px обвивката вече не е центрирана с полета, затова отрицателният
+   right излиза извън екрана. Завъртането разширява bounding box-а с още ~8 px,
+   затова отстъпът е 12 px, а не 0. */
+@media(max-width:1360px){.edge-deco .deco-edge{right:12px}}
+
+.petal-host,section{position:relative;overflow:hidden}
+.petal-host .wrap{position:relative;z-index:2}
+@media(max-width:1080px){
+.deco-cats{width:220px}.deco-best{width:250px}.deco-foot-fan{width:170px}
+.edge-concerns .deco-edge{width:230px;top:-52px}
+.edge-concerns-bottom .deco-edge{width:210px;top:-70px}
+.edge-ig .deco-edge{width:210px;top:-70px}
+.edge-igfoot .deco-edge{width:230px;top:-130px}
+.petal-accent:not(.foot-petal){display:none}
+}
+@media(max-width:760px){.deco,.edge-deco{display:none}}
 .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
 .pillar{background:var(--white);border:1px solid var(--line);border-radius:var(--r-l);padding:30px}
 .pillar .ring{width:46px;height:46px;border-radius:50%;border:1px solid var(--rose-line);display:grid;place-items:center;color:var(--rose);margin-bottom:18px}
@@ -260,15 +371,56 @@ select.sortsel{appearance:none;border:1px solid var(--line);background:var(--whi
 .band.ink .eyebrow{color:var(--sakura)}
 
 /* Instagram решетка — всяка плочка води към профила. */
-.ig-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;width:100%;margin:14px 0 8px}
-.ig-grid a{position:relative;display:block;aspect-ratio:1;overflow:hidden;border-radius:var(--r-m)}
+/* ——— Instagram: две оформления зад класове .ig-vitrine / .ig-ribbon ——— */
+/* общо за двата */
+.ig-grid a{position:relative;display:block;aspect-ratio:1;overflow:hidden;border-radius:var(--r-m);
+box-shadow:var(--sh-2)}                     /* снимка = физически обект, затова носи сянка */
 .ig-grid img{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease)}
 .ig-grid a:hover img{transform:scale(1.04)}
 .ig-ov{position:absolute;inset:0;display:grid;place-items:center;background:rgba(20,17,16,.42);color:#fff;opacity:0;transition:opacity .3s var(--ease)}
 .ig-grid a:hover .ig-ov,.ig-grid a:focus-visible .ig-ov{opacity:1}
 .ig-ov svg{width:26px;height:26px;stroke-width:1.4}
-@media(max-width:1080px){.ig-grid{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:560px){.ig-grid{grid-template-columns:repeat(2,1fr);gap:8px}}
+.ig-head{display:flex;flex-direction:column;align-items:flex-start;gap:18px}
+.ig-head .lead{max-width:34ch}
+/* размерът идва от документирания headline step на h2 — само пренасянето е наше */
+.ig-handle{letter-spacing:-.03em;overflow-wrap:anywhere}
+.band.ink .ig-handle em{color:var(--sakura)}   /* на ink роза става сакура */
+
+/* A — Витрина: текст вляво, асиметрична мозайка вдясно */
+.ig-vitrine .ig-wrap{display:grid;grid-template-columns:.8fr 1.2fr;gap:64px;align-items:center}
+.ig-vitrine .ig-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.ig-vitrine .ig-grid a:first-child{grid-column:span 2;grid-row:span 2}
+
+/* B — Лентата: пълна ширина, бавно движеща се редица */
+.ig-ribbon .ig-wrap{display:flex;flex-direction:column;gap:36px}
+.ig-ribbon .ig-strip{margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);overflow:hidden}
+.ig-ribbon .ig-grid{display:flex;width:max-content;animation:ig-slide 56s linear infinite}
+/* отстъпът е margin, а не gap — така -50% е точно една дължина и няма прескачане */
+.ig-ribbon .ig-grid a{flex:0 0 clamp(168px,15vw,228px);margin-right:12px}
+.ig-ribbon .ig-strip:hover .ig-grid{animation-play-state:paused}
+@keyframes ig-slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+@media(max-width:1080px){
+.ig-vitrine .ig-wrap{grid-template-columns:1fr;gap:40px}
+}
+@media(max-width:560px){
+.ig-vitrine .ig-grid{grid-template-columns:repeat(2,1fr);gap:8px}
+.ig-vitrine .ig-grid a:first-child{grid-column:span 2;grid-row:auto}
+.ig-ribbon .ig-grid a{flex-basis:150px;margin-right:8px}
+}
+@media(prefers-reduced-motion:reduce){
+.ig-ribbon .ig-grid{animation:none}
+.ig-ribbon .ig-strip{overflow-x:auto}
+}
+
+/* Временен превключвател за избор на оформление — трие се след избора. */
+.ig-switch{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:90;
+display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:var(--r-pill);
+background:rgba(20,17,16,.92);backdrop-filter:blur(10px);box-shadow:var(--sh-2)}
+.ig-switch b{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(250,244,242,.5);padding:0 6px;font-weight:600}
+.ig-switch button{font-family:var(--font-ui);font-size:11.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+padding:9px 16px;border-radius:var(--r-pill);border:1px solid rgba(250,244,242,.22);background:transparent;color:rgba(250,244,242,.75);cursor:pointer}
+.ig-switch button.on{background:var(--sakura);border-color:var(--sakura);color:var(--ink)}
 .contact-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:start}
 .contact-list{display:flex;flex-direction:column;gap:2px}
 .contact-list a,.contact-list div{display:flex;gap:15px;align-items:center;padding:18px 0;border-bottom:1px solid var(--line)}
@@ -308,9 +460,9 @@ footer.site .blossom{right:-40px;bottom:-30px;width:280px;opacity:.16;animation:
 @media(max-width:1080px){
 .products{grid-template-columns:repeat(3,1fr)}
 .cats{grid-template-columns:repeat(3,1fr)}
-.hero .wrap{grid-template-columns:1fr;gap:48px}
-.hero-art{min-height:0;max-width:540px;margin-inline:auto;width:100%}
-.hero-art .arch{width:74%}
+.hero{min-height:min(80vh,700px)}
+.hero .wrap{grid-template-columns:1fr;gap:32px}
+.hero-copy{grid-column:auto;max-width:34rem}
 .pdp,.cartgrid,.split,.contact-grid{grid-template-columns:1fr;gap:40px}
 .summary{position:static}
 .hero-strip .wrap{grid-template-columns:repeat(2,1fr)}
@@ -320,6 +472,13 @@ footer.site .blossom{right:-40px;bottom:-30px;width:280px;opacity:.16;animation:
 section{padding:58px 0}
 nav.main{display:none}
 .burger{display:grid}
+/* На 390 px логото + 3 бутона не се събираха и бургерът излизаше извън екрана. */
+header.site .bar{gap:12px;min-height:72px}
+.brand img{width:40px}
+.brand .wordmark b{font-size:15.5px;letter-spacing:.13em}
+.brand .wordmark span{font-size:7.5px;letter-spacing:.24em;margin-top:5px}
+.actions{gap:8px}
+.icon-btn{width:38px;height:38px}
 .products{grid-template-columns:repeat(2,1fr)}
 .products{gap:24px 14px}
 .cats{grid-template-columns:repeat(2,1fr)}
@@ -330,10 +489,13 @@ nav.main{display:none}
 .specs{grid-template-columns:1fr}
 .citem{grid-template-columns:76px 1fr;gap:14px}
 .citem img{width:76px;height:76px}
-.hero .wrap{padding-top:52px;padding-bottom:64px}
-.hero-art .arch{width:82%}
-.polaroid{width:48%}
-.hero .blossom-1{width:132px;top:-2%}
+/* На телефон снимката е отделна лента отгоре, а текстът под нея — иначе
+   продуктите вляво остават под текста и нищо не се чете. */
+.hero{min-height:0;display:block}
+.hero-photo{position:static;width:100%;height:auto;aspect-ratio:16/10;object-position:center}
+.hero::after{display:none}
+.hero .wrap{padding-top:30px;padding-bottom:52px}
+.hero-copy{max-width:none;margin-left:0}
 .card h3{font-size:16px}
 }
 
@@ -341,16 +503,14 @@ nav.main{display:none}
 .page-bloom{right:-26px;top:-30px;width:190px;opacity:.7}
 @media(max-width:760px){.page-bloom{width:120px;right:-18px}}
 
-@keyframes rise{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@keyframes rise{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
 @keyframes rise-tilt{from{opacity:0;transform:translateY(22px) rotate(-5deg)}to{opacity:1;transform:rotate(-5deg)}}
-.hero-copy>*{animation:rise .9s var(--ease) both}
+.hero-copy>*{animation:rise .7s var(--ease) both}
 .hero-copy>*:nth-child(1){animation-delay:.04s}
 .hero-copy>*:nth-child(2){animation-delay:.12s}
 .hero-copy>*:nth-child(3){animation-delay:.2s}
 .hero-copy>*:nth-child(4){animation-delay:.28s}
 .hero-copy>*:nth-child(5){animation-delay:.36s}
-.hero-art .arch{animation:rise 1.05s var(--ease) .16s both}
-.hero-art .ring-deco{animation:rise 1.2s var(--ease) .3s both}
-.polaroid{animation:rise-tilt 1.05s var(--ease) .34s both}
-.hero .blossom-1{animation:rise 1.4s var(--ease) .2s both,float-y 11s var(--ease) 1.6s infinite}
-@media(prefers-reduced-motion:reduce){.hero-copy>*,.hero-art .arch,.hero-art .ring-deco,.polaroid,.hero .blossom-1{animation:none}}
+.hero-photo{animation:hero-in 1.1s var(--ease) both}
+@keyframes hero-in{from{opacity:0;transform:scale(1.02)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.hero-copy>*,.hero-photo{animation:none}}

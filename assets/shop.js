@@ -6,20 +6,23 @@ const FREE_SHIPPING = 60;
 const cartRead = () => { try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; } catch (e) { return []; } };
 const cartWrite = items => { localStorage.setItem(CART_KEY, JSON.stringify(items)); paintCount(); };
 const cartCount = () => cartRead().reduce((n, i) => n + i.qty, 0);
-const cartSubtotal = () => cartRead().reduce((s, i) => { const p = bySlug(i.slug); return s + (p ? p.price * i.qty : 0); }, 0);
+/* В кошницата `slug` е sku на конкретния вариант (опаковка). */
+const cartSubtotal = () => cartRead().reduce((s, i) => {
+  const r = bySku(i.slug); return s + (r ? r.variant.price * i.qty : 0);
+}, 0);
 
-function addToCart(slug, qty = 1) {
+function addToCart(sku, qty = 1) {
   const items = cartRead();
-  const found = items.find(i => i.slug === slug);
-  if (found) found.qty += qty; else items.push({ slug, qty });
+  const found = items.find(i => i.slug === sku);
+  if (found) found.qty += qty; else items.push({ slug: sku, qty });
   cartWrite(items);
-  const p = bySlug(slug);
-  toast('Добавено в количката: ' + p.brand + ' · ' + p.size);
+  const r = bySku(sku);
+  if (r) toast('Добавено в количката: ' + r.product.brand + ' · ' + r.variant.size);
 }
-function setQty(slug, qty) {
+function setQty(sku, qty) {
   let items = cartRead();
-  if (qty <= 0) items = items.filter(i => i.slug !== slug);
-  else { const f = items.find(i => i.slug === slug); if (f) f.qty = qty; }
+  if (qty <= 0) items = items.filter(i => i.slug !== sku);
+  else { const f = items.find(i => i.slug === sku); if (f) f.qty = qty; }
   cartWrite(items);
 }
 
@@ -45,15 +48,27 @@ function toast(msg) {
 
 function cardHTML(p) {
   const tags = (p.badges || []).map(b => `<span class="tag" style="background:${p.tint};color:${p.accent}">${b}</span>`).join('');
+  const vs = variantsOf(p), multi = hasVariants(p);
+  const from = priceFrom(p);
+  /* При няколко опаковки показваме „от <най-ниската цена>" и размерите,
+     а бутонът води към продуктовата страница, за да се избере опаковка. */
+  const priceHTML = multi
+    ? `<span class="price"><small class="from">от</small>${money(from)}<small>${moneyBgn(from)}</small></span>`
+    : `<span class="price">${money(p.price)}<small>${moneyBgn(p.price)}</small></span>`;
+  const sizeChip = multi
+    ? `<span class="chip chip-variants">${vs.map(v => v.size).join(' · ')}</span>`
+    : `<span class="chip">${p.size}</span>`;
+  const action = multi
+    ? `<a class="btn btn-primary btn-sm" href="product.html?p=${p.slug}"><i data-lucide="sliders-horizontal"></i>Избери</a>`
+    : `<button class="btn btn-primary btn-sm" data-add="${defaultVariant(p).sku}"><i data-lucide="shopping-bag"></i>Купи</button>`;
   return `<article class="card">
-<a class="shot" href="product.html?p=${p.slug}"><img src="${imgSrc(p.slug)}" alt="${p.brand} ${p.name}" loading="lazy"><span class="tags">${tags}</span></a>
+<a class="shot" href="product.html?p=${p.slug}"><img src="${imgSrc(defaultVariant(p).sku)}" alt="${p.brand} ${p.name}" loading="lazy"><span class="tags">${tags}</span></a>
 <div class="body">
 <span class="brandline">${p.brand}</span>
 <h3><a href="product.html?p=${p.slug}">${p.name}</a></h3>
 <p class="benefit">${p.short}</p>
-<div class="chips"><span class="chip">${p.size}</span><span class="chip" style="border-color:${p.accent}66;color:${p.accent}">${p.specs.origin}</span></div>
-<div class="foot"><span class="price">${money(p.price)}<small>${moneyBgn(p.price)}</small></span>
-<button class="btn btn-primary btn-sm" data-add="${p.slug}"><i data-lucide="shopping-bag"></i>Купи</button></div>
+<div class="chips">${sizeChip}<span class="chip" style="border-color:${p.accent}66;color:${p.accent}">${p.specs.origin}</span></div>
+<div class="foot">${priceHTML}${action}</div>
 </div></article>`;
 }
 
@@ -103,11 +118,19 @@ document.addEventListener('DOMContentLoaded', () => {
   if (window.lucide) lucide.createIcons();
   paintCount();
   initReveal();
-  const f = document.querySelector('footer.site .wrap');
-  if (f && !f.querySelector('.blossom')) {
-    const b = document.createElement('img');
-    b.src = 'assets/sakura-bloom.png'; b.alt = ''; b.className = 'blossom';
-    document.querySelector('footer.site').appendChild(b);
+  /* Във футъра — няколко отделни листенца. Големите мотиви от assets/deco се
+     ползват по веднъж, затова тук е единичното листенце, а не цялата група. */
+  const foot = document.querySelector('footer.site');
+  if (foot && !foot.querySelector('.foot-petal')) {
+    [1, 2, 3].forEach(n => {
+      const b = document.createElement('img');
+      b.src = 'assets/sakura-petal.png'; b.alt = '';
+      b.className = 'petal-accent foot-petal fp-' + n;
+      foot.appendChild(b);
+    });
+    const fan = document.createElement('img');
+    fan.src = 'assets/deco/fan.png'; fan.alt = ''; fan.className = 'deco deco-foot-fan';
+    foot.appendChild(fan);
   }
   const burger = document.querySelector('.burger');
   if (burger) burger.addEventListener('click', () => {

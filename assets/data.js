@@ -74,7 +74,11 @@ const PRODUCTS = [
     specs: { type: 'Тъканна маска за лице', count: '30 маски', origin: 'Япония' }, overlay: 'zen-no-shizuku'
   },
   {
-    slug: 'tuneup-niacinamide-36', brand: 'TUNE UP', name: 'Niacinamide Daily Clear Mask', size: '36 броя',
+    slug: 'tuneup-niacinamide', brand: 'TUNE UP', name: 'Niacinamide Daily Clear Mask', size: '36 броя',
+    variants: [
+      { sku: 'tuneup-niacinamide-36', size: '36 броя', price: 27.90, count: '36 маски в кутия' },
+      { sku: 'tuneup-niacinamide-7', size: '7 броя', price: 7.90, count: '7 маски' }
+    ],
     cat: 'masks', concerns: ['glow', 'hydration'], accent: '#F06292', tint: '#FCEAF1', price: 27.90, badges: ['Ново'],
     short: 'Сияние и равен тон с ниацинамид — за ежедневна грижа.',
     intro: 'От ESTE QUALITY — бранд с над 3,9 млн. продадени маски. Нова серия за поколението Z с два варианта според настроението ви.',
@@ -87,20 +91,11 @@ const PRODUCTS = [
     specs: { type: 'За ежедневна грижа', count: '36 маски в кутия', origin: 'Япония' }, overlay: 'tuneup-niacinamide'
   },
   {
-    slug: 'tuneup-niacinamide-7', brand: 'TUNE UP', name: 'Niacinamide Daily Clear Mask', size: '7 броя',
-    cat: 'masks', concerns: ['glow', 'hydration'], accent: '#F06292', tint: '#FCEAF1', price: 7.90, badges: [],
-    short: 'Удобната опаковка за път — сияние и равен тон с ниацинамид.',
-    intro: 'Същата формула с ниацинамид в компактна опаковка от 7 маски — удобно да вземете със себе си.',
-    benefits: [
-      { t: 'Сияние и равен тон', d: 'Ниацинамидът помага да придаде сияние, овлажнява и изравнява тена.', icon: 'droplet' },
-      { t: 'Удобен формат', d: '7 маски в опаковка — удобно за път и пътуване.', icon: 'package' },
-      { t: 'Ежедневна грижа', d: 'Високоадхезивната тъкан приляга плътно и доставя влага ефективно.', icon: 'sparkles' },
-      { t: 'Чиста формула', d: 'Без парабени, спирт, ПАВ, отдушки и оцветители.', icon: 'leaf' }
+    slug: 'tuneup-dokudami', brand: 'TUNE UP', name: 'Dokudami Daily Protection Mask', size: '36 броя',
+    variants: [
+      { sku: 'tuneup-dokudami-36', size: '36 броя', price: 27.90, count: '36 маски в кутия' },
+      { sku: 'tuneup-dokudami-7', size: '7 броя', price: 7.90, count: '7 маски' }
     ],
-    specs: { type: 'За ежедневна грижа', count: '7 маски', origin: 'Япония' }, overlay: 'tuneup-niacinamide'
-  },
-  {
-    slug: 'tuneup-dokudami-36', brand: 'TUNE UP', name: 'Dokudami Daily Protection Mask', size: '36 броя',
     cat: 'masks', concerns: ['soothing', 'hydration'], accent: '#8FAF23', tint: '#F2F5E2', price: 27.90, badges: ['Ново'],
     short: 'Чиста и спокойна кожа с екстракт от хауттюйния.',
     intro: 'Нова линия тъканни маски TUNE UP — два варианта на избор в зависимост от вашето настроение.',
@@ -113,20 +108,11 @@ const PRODUCTS = [
     specs: { type: 'За ежедневна грижа', count: '36 маски в кутия', origin: 'Япония' }, overlay: 'tuneup-dokudami'
   },
   {
-    slug: 'tuneup-dokudami-7', brand: 'TUNE UP', name: 'Dokudami Daily Protection Mask', size: '7 броя',
-    cat: 'masks', concerns: ['soothing', 'hydration'], accent: '#8FAF23', tint: '#F2F5E2', price: 7.90, badges: [],
-    short: 'Компактна опаковка с хауттюйния за спокойна кожа.',
-    intro: 'Формулата с хауттюйния в опаковка от 7 маски — удобно да вземете със себе си.',
-    benefits: [
-      { t: 'Хидратация и здрав вид', d: 'Хауттюйнията поддържа овлажнеността и здравия вид на кожата.', icon: 'droplet' },
-      { t: 'Чиста и спокойна кожа', d: 'Намалява видимостта на порите и смекчава неравностите.', icon: 'leaf' },
-      { t: 'Удобен формат', d: '7 маски в опаковка — удобно за път.', icon: 'package' },
-      { t: 'Чиста формула', d: 'Без парабени, спирт, ПАВ, отдушки и оцветители.', icon: 'shield-check' }
+    slug: 'temogey-propolis', brand: 'TEMOGEY', name: 'Daily Moisture Mask Red Propolis', size: '30 листа',
+    variants: [
+      { sku: 'temogey-propolis-30', size: '30 листа', price: 22.90, count: '30 маски' },
+      { sku: 'temogey-propolis-7', size: '7 листа', price: 7.50, count: '7 маски' }
     ],
-    specs: { type: 'За ежедневна грижа', count: '7 маски', origin: 'Япония' }, overlay: 'tuneup-dokudami'
-  },
-  {
-    slug: 'temogey-propolis-30', brand: 'TEMOGEY', name: 'Daily Moisture Mask Red Propolis', size: '30 листа',
     cat: 'masks', concerns: ['nourish', 'aging', 'hydration'], accent: '#E8452A', tint: '#FCEBE6', price: 22.90, badges: ['Бестселър'],
     short: 'Силата на червения прополис за подхранване и стегнатост.',
     intro: 'Маска с екстракт от червен прополис за интензивно подхранване, овлажняване и повишаване на стегнатостта на кожата.',
@@ -139,20 +125,11 @@ const PRODUCTS = [
     specs: { type: 'За интензивно възстановяване', count: '30 маски', origin: 'Япония' }, overlay: 'temogey-propolis'
   },
   {
-    slug: 'temogey-propolis-7', brand: 'TEMOGEY', name: 'Daily Moisture Mask Red Propolis', size: '7 листа',
-    cat: 'masks', concerns: ['nourish', 'aging'], accent: '#E8452A', tint: '#FCEBE6', price: 7.50, badges: [],
-    short: 'Червен прополис в компактна опаковка от 7 маски.',
-    intro: 'Маска с екстракт от червен прополис за подхранване и стегнатост — в опаковка за път.',
-    benefits: [
-      { t: 'Червен прополис', d: 'Помага да се повиши стегнатостта и да се подобри състоянието на кожата.', icon: 'hexagon' },
-      { t: 'Интензивна хидратация', d: 'Поддържа оптимално ниво на влага и дарява комфорт.', icon: 'droplet' },
-      { t: 'Удобен формат', d: '7 маски — удобно за пътуване.', icon: 'package' },
-      { t: 'Приляга плътно', d: 'Максимално насищане на кожата с есенция.', icon: 'flower' }
+    slug: 'temogey-yomogi', brand: 'TEMOGEY', name: 'Daily Moisture Mask Yomogi', size: '30 листа',
+    variants: [
+      { sku: 'temogey-yomogi-30', size: '30 листа', price: 22.90, count: '30 маски' },
+      { sku: 'temogey-yomogi-7', size: '7 листа', price: 7.50, count: '7 маски' }
     ],
-    specs: { type: 'За интензивно възстановяване', count: '7 маски', origin: 'Япония' }, overlay: 'temogey-propolis'
-  },
-  {
-    slug: 'temogey-yomogi-30', brand: 'TEMOGEY', name: 'Daily Moisture Mask Yomogi', size: '30 листа',
     cat: 'masks', concerns: ['soothing', 'hydration'], accent: '#6E9B3C', tint: '#EFF4E6', price: 22.90, badges: [],
     short: 'Силата на Yomogi — екстракт от японски пелин за спокойна кожа.',
     intro: 'Маска с екстракт Yomogi успокоява кожата, интензивно овлажнява и дарява усещане за комфорт.',
@@ -165,20 +142,11 @@ const PRODUCTS = [
     specs: { type: 'За интензивно овлажняване', count: '30 маски', origin: 'Япония' }, overlay: 'temogey-yomogi'
   },
   {
-    slug: 'temogey-yomogi-7', brand: 'TEMOGEY', name: 'Daily Moisture Mask Yomogi', size: '7 листа',
-    cat: 'masks', concerns: ['soothing', 'hydration'], accent: '#6E9B3C', tint: '#EFF4E6', price: 7.50, badges: [],
-    short: 'Японски пелин за спокойна кожа — опаковка от 7 маски.',
-    intro: 'Екстрактът Yomogi успокоява, овлажнява и дарява комфорт — в удобен формат за път.',
-    benefits: [
-      { t: 'Успокоява кожата', d: 'Намалява раздразнението и зачервяванията.', icon: 'droplet' },
-      { t: 'Интензивно овлажнява', d: 'Поддържа оптималното ниво на влага.', icon: 'leaf' },
-      { t: 'Удобен формат', d: '7 маски — удобно за чанта и пътуване.', icon: 'package' },
-      { t: '100% натурален памук', d: 'Комфортно прилягане и максимално насищане с есенция.', icon: 'flower' }
+    slug: 'temogey-bakuchiol', brand: 'TEMOGEY', name: 'Daily Moisture Mask Bakuchiol', size: '30 листа',
+    variants: [
+      { sku: 'temogey-bakuchiol-30', size: '30 листа', price: 22.90, count: '30 маски' },
+      { sku: 'temogey-bakuchiol-7', size: '7 листа', price: 7.50, count: '7 маски' }
     ],
-    specs: { type: 'За интензивно овлажняване', count: '7 маски', origin: 'Япония' }, overlay: 'temogey-yomogi'
-  },
-  {
-    slug: 'temogey-bakuchiol-30', brand: 'TEMOGEY', name: 'Daily Moisture Mask Bakuchiol', size: '30 листа',
     cat: 'masks', concerns: ['aging', 'hydration'], accent: '#9B7BC8', tint: '#F1ECF9', price: 22.90, badges: ['Анти-ейдж'],
     short: 'Натуралната алтернатива на ретинола за стегната и сияйна кожа.',
     intro: 'Силата на Bakuchiol — натурална алтернатива на ретинола за стегната, гладка и сияйна кожа.',
@@ -191,20 +159,11 @@ const PRODUCTS = [
     specs: { type: 'За интензивно овлажняване', count: '30 маски', origin: 'Япония' }, overlay: 'temogey-bakuchiol'
   },
   {
-    slug: 'temogey-bakuchiol-7', brand: 'TEMOGEY', name: 'Daily Moisture Mask Bakuchiol', size: '7 листа',
-    cat: 'masks', concerns: ['aging', 'hydration'], accent: '#9B7BC8', tint: '#F1ECF9', price: 7.50, badges: [],
-    short: 'Bakuchiol в компактна опаковка от 7 маски.',
-    intro: 'Натуралната алтернатива на ретинола — за стегната и сияйна кожа, в удобен формат.',
-    benefits: [
-      { t: 'Bakuchiol', d: 'Натурална алтернатива на ретинола за упругост и сияние.', icon: 'leaf' },
-      { t: 'Интензивно овлажняване', d: 'Дълбоко подхранва кожата.', icon: 'droplet' },
-      { t: 'Удобен формат', d: '7 маски — удобно за път.', icon: 'package' },
-      { t: 'Премиален памук', d: 'Плътно прилягане и максимално насищане с есенция.', icon: 'flower' }
+    slug: 'temogey-aomikan', brand: 'TEMOGEY', name: 'Daily Moisture Mask Aomikan', size: '30 листа',
+    variants: [
+      { sku: 'temogey-aomikan-30', size: '30 листа', price: 22.90, count: '30 маски' },
+      { sku: 'temogey-aomikan-7', size: '7 листа', price: 7.50, count: '7 маски' }
     ],
-    specs: { type: 'За интензивно овлажняване', count: '7 маски', origin: 'Япония' }, overlay: 'temogey-bakuchiol'
-  },
-  {
-    slug: 'temogey-aomikan-30', brand: 'TEMOGEY', name: 'Daily Moisture Mask Aomikan', size: '30 листа',
     cat: 'masks', concerns: ['glow', 'hydration'], accent: '#E0B01C', tint: '#FBF3DC', price: 22.90, badges: [],
     short: 'Екстракт от зелена мандарина за хидратация и сияние.',
     intro: 'Маска с екстракт от зелена мандарина интензивно овлажнява, освежава и помага да се поддържа естественият баланс на кожата.',
@@ -215,19 +174,6 @@ const PRODUCTS = [
       { t: '100% натурален памук', d: 'Комфортно прилягане и максимално насищане с есенция.', icon: 'flower' }
     ],
     specs: { type: 'За интензивно овлажняване', count: '30 маски', origin: 'Япония' }, overlay: 'temogey-aomikan'
-  },
-  {
-    slug: 'temogey-aomikan-7', brand: 'TEMOGEY', name: 'Daily Moisture Mask Aomikan', size: '7 листа',
-    cat: 'masks', concerns: ['glow', 'hydration'], accent: '#E0B01C', tint: '#FBF3DC', price: 7.50, badges: [],
-    short: 'Цитрусова свежест в опаковка от 7 маски.',
-    intro: 'Екстрактът от зелена мандарина овлажнява и освежава — в удобен формат за път.',
-    benefits: [
-      { t: 'Екстракт от зелена мандарина', d: 'Изравнява тона и поддържа естествения баланс.', icon: 'citrus' },
-      { t: 'Дълбоко овлажняване', d: 'Помага да се запази оптималното ниво на влага.', icon: 'droplet' },
-      { t: 'Удобен формат', d: '7 маски — удобно за чанта.', icon: 'package' },
-      { t: '100% натурален памук', d: 'Комфортно прилягане и насищане с есенция.', icon: 'flower' }
-    ],
-    specs: { type: 'За интензивно овлажняване', count: '7 маски', origin: 'Япония' }, overlay: 'temogey-aomikan'
   },
   {
     slug: 'este-snail', brand: 'ESTE QUALITY', name: 'Маска с муцин от охлюв', size: '50 листа',
@@ -295,7 +241,11 @@ const PRODUCTS = [
     specs: { type: 'За околоочен контур', count: '60 патча (30 приложения)', origin: 'Япония' }, overlay: 'puru-puru-eye'
   },
   {
-    slug: 'earthful-verbena-30', brand: 'Earthful Beauty', name: 'i Sheet Mask Verbena', size: '30 листа',
+    slug: 'earthful-verbena', brand: 'Earthful Beauty', name: 'i Sheet Mask Verbena', size: '30 листа',
+    variants: [
+      { sku: 'earthful-verbena-30', size: '30 листа', price: 21.90, count: '30 маски' },
+      { sku: 'earthful-verbena-10', size: '10 листа', price: 9.90, count: '10 маски' }
+    ],
     cat: 'masks', concerns: ['hydration', 'soothing'], accent: '#7FA35A', tint: '#EFF4E7', price: 21.90, badges: ['Powered by plants'],
     short: 'Свежест и лекота с аромат на върбинка.',
     intro: '100% натурален неизбелен памук, Folitect® от преработени гъби, ябълкови стволови клетки и 8 органични екстракта — без 6 нежелани компонента.',
@@ -306,19 +256,6 @@ const PRODUCTS = [
       { t: '8 органични екстракта', d: 'Успокояват и поддържат естествения баланс на кожата.', icon: 'leaf' }
     ],
     specs: { type: 'Тъканна маска за лице', count: '30 маски', origin: 'Япония' }, overlay: 'earthful'
-  },
-  {
-    slug: 'earthful-verbena-10', brand: 'Earthful Beauty', name: 'i Sheet Mask Verbena', size: '10 листа',
-    cat: 'masks', concerns: ['hydration', 'soothing'], accent: '#7FA35A', tint: '#EFF4E7', price: 9.90, badges: [],
-    short: 'Върбинка — свежест и лекота, в опаковка от 10 маски.',
-    intro: 'Натурален неизбелен памук и 8 органични екстракта — без парабени, спирт, минерални масла, оцветители, силикони и UV-филтри.',
-    benefits: [
-      { t: 'Свеж аромат на върбинка', d: 'Върбинка, лимон и билки за усещане за чистота и бодрост.', icon: 'citrus' },
-      { t: '100% натурален памук', d: 'Неизбелен памук — мек, приляга плътно и дарява комфорт.', icon: 'flower' },
-      { t: 'Хидратация', d: 'Folitect® интензивно овлажнява и задържа влагата.', icon: 'droplet' },
-      { t: 'Без 6 нежелани компонента', d: 'Без парабени, спирт, минерални масла, оцветители, силикони и UV-филтри.', icon: 'shield-check' }
-    ],
-    specs: { type: 'Тъканна маска за лице', count: '10 маски', origin: 'Япония' }, overlay: 'earthful'
   },
   {
     slug: 'earthful-immortelle', brand: 'Earthful Beauty', name: 'i Sheet Mask Immortelle', size: '10 листа',
@@ -402,6 +339,24 @@ const PRODUCTS = [
 
 const bySlug = s => PRODUCTS.find(p => p.slug === s);
 
+/* ——— варианти (един продукт, няколко опаковки) ———
+   Продуктите без `variants` се държат като продукт с един вариант, така че
+   останалият код работи еднакво и за двата случая. Кошницата пази `sku`. */
+const variantsOf = p => p.variants || [{ sku: p.slug, size: p.size, price: p.price, count: p.specs.count }];
+const hasVariants = p => (p.variants || []).length > 1;
+const defaultVariant = p => variantsOf(p)[0];
+const priceFrom = p => Math.min(...variantsOf(p).map(v => v.price));
+const priceTo = p => Math.max(...variantsOf(p).map(v => v.price));
+
+/* Намира продукт + вариант по sku. Приема и стар slug (напр. temogey-propolis-7). */
+function bySku(sku) {
+  for (const p of PRODUCTS)
+    for (const v of variantsOf(p))
+      if (v.sku === sku) return { product: p, variant: v };
+  const p = bySlug(sku);
+  return p ? { product: p, variant: defaultVariant(p) } : null;
+}
+
 /* Продукти с изрязана снимка на прозрачен фон (PNG). Останалите ползват JPG. */
 const TRANSPARENT_SHOTS = new Set([
   'resbro-ex', 'resbro-5gf', 'arbro-eg', 'zen-no-shizuku',
@@ -409,7 +364,8 @@ const TRANSPARENT_SHOTS = new Set([
   'temogey-propolis-30', 'temogey-propolis-7', 'temogey-yomogi-30', 'temogey-yomogi-7',
   'temogey-bakuchiol-30', 'temogey-bakuchiol-7', 'temogey-aomikan-30', 'temogey-aomikan-7',
   'este-snail', 'este-horse-oil', 'este-viper', 'pullup-marshmallow', 'puru-puru-eye',
-  'earthful-verbena-30', 'earthful-verbena-10', 'earthful-immortelle', 'earthful-geranium'
+  'earthful-verbena-30', 'earthful-verbena-10', 'earthful-immortelle', 'earthful-geranium',
+  'mhy-spf90', 'mhy-hand-cream', 'mhy-hair-cream', 'phytocotton'
 ]);
 const imgSrc = slug => 'assets/products/' + slug + (TRANSPARENT_SHOTS.has(slug) ? '.png' : '.jpg');
-const img = p => imgSrc(p.slug);
+const img = p => imgSrc(defaultVariant(p).sku);

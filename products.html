@@ -77,8 +77,9 @@
 <script src="assets/data.js"></script>
 <script src="assets/shop.js"></script>
 <script>
-const PRICE_MIN = Math.floor(Math.min(...PRODUCTS.map(p => p.price)));
-const PRICE_MAX = Math.ceil(Math.max(...PRODUCTS.map(p => p.price)));
+/* Границите и филтърът се водят по вариантите, не по базовата цена. */
+const PRICE_MIN = Math.floor(Math.min(...PRODUCTS.map(priceFrom)));
+const PRICE_MAX = Math.ceil(Math.max(...PRODUCTS.map(priceTo)));
 const state = { cats: [], concerns: [], q: '', min: PRICE_MIN, max: PRICE_MAX, sort: 'pop' };
 const params = new URLSearchParams(location.search);
 if (params.get('c')) state.cats = [params.get('c')];
@@ -129,10 +130,10 @@ function apply() {
   let list = PRODUCTS.filter(p =>
     (!state.cats.length || state.cats.includes(p.cat)) &&
     (!state.concerns.length || state.concerns.some(c => p.concerns.includes(c))) &&
-    p.price >= state.min && p.price <= state.max &&
+    priceFrom(p) <= state.max && priceTo(p) >= state.min &&
     (!q || (p.brand + ' ' + p.name + ' ' + p.short).toLowerCase().includes(q)));
-  if (state.sort === 'asc') list = [...list].sort((a, b) => a.price - b.price);
-  if (state.sort === 'desc') list = [...list].sort((a, b) => b.price - a.price);
+  if (state.sort === 'asc') list = [...list].sort((a, b) => priceFrom(a) - priceFrom(b));
+  if (state.sort === 'desc') list = [...list].sort((a, b) => priceTo(b) - priceTo(a));
   if (state.sort === 'name') list = [...list].sort((a, b) => (a.brand + a.name).localeCompare(b.brand + b.name, 'bg'));
   document.getElementById('count').textContent = list.length + (list.length === 1 ? ' продукт' : ' продукта');
   document.getElementById('empty').hidden = list.length > 0;

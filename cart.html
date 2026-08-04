@@ -121,21 +121,22 @@ function paint() {
   document.getElementById('checkout').hidden = empty;
   document.querySelector('.summary').hidden = empty;
   document.getElementById('items').innerHTML = items.map(i => {
-    const p = bySlug(i.slug); if (!p) return '';
+    const r = bySku(i.slug); if (!r) return '';
+    const { product: p, variant: v } = r;
     return `<div class="citem">
-<img src="${imgSrc(p.slug)}" alt="${p.name}" style="background:${p.tint}">
+<img src="${imgSrc(v.sku)}" alt="${p.name}" style="background:${p.tint}">
 <div><span class="brandline" style="font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-45)">${p.brand}</span>
 <h4>${p.name}</h4>
-<p class="muted" style="font-size:13px">${p.size} · ${p.specs.origin}</p>
-<button class="rm" data-rm="${p.slug}">Премахни</button></div>
+<p class="muted" style="font-size:13px">${v.size} · ${p.specs.origin}</p>
+<button class="rm" data-rm="${v.sku}">Премахни</button></div>
 <div style="text-align:right;display:flex;flex-direction:column;gap:10px;align-items:flex-end">
-<span class="price" style="font-size:18px">${money(p.price * i.qty)}</span>
-<span class="qty"><button data-q="${p.slug}" data-d="-1">−</button><span>${i.qty}</span><button data-q="${p.slug}" data-d="1">+</button></span>
+<span class="price" style="font-size:18px">${money(v.price * i.qty)}</span>
+<span class="qty"><button data-q="${v.sku}" data-d="-1">−</button><span>${i.qty}</span><button data-q="${v.sku}" data-d="1">+</button></span>
 </div></div>`;
   }).join('');
   document.getElementById('lines').innerHTML = items.map(i => {
-    const p = bySlug(i.slug); if (!p) return '';
-    return `<div class="srow"><span>${p.brand} · ${p.size} × ${i.qty}</span><span>${money(p.price * i.qty)}</span></div>`;
+    const r = bySku(i.slug); if (!r) return '';
+    return `<div class="srow"><span>${r.product.brand} · ${r.variant.size} × ${i.qty}</span><span>${money(r.variant.price * i.qty)}</span></div>`;
   }).join('');
   const sub = cartSubtotal(), ship = currentShip(sub);
   document.getElementById('sub').textContent = money(sub);
@@ -161,7 +162,10 @@ document.getElementById('checkout').addEventListener('submit', async e => {
   const f = e.target;
   const btn = document.getElementById('submit');
   btn.disabled = true; btn.textContent = 'Изпращане…';
-  const items = cartRead().map(i => { const p = bySlug(i.slug); return `${p.brand} — ${p.name} (${p.size}) × ${i.qty} = ${money(p.price * i.qty)}`; });
+  const items = cartRead().map(i => {
+    const r = bySku(i.slug); if (!r) return '';
+    return `${r.product.brand} — ${r.product.name} (${r.variant.size}) × ${i.qty} = ${money(r.variant.price * i.qty)}`;
+  }).filter(Boolean);
   const sub = cartSubtotal(), ship = currentShip(sub);
   const no = 'AS-' + Date.now().toString().slice(-6);
   const data = {

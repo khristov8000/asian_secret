@@ -1,0 +1,228 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-03T00:00:00.000Z",
+  "title": "Design System: Asian Secret",
+  "extensions": {
+    "colorMeta": {
+      "rose": {
+        "role": "primary",
+        "displayName": "Faded Camellia",
+        "canonical": "oklch(64.4% 0.139 16.7)",
+        "tonalRamp": ["oklch(15% 0.093 16.7)", "oklch(26% 0.113 16.7)", "oklch(38% 0.127 16.7)", "oklch(49% 0.135 16.7)", "oklch(61% 0.139 16.7)", "oklch(72% 0.137 16.7)", "oklch(84% 0.129 16.7)", "oklch(95% 0.116 16.7)"]
+      },
+      "rose-deep": {
+        "role": "primary",
+        "displayName": "Camellia Shadow",
+        "canonical": "oklch(54.1% 0.120 15.2)",
+        "tonalRamp": ["oklch(15% 0.080 15.2)", "oklch(26% 0.097 15.2)", "oklch(38% 0.109 15.2)", "oklch(49% 0.117 15.2)", "oklch(61% 0.120 15.2)", "oklch(72% 0.118 15.2)", "oklch(84% 0.112 15.2)", "oklch(95% 0.100 15.2)"]
+      },
+      "sakura": {
+        "role": "secondary",
+        "displayName": "Pale Sakura",
+        "canonical": "oklch(80.7% 0.088 15.6)",
+        "tonalRamp": ["oklch(15% 0.059 15.6)", "oklch(26% 0.071 15.6)", "oklch(38% 0.080 15.6)", "oklch(49% 0.085 15.6)", "oklch(61% 0.088 15.6)", "oklch(72% 0.086 15.6)", "oklch(84% 0.081 15.6)", "oklch(95% 0.073 15.6)"]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Sumi Ink",
+        "canonical": "oklch(18.1% 0.005 39.3)",
+        "tonalRamp": ["oklch(15% 0.004 39.3)", "oklch(26% 0.004 39.3)", "oklch(38% 0.005 39.3)", "oklch(49% 0.005 39.3)", "oklch(61% 0.005 39.3)", "oklch(72% 0.005 39.3)", "oklch(84% 0.005 39.3)", "oklch(95% 0.005 39.3)"]
+      },
+      "porcelain": {
+        "role": "neutral",
+        "displayName": "Porcelain",
+        "canonical": "oklch(98.3% 0.003 48.7)",
+        "tonalRamp": ["oklch(15% 0.002 48.7)", "oklch(26% 0.002 48.7)", "oklch(38% 0.002 48.7)", "oklch(49% 0.002 48.7)", "oklch(61% 0.003 48.7)", "oklch(72% 0.002 48.7)", "oklch(84% 0.002 48.7)", "oklch(95% 0.002 48.7)"]
+      },
+      "ivory": {
+        "role": "neutral",
+        "displayName": "Ivory Band",
+        "canonical": "oklch(96.2% 0.008 56.3)",
+        "tonalRamp": ["oklch(15% 0.006 56.3)", "oklch(26% 0.007 56.3)", "oklch(38% 0.008 56.3)", "oklch(49% 0.008 56.3)", "oklch(61% 0.008 56.3)", "oklch(72% 0.008 56.3)", "oklch(84% 0.008 56.3)", "oklch(95% 0.007 56.3)"]
+      },
+      "cream": {
+        "role": "neutral",
+        "displayName": "Cream Topbar",
+        "canonical": "oklch(93.6% 0.015 44.2)",
+        "tonalRamp": ["oklch(15% 0.010 44.2)", "oklch(26% 0.012 44.2)", "oklch(38% 0.013 44.2)", "oklch(49% 0.014 44.2)", "oklch(61% 0.015 44.2)", "oklch(72% 0.015 44.2)", "oklch(84% 0.014 44.2)", "oklch(95% 0.012 44.2)"]
+      },
+      "blush": {
+        "role": "neutral",
+        "displayName": "Blush Wash",
+        "canonical": "oklch(95.6% 0.016 32.0)",
+        "tonalRamp": ["oklch(15% 0.011 32.0)", "oklch(26% 0.013 32.0)", "oklch(38% 0.014 32.0)", "oklch(49% 0.015 32.0)", "oklch(61% 0.016 32.0)", "oklch(72% 0.016 32.0)", "oklch(84% 0.015 32.0)", "oklch(95% 0.013 32.0)"]
+      },
+      "blush-deep": {
+        "role": "neutral",
+        "displayName": "Deep Blush",
+        "canonical": "oklch(91.5% 0.029 28.1)",
+        "tonalRamp": ["oklch(15% 0.020 28.1)", "oklch(26% 0.024 28.1)", "oklch(38% 0.027 28.1)", "oklch(49% 0.029 28.1)", "oklch(61% 0.029 28.1)", "oklch(72% 0.029 28.1)", "oklch(84% 0.027 28.1)", "oklch(95% 0.025 28.1)"]
+      }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "The h1 on each page. Playfair 500, tight tracking, capped at 13ch in the hero." },
+      "headline": { "displayName": "Headline", "purpose": "Section titles, always preceded by an eyebrow label." },
+      "title": { "displayName": "Title", "purpose": "Pillar and category names, FAQ questions, cart line items, product-card titles." },
+      "body": { "displayName": "Body", "purpose": "Default prose at 1.62 line-height. Long-form caps at 70ch." },
+      "lead": { "displayName": "Lead", "purpose": "Intro paragraph under a heading, at 68% ink, capped at 58ch." },
+      "label": { "displayName": "Eyebrow / Label", "purpose": "Uppercase tracked label in rose, prefixed with the sparkle mark. Top of the letterspacing ladder." },
+      "price": { "displayName": "Price", "purpose": "The euro figure in Playfair; the lev equivalent sits beneath it in Manrope 11px." }
+    },
+    "shadows": [
+      { "name": "settle", "value": "0 1px 2px rgba(20,17,16,.03), 0 14px 34px -18px rgba(20,17,16,.14)", "purpose": "A document laid on the page: the manufacturer's overlay sheet and the order-confirmation panel. Two uses only." },
+      { "name": "float", "value": "0 2px 6px rgba(20,17,16,.05), 0 30px 60px -26px rgba(20,17,16,.22)", "purpose": "Genuinely detached objects: the story photographs and the toast. Three uses only." },
+      { "name": "focus-ring", "value": "0 0 0 3px rgba(212,102,111,.13)", "purpose": "The only glow in the system. Focused form fields, paired with a rose border, replacing the browser outline." }
+    ],
+    "motion": [
+      { "name": "ease", "value": "cubic-bezier(.22,.61,.36,1)", "purpose": "The single easing curve. Every transition and keyframe animation in the system uses it." },
+      { "name": "duration-hover", "value": "220ms", "purpose": "Colour and border state changes on links, icon buttons, chips and fields." },
+      { "name": "duration-nav-underline", "value": "300ms", "purpose": "The nav rule wiping in from left (right: 100% to right: 0)." },
+      { "name": "duration-image", "value": "550ms", "purpose": "Product and gallery image scale on hover (1.05 in cards, 1.06 on the PDP)." },
+      { "name": "duration-reveal", "value": "550ms", "purpose": "Scroll reveal: 10px rise with fade, triggered at 6% intersection. Product cards are deliberately excluded." },
+      { "name": "hero-stagger", "value": "80ms", "purpose": "Hero copy children enter on a rise, delayed 40ms then 80ms apart." },
+      { "name": "float-y", "value": "9s / 11s infinite", "purpose": "Decorative blossoms and petals drift 7px vertically with a 1.5deg tilt." },
+      { "name": "marquee", "value": "34s linear infinite", "purpose": "Brand marquee translate to -50%, paused on hover." },
+      { "name": "reduced-motion", "value": "all of the above disabled", "purpose": "prefers-reduced-motion cancels reveals, petals, blossoms and the hero entrance. Non-negotiable." }
+    ],
+    "breakpoints": [
+      { "name": "deco", "value": "1360px" },
+      { "name": "lg", "value": "1080px" },
+      { "name": "md", "value": "760px" },
+      { "name": "sm", "value": "560px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Ink at rest, rose on hover — the accent arrives on interaction rather than sitting there.",
+      "html": "<button class=\"ds-btn ds-btn-primary\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z\"/><path d=\"M3 6h18\"/><path d=\"M16 10a4 4 0 0 1-8 0\"/></svg>Купи</button>",
+      "css": ".ds-btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:15px 28px;border-radius:999px;border:1px solid transparent;font-family:\"Manrope\",-apple-system,Segoe UI,sans-serif;font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:transform .2s cubic-bezier(.22,.61,.36,1),background .25s cubic-bezier(.22,.61,.36,1),color .25s cubic-bezier(.22,.61,.36,1),border-color .25s cubic-bezier(.22,.61,.36,1)}.ds-btn svg{width:16px;height:16px}.ds-btn:active{transform:scale(.975)}.ds-btn:focus-visible{outline:2px solid var(--rose,#D4666F);outline-offset:3px}.ds-btn-primary{background:var(--ink,#141110);color:#fff}.ds-btn-primary:hover{background:var(--rose,#D4666F);color:#fff}"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Rose on transparent, filling solid on hover. The secondary call to action.",
+      "html": "<button class=\"ds-btn ds-btn-outline\">Виж каталога<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg></button>",
+      "css": ".ds-btn-outline{background:transparent;color:var(--rose,#D4666F);border-color:var(--rose,#D4666F)}.ds-btn-outline:hover{background:var(--rose,#D4666F);color:#fff}"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "White on a hairline. Used where a filled button would over-weight a section head.",
+      "html": "<button class=\"ds-btn ds-btn-ghost ds-btn-sm\">Всички продукти</button>",
+      "css": ".ds-btn-ghost{background:#fff;color:var(--ink,#141110);border-color:rgba(20,17,16,.10)}.ds-btn-ghost:hover{border-color:var(--rose,#D4666F);color:var(--rose,#D4666F)}.ds-btn-sm{padding:11px 19px;font-size:11.5px}"
+    },
+    {
+      "name": "Product Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Frameless by doctrine — no background, border, radius or shadow. The cut-out product on porcelain is the card. Title and description are height-clamped so prices align across a row.",
+      "html": "<article class=\"ds-card\"><a class=\"ds-card-shot\" href=\"#\"><span class=\"ds-card-ph\">product</span><span class=\"ds-card-tags\"><span class=\"ds-tag\">Бестселър</span></span></a><div class=\"ds-card-body\"><span class=\"ds-card-brand\">Premium Resbro EX</span><h3 class=\"ds-card-title\"><a href=\"#\">Изглаждаща тъканна маска за лице</a></h3><p class=\"ds-card-benefit\">Ежедневно овлажняване и стегнатост с колаген, хиалуронова киселина и мултипептиден комплекс.</p><div class=\"ds-chips\"><span class=\"ds-chip\">40 листа</span><span class=\"ds-chip ds-chip-origin\">Япония</span></div><div class=\"ds-card-foot\"><span class=\"ds-price\">29,90 €<small>58,48 лв.</small></span><button class=\"ds-btn ds-btn-sm ds-card-buy\">Купи</button></div></div></article>",
+      "css": ".ds-card{background:transparent;border:0;border-radius:0;display:flex;flex-direction:column;max-width:290px;font-family:\"Manrope\",-apple-system,Segoe UI,sans-serif;color:var(--ink,#141110)}.ds-card-shot{position:relative;aspect-ratio:1/1;display:grid;place-items:center;background:transparent;text-decoration:none}.ds-card-ph{display:grid;place-items:center;width:78%;height:78%;border-radius:999px 999px 6px 6px;background:var(--blush,#FBEDEA);color:rgba(20,17,16,.44);font-size:10px;letter-spacing:.2em;text-transform:uppercase;transition:transform .55s cubic-bezier(.22,.61,.36,1)}.ds-card:hover .ds-card-ph{transform:scale(1.05)}.ds-card-tags{position:absolute;top:4px;left:0;display:flex;flex-direction:column;gap:6px}.ds-tag{font-size:9px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;padding:5px 10px;border-radius:999px;background:#FBE9F0;color:#C2185B}.ds-card-body{padding:6px 2px 0;display:flex;flex-direction:column;gap:8px;flex:1}.ds-card-brand{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:rgba(20,17,16,.44)}.ds-card-title{font-family:\"Playfair Display\",Georgia,serif;font-weight:500;font-size:18px;line-height:1.24;letter-spacing:-.01em;margin:0;min-height:2.48em}.ds-card-title a{color:inherit;text-decoration:none;transition:color .22s cubic-bezier(.22,.61,.36,1)}.ds-card:hover .ds-card-title a{color:var(--rose,#D4666F)}.ds-card-benefit{font-size:13px;color:rgba(20,17,16,.68);line-height:1.5;margin:0;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;min-height:calc(3 * 1.5em)}.ds-card-foot{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:12px;border-top:1px solid rgba(20,17,16,.10)}.ds-price{font-family:\"Playfair Display\",Georgia,serif;font-size:22px}.ds-price small{display:block;font-family:\"Manrope\",-apple-system,Segoe UI,sans-serif;font-size:11px;color:rgba(20,17,16,.44)}.ds-card-buy{background:transparent;color:var(--ink,#141110);border-color:rgba(20,17,16,.10)}.ds-card-buy:hover{background:var(--ink,#141110);color:#fff;border-color:var(--ink,#141110)}"
+    },
+    {
+      "name": "Category Tile (Arch)",
+      "kind": "card",
+      "refersTo": "category-tile",
+      "description": "The signature silhouette: fully round at the top, barely rounded at the base. Reserved for category tiles and the product-detail image — nowhere else.",
+      "html": "<a class=\"ds-cat\" href=\"#\"><span class=\"ds-cat-count\">6 продукта</span><b>Тъканни маски за лице</b><span>Ежедневен ритуал за хидратация и сияние</span></a>",
+      "css": ".ds-cat{position:relative;display:flex;flex-direction:column;justify-content:flex-end;min-height:250px;width:230px;padding:30px 22px 24px;border-radius:999px 999px 6px 6px;overflow:hidden;border:1px solid rgba(20,17,16,.10);background:#FBE9F0;color:var(--ink,#141110);text-decoration:none;font-family:\"Manrope\",-apple-system,Segoe UI,sans-serif;transition:transform .4s cubic-bezier(.22,.61,.36,1),border-color .4s cubic-bezier(.22,.61,.36,1)}.ds-cat::after{content:\"\";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.5),rgba(255,255,255,0) 55%);pointer-events:none}.ds-cat:hover{transform:translateY(-2px);border-color:rgba(212,102,111,.32)}.ds-cat:focus-visible{outline:2px solid var(--rose,#D4666F);outline-offset:3px}.ds-cat b{font-family:\"Playfair Display\",Georgia,serif;font-size:22px;font-weight:500;position:relative;z-index:1}.ds-cat>span:last-child{font-size:12.5px;color:rgba(20,17,16,.68);position:relative;z-index:1}.ds-cat-count{position:absolute;top:22px;left:0;right:0;text-align:center;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:rgba(20,17,16,.44);z-index:1}"
+    },
+    {
+      "name": "Chips",
+      "kind": "chip",
+      "refersTo": "chip",
+      "description": "Three registers: the resting white chip, the ink-filled selected concern, and the blush filter chip carrying a dismiss icon.",
+      "html": "<div class=\"ds-chips\"><span class=\"ds-chip\">40 листа</span><button class=\"ds-chip ds-chip-on\">Хидратация</button><button class=\"ds-fchip\">Япония<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\"><path d=\"M18 6 6 18\"/><path d=\"m6 6 12 12\"/></svg></button></div>",
+      "css": ".ds-chips{display:flex;gap:7px;flex-wrap:wrap;align-items:center;font-family:\"Manrope\",-apple-system,Segoe UI,sans-serif}.ds-chip{font-size:11px;padding:5px 11px;border-radius:999px;border:1px solid rgba(20,17,16,.10);color:rgba(20,17,16,.68);background:#fff;letter-spacing:.02em;cursor:default;font-family:inherit}button.ds-chip{cursor:pointer;padding:9px 18px;font-size:13px}.ds-chip-on{background:var(--ink,#141110);color:#fff;border-color:var(--ink,#141110)}.ds-chip-origin{border-color:#C2185B66;color:#C2185B}.ds-fchip{display:inline-flex;align-items:center;gap:7px;font-size:12px;padding:6px 12px;border-radius:999px;border:1px solid rgba(212,102,111,.32);color:var(--rose-deep,#A94E58);background:var(--blush,#FBEDEA);cursor:pointer;font-family:inherit;transition:background .22s cubic-bezier(.22,.61,.36,1)}.ds-fchip:hover{background:var(--blush-2,#F6DCD8)}.ds-fchip svg{width:12px;height:12px}"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Hairline box on white with a tracked uppercase label above. Focus takes a rose border plus the system's only glow — never the browser outline.",
+      "html": "<label class=\"ds-field\"><span>Име и фамилия</span><input type=\"text\" placeholder=\"Мария Иванова\"></label>",
+      "css": ".ds-field{display:flex;flex-direction:column;gap:7px;max-width:320px;font-family:\"Manrope\",-apple-system,Segoe UI,sans-serif}.ds-field>span{font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:rgba(20,17,16,.44)}.ds-field input{font-family:inherit;font-size:15px;padding:14px 16px;border:1px solid rgba(20,17,16,.10);border-radius:6px;background:#fff;color:var(--ink,#141110);transition:border-color .22s cubic-bezier(.22,.61,.36,1),box-shadow .22s cubic-bezier(.22,.61,.36,1)}.ds-field input::placeholder{color:rgba(20,17,16,.44)}.ds-field input:focus{outline:0;border-color:var(--rose,#D4666F);box-shadow:0 0 0 3px rgba(212,102,111,.13)}"
+    },
+    {
+      "name": "Header Navigation",
+      "kind": "nav",
+      "refersTo": "nav",
+      "description": "Frosted porcelain over a hairline. The active rule wipes in from the left rather than fading; icon controls are 42px circles that turn rose on hover.",
+      "html": "<header class=\"ds-nav\"><a class=\"ds-nav-brand\" href=\"#\"><span class=\"ds-nav-mark\">AS</span><span class=\"ds-nav-word\"><b>ASIAN SECRET</b><span>BEAUTY FROM ASIA</span></span></a><nav class=\"ds-nav-links\"><a href=\"#\">Начало</a><a href=\"#\" class=\"ds-on\">Продукти</a><a href=\"#\">За нас</a></nav><button class=\"ds-iconbtn\" aria-label=\"Количка\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z\"/><path d=\"M3 6h18\"/><path d=\"M16 10a4 4 0 0 1-8 0\"/></svg><span class=\"ds-badge\">2</span></button></header>",
+      "css": ".ds-nav{display:flex;align-items:center;gap:32px;min-height:84px;padding:0 28px;background:rgba(251,249,248,.82);backdrop-filter:blur(16px);border-bottom:1px solid rgba(20,17,16,.10);font-family:\"Manrope\",-apple-system,Segoe UI,sans-serif;color:var(--ink,#141110)}.ds-nav-brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit}.ds-nav-mark{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;border:1px solid rgba(212,102,111,.32);color:var(--rose,#D4666F);font-family:\"Playfair Display\",Georgia,serif;font-size:15px;letter-spacing:.08em}.ds-nav-word{display:flex;flex-direction:column;line-height:1}.ds-nav-word b{font-family:\"Playfair Display\",Georgia,serif;font-weight:500;font-size:20px;letter-spacing:.2em}.ds-nav-word>span{font-size:8.5px;letter-spacing:.34em;color:rgba(20,17,16,.44);margin-top:6px}.ds-nav-links{display:flex;gap:32px;margin-left:auto;font-size:13.5px;letter-spacing:.06em}.ds-nav-links a{position:relative;padding:5px 0;color:inherit;text-decoration:none;transition:color .22s cubic-bezier(.22,.61,.36,1)}.ds-nav-links a::after{content:\"\";position:absolute;left:0;right:100%;bottom:-2px;height:1px;background:var(--rose,#D4666F);transition:right .3s cubic-bezier(.22,.61,.36,1)}.ds-nav-links a:hover{color:var(--rose,#D4666F)}.ds-nav-links a:hover::after,.ds-nav-links a.ds-on::after{right:0}.ds-iconbtn{position:relative;display:grid;place-items:center;width:42px;height:42px;border-radius:999px;border:1px solid rgba(20,17,16,.10);background:transparent;color:var(--ink,#141110);cursor:pointer;transition:.22s cubic-bezier(.22,.61,.36,1)}.ds-iconbtn:hover{background:#fff;border-color:rgba(212,102,111,.32);color:var(--rose,#D4666F)}.ds-iconbtn svg{width:18px;height:18px}.ds-badge{position:absolute;top:-3px;right:-3px;min-width:20px;height:20px;padding:0 5px;border-radius:999px;background:var(--rose,#D4666F);color:#fff;font-size:11px;font-weight:700;display:grid;place-items:center}"
+    },
+    {
+      "name": "Section Eyebrow",
+      "kind": "custom",
+      "refersTo": "label",
+      "description": "The sparkle mark is the system's punctuation. It opens every eyebrow, centres every divider, and rotates 45° when an FAQ opens.",
+      "html": "<div class=\"ds-eyebrow-demo\"><span class=\"ds-eyebrow\">Подбери грижа</span><h2 class=\"ds-h2\">Според нуждите <em>на кожата</em></h2><div class=\"ds-sparkle-line\"></div></div>",
+      "css": ".ds-eyebrow-demo{font-family:\"Manrope\",-apple-system,Segoe UI,sans-serif;color:var(--ink,#141110);max-width:520px}.ds-eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--rose,#D4666F);font-weight:600}.ds-eyebrow::before{content:\"✦\";font-size:12px;letter-spacing:0}.ds-h2{font-family:\"Playfair Display\",Georgia,serif;font-weight:500;font-size:clamp(30px,3.9vw,50px);line-height:1.08;letter-spacing:-.02em;margin:14px 0 28px}.ds-h2 em{font-style:italic;color:var(--rose,#D4666F)}.ds-sparkle-line{position:relative;height:1px;background:rgba(212,102,111,.32)}.ds-sparkle-line::after{content:\"✦\";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:var(--porcelain,#FBF9F8);color:var(--rose,#D4666F);font-size:14px;padding:0 12px}"
+    },
+    {
+      "name": "Toast",
+      "kind": "custom",
+      "refersTo": "toast",
+      "description": "Ink pill with a sakura check, rising 16px into place. The only element in the system that appears unprompted, and one of five that carry a shadow.",
+      "html": "<div class=\"ds-toast\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"m9 12 2 2 4-4\"/></svg><span>Добавено в количката: Premium Resbro EX · 40 листа</span></div>",
+      "css": ".ds-toast{display:inline-flex;gap:11px;align-items:center;background:var(--ink,#141110);color:#fff;padding:16px 21px;border-radius:6px;box-shadow:0 2px 6px rgba(20,17,16,.05),0 30px 60px -26px rgba(20,17,16,.22);font-family:\"Manrope\",-apple-system,Segoe UI,sans-serif;font-size:14px;animation:ds-toast-in .34s cubic-bezier(.22,.61,.36,1) both}.ds-toast svg{width:18px;height:18px;flex:0 0 auto;color:var(--sakura,#F3A9AD)}@keyframes ds-toast-in{from{transform:translateY(16px);opacity:0}to{transform:none;opacity:1}}@media(prefers-reduced-motion:reduce){.ds-toast{animation:none}}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Porcelain Shrine",
+    "overview": "The page is a porcelain surface with an ink-black weight at either end and one blossom of colour between them. Everything rests on a near-white ground (porcelain, #FBF9F8) that is warm rather than clinical; the header floats over it on frosted glass, the footer and the Instagram band drop to near-black, and between those two anchors the content is allowed to breathe at 88px of vertical air per section.\n\nThe shrine is literal, not metaphorical decoration. Category tiles and the product-detail image are arched — fully round at the top, barely rounded at the base (999px 999px 6px 6px) — a torii silhouette that appears nowhere else in the system. A ✦ is the system's punctuation mark: it opens every eyebrow, sits in the centre of every divider, and rotates 45° when an FAQ opens. Brand branches, a crescent, a fan and a medallion are placed across the seams between sections, each motif used exactly once across the entire site, the way objects are placed at a shrine rather than repeated as a pattern. Only the small petal repeats, and its repetition is the deliberate exception.\n\nRestraint carries the retail side. Product cards have no border, no background, no shadow and no lift — the cut-out bottle or sachet floats directly on the porcelain and grows 5% on hover, which is the only thing that moves. Where the rest of the category shouts with discount stickers and star ratings, this system states the sheet count, the origin and the price in a Playfair numeral and stops. The retired gold theme kept at assets/site-v1-gold.css is the anti-reference: warmth without metal, ceremony without luxury cliché.",
+    "keyCharacteristics": [
+      "Porcelain ground, ink anchors, one accent — the rose never has to compete.",
+      "The arch (999px 999px 6px 6px) is the signature silhouette, reserved for category tiles and the PDP image.",
+      "✦ is the recurring mark: eyebrow prefix, divider centre, FAQ toggle.",
+      "Product cards are frameless and shadowless; the product itself is the card.",
+      "Decorative motifs cross section boundaries and are each used once.",
+      "Every motion is suppressed under prefers-reduced-motion.",
+      "Playfair Display for anything that names or prices; Manrope for everything that instructs."
+    ],
+    "rules": [
+      { "name": "The One Blossom Rule", "body": "Rose and sakura together stay under roughly 10% of any screen. If a comp needs a second accent hue to work, the layout is wrong, not the palette.", "section": "colors" },
+      { "name": "The Opacity Hierarchy Rule", "body": "Secondary text and borders are ink at reduced alpha, never a separate grey token. Never introduce #666, #999, or #E5E5E5.", "section": "colors" },
+      { "name": "The Ink Inversion Rule", "body": "On an ink ground, rose is replaced by sakura and body text becomes on-ink (rgba(250,244,242,.82)) — a warm off-white, never pure white. Only headings and links go to #fff.", "section": "colors" },
+      { "name": "The Product Colour Rule", "body": "Each catalog entry carries its own accent and tint (in assets/data.js) used solely for its badge and origin chip. That per-product colour never leaks into layout, buttons, or type.", "section": "colors" },
+      { "name": "The Two-Voice Rule", "body": "Playfair names and prices; Manrope instructs and labels. A button, a chip, a form label or a spec value in Playfair is a defect — as is a price or a heading in Manrope.", "section": "typography" },
+      { "name": "The Rose Italic Rule", "body": "Emphasis inside a heading is achieved with <em>, which is italic and rose. No bold, no underline, no colour change without the italic.", "section": "typography" },
+      { "name": "The Letterspacing Ladder Rule", "body": "Uppercase tracking scales inversely with size: 11px → 0.26em, 12.5px → 0.1em, 10px → 0.2em. Uppercase text below 13px without tracking is wrong.", "section": "typography" },
+      { "name": "The Two-Stop Rule", "body": "The system breaks at 1080px and 760px. A new component adopts those stops rather than inventing its own.", "section": "layout" },
+      { "name": "The Seam Container Rule", "body": "Sections are overflow: hidden, so decoration that must cross a background boundary lives in its own zero-height .edge-deco container placed between the two sections, with overflow: visible. Below 1360px its right offset must go positive (right: 12px), because rotation widens the bounding box and a negative offset creates horizontal scroll.", "section": "layout" },
+      { "name": "The Flat-Card Rule", "body": "Product cards get no background, no border, no radius and no shadow. The cut-out product on porcelain is the card. Adding a container to a product card breaks the system.", "section": "elevation" },
+      { "name": "The Rationed Shadow Rule", "body": "A shadow means the element is a physical object — a photograph, a printed sheet, a notification. UI surfaces (panels, inputs, chips, tiles) use a hairline and a white fill instead.", "section": "elevation" },
+      { "name": "The Arch Reservation Rule", "body": "999px 999px x x belongs to category tiles and the PDP image. Do not apply it to cards, panels, buttons, or modals.", "section": "shapes" },
+      { "name": "The Round-Control Rule", "body": "Anything the user clicks that is not a panel is a pill. Inputs and text areas are the documented exception at 6px.", "section": "shapes" }
+    ],
+    "dos": [
+      "Do put emphasis inside headings in <em>, which renders italic and rose. That pairing is the house's signature gesture.",
+      "Do build hierarchy from ink at 68% and 44% opacity rather than introducing grey values.",
+      "Do use ✦ as the system's mark — eyebrow prefix, divider centre, FAQ toggle — and keep it in the accent colour.",
+      "Do separate sections by alternating porcelain and ivory grounds; reach for a rule only when a background change would be wrong.",
+      "Do swap rose for sakura and body text for on-ink on any ink-grounded surface.",
+      "Do place decoration outside the container and rely on body { overflow-x: hidden }, using .edge-deco whenever the motif must cross a seam.",
+      "Do guard every animation with @media (prefers-reduced-motion: reduce) — the existing code disables reveals, petals, blossoms and the hero entrance.",
+      "Do give new interactive controls the pill radius and Manrope uppercase at 0.12em.",
+      "Do hold the two breakpoints, 1080px and 760px.",
+      "Do clamp equivalent card fields to fixed heights so prices align across a frameless row."
+    ],
+    "donts": [
+      "Don't put a border, background, shadow or lift on a product card. The frameless card is the deliberate centre of the system.",
+      "Don't use the arch (999px 999px x x) anywhere but category tiles and the product-detail image.",
+      "Don't reintroduce gold. assets/site-v1-gold.css is a retired theme kept only as a backup, and the palette's warmth must come from blush and cream.",
+      "Don't add a second accent hue. Per-product accent colours stay confined to badges and origin chips.",
+      "Don't set body text or backgrounds to pure #000 or #FFF on a light ground — the ground is porcelain and the ink is #141110. White is reserved for raised surfaces.",
+      "Don't set a heading, price, button, label or spec value in the wrong family; the Playfair/Manrope split is strict.",
+      "Don't add discount stickers, countdowns, star ratings or \"customers also bought\" rails. No review data exists, and the category's sale-wall vocabulary is the anti-reference.",
+      "Don't use shadows for UI surfaces — a hairline and a white fill say \"raised\" in this system.",
+      "Don't let a rotated decorative element keep a negative right offset below 1360px; it creates horizontal scroll.",
+      "Don't use the browser's default focus outline; focused fields take a rose border plus the 13% rose glow."
+    ]
+  }
+}

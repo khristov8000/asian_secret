@@ -54,15 +54,28 @@
 <script src="assets/data.js"></script>
 <script src="assets/shop.js"></script>
 <script>
-const slug = new URLSearchParams(location.search).get('p') || PRODUCTS[0].slug;
-const p = bySlug(slug) || PRODUCTS[0];
+/* Параметърът може да е slug на продукт или sku на вариант (стари линкове). */
+const param = new URLSearchParams(location.search).get('p') || PRODUCTS[0].slug;
+const hit = bySku(param) || { product: PRODUCTS[0], variant: defaultVariant(PRODUCTS[0]) };
+const p = hit.product;
+const VARIANTS = variantsOf(p);
+let variant = hit.variant;
 document.title = p.brand + ' ' + p.name + ' — Asian Secret';
 document.getElementById('crumb').textContent = p.brand;
 let qty = 1;
 
+const variantHTML = () => !hasVariants(p) ? '' : `
+<div class="vpick">
+<h4>Опаковка</h4>
+<div class="vopts" id="vopts">
+${VARIANTS.map(v => `<button class="vopt${v.sku === variant.sku ? ' on' : ''}" data-sku="${v.sku}">
+<b>${v.size}</b><span>${money(v.price)}</span></button>`).join('')}
+</div>
+</div>`;
+
 document.getElementById('pdp').innerHTML = `
 <div class="gallery">
-<div class="main" style="background:${p.tint}"><img src="${imgSrc(p.slug)}" alt="${p.brand} ${p.name}"></div>
+<div class="main" style="background:${p.tint}"><img id="mainImg" src="${imgSrc(variant.sku)}" alt="${p.brand} ${p.name}"></div>
 </div>
 <div class="pdp-info">
 <span class="eyebrow">${p.brand}</span>
@@ -71,10 +84,11 @@ document.getElementById('pdp').innerHTML = `
 <div class="chips">${p.badges.map(b => `<span class="chip" style="border-color:${p.accent};color:${p.accent}">${b}</span>`).join('')}${p.concerns.map(c => `<span class="chip">${CONCERNS.find(x => x.id === c).name}</span>`).join('')}</div>
 <div class="specs">
 <div class="spec"><b>Тип</b><span>${p.specs.type}</span></div>
-<div class="spec"><b>Количество</b><span>${p.specs.count}</span></div>
+<div class="spec"><b>Количество</b><span id="specCount">${variant.count}</span></div>
 <div class="spec"><b>Произход</b><span>${p.specs.origin}</span></div>
 </div>
-<div style="display:flex;align-items:baseline;gap:14px"><span class="price">${money(p.price)}</span><span class="muted">${moneyBgn(p.price)}</span></div>
+${variantHTML()}
+<div style="display:flex;align-items:baseline;gap:14px"><span class="price" id="price">${money(variant.price)}</span><span class="muted" id="priceBgn">${moneyBgn(variant.price)}</span></div>
 <div class="buyrow">
 <span class="qty"><button id="minus" aria-label="По-малко">−</button><span id="q">1</span><button id="plus" aria-label="Повече">+</button></span>
 <button class="btn btn-primary" id="add"><i data-lucide="shopping-bag"></i>Добави в количката</button>
@@ -89,7 +103,19 @@ ${p.benefits.map(b => `<li><span class="ring"><i data-lucide="${b.icon}"></i></s
 document.getElementById('sheet').innerHTML = `<img src="assets/overlays/${p.overlay}.jpg" alt="${p.brand} — продуктов лист">`;
 document.getElementById('minus').onclick = () => { qty = Math.max(1, qty - 1); document.getElementById('q').textContent = qty; };
 document.getElementById('plus').onclick = () => { qty++; document.getElementById('q').textContent = qty; };
-document.getElementById('add').onclick = () => addToCart(p.slug, qty);
+document.getElementById('add').onclick = () => addToCart(variant.sku, qty);
+
+/* Смяна на опаковка — обновява цена, количество, снимка и адреса в браузъра. */
+const vopts = document.getElementById('vopts');
+if (vopts) vopts.addEventListener('click', e => {
+  const b = e.target.closest('[data-sku]'); if (!b) return;
+  variant = VARIANTS.find(v => v.sku === b.dataset.sku);
+  vopts.querySelectorAll('.vopt').forEach(o => o.classList.toggle('on', o.dataset.sku === variant.sku));
+  document.getElementById('price').textContent = money(variant.price);
+  document.getElementById('priceBgn').textContent = moneyBgn(variant.price);
+  document.getElementById('specCount').textContent = variant.count;
+  document.getElementById('mainImg').src = imgSrc(variant.sku);
+});
 
 const rel = PRODUCTS.filter(x => x.slug !== p.slug && (x.cat === p.cat || x.brand === p.brand)).slice(0, 4);
 renderProducts(document.getElementById('related'), rel);
