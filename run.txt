@@ -1,0 +1,6 @@
+# What I used — Python (you have it via Anaconda)
+python -m http.server 8000
+
+# Alternative — Node, no install needed
+npx serve .          # picks a port, usually 3000
+npx http-server -p 8000

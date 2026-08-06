@@ -205,7 +205,9 @@ letter-spacing:.08em;text-transform:uppercase;margin-right:6px}
 select.sortsel{appearance:none;border:1px solid var(--line);background:var(--white);border-radius:var(--r-pill);padding:10px 34px 10px 16px;font-family:var(--font-ui);font-size:13.5px;cursor:pointer;color:var(--ink)}
 
 /* product detail */
-.pdp{display:grid;grid-template-columns:1.02fr .98fr;gap:64px;align-items:start;padding-top:44px}
+/* padding-bottom: .pdp е <main>, не <section>, затова сам дава въздуха преди
+   лентата отдолу — иначе ивори фонът тръгва плътно до галерията. */
+.pdp{display:grid;grid-template-columns:1.02fr .98fr;gap:64px;align-items:start;padding-top:44px;padding-bottom:88px}
 .gallery{display:flex;flex-direction:column;gap:14px}
 .gallery .main{border-radius:999px 999px var(--r-l) var(--r-l);overflow:hidden;border:1px solid var(--line);background:var(--white)}
 .gallery .main img{width:100%;aspect-ratio:.86/1;object-fit:contain;padding:7%;
@@ -230,6 +232,24 @@ transition:transform .55s var(--ease)}
 .qty span{min-width:34px;text-align:center;font-weight:600}
 .buyrow{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
 .overlay-sheet{border-radius:var(--r-l);overflow:hidden;border:1px solid var(--line);box-shadow:var(--sh-1)}
+
+/* продуктов лист — описанието и ползите, снимките се редуват отляво/отдясно */
+.pstory{display:flex;flex-direction:column;gap:56px}
+/* stretch, а не center: снимката взема височината на текста до себе си, иначе
+   два реда ползи оставят голяма дупка до портретна снимка. */
+.pstory-row{display:grid;grid-template-columns:1fr 1fr;gap:56px 40px;align-items:stretch}
+.pstory-row.rev .pfig{order:-1}
+.pstory-row.solo{grid-template-columns:1fr}
+.pstory-row.solo .benefits{display:grid;grid-template-columns:1fr 1fr;gap:0 40px}
+.pstory-lead{margin:0}
+.pstory .benefits li{padding:18px 0}
+.pfig{margin:0;display:flex;flex-direction:column}
+/* Снимката е абсолютна, за да не наложи собствената си височина на реда —
+   рамката се разтяга до текста до нея, а кадърът се изрязва. */
+.pfig-frame{position:relative;flex:1;min-height:340px;overflow:hidden;
+border-radius:var(--r-l);box-shadow:var(--sh-2)}   /* снимка = физически обект, затова носи сянка */
+.pfig-frame img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover}
+.pfig figcaption{margin-top:14px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-45)}
 
 /* cart */
 .cartgrid{display:grid;grid-template-columns:1.35fr .65fr;gap:48px;align-items:start;padding-top:36px}
@@ -327,6 +347,18 @@ animation:float-y 8s var(--ease) infinite}
 .edge-concerns .pa-1{right:296px;top:-14px;width:20px;opacity:.55;animation-delay:.6s}
 .edge-concerns .pa-2{right:120px;top:-88px;width:15px;opacity:.42;animation-delay:1.9s}
 
+/* Контакти: същият полумесец над лентата „Доставка и плащане“ — лентата с
+   фон `ivory` носи този мотив и на двете места, затова е единственото
+   изключение от правилото „един мотив, едно място“ освен листенцата. */
+.edge-delivery .deco-edge{right:-46px;top:-78px;width:300px;opacity:.5;transform:scaleX(-1) rotate(4deg)}
+.edge-delivery .pa-1{right:270px;top:-20px;width:19px;opacity:.5;animation-delay:.8s}
+.edge-delivery .pa-2{right:112px;top:-92px;width:14px;opacity:.4;animation-delay:2.1s}
+
+/* Долу вляво на „Доставка и плащане“ — пресича във „Въпроси“. Същият мотив и
+   ъгъл като клонката горе вляво на story секцията („Powered by plants“). */
+.edge-faq .deco-edge{left:-108px;top:-140px;width:215px;opacity:.45;transform:rotate(-58deg)}
+.edge-faq .pa-1{left:196px;top:-30px;width:16px;opacity:.45;animation-delay:1.4s}
+
 /* Долу вляво на лентата „Според нуждите" — пресича в story секцията.
    Графиката е вертикална (ос 58°), затова -58° я полага хоризонтално. */
 .edge-concerns-bottom .deco-edge{left:-108px;top:-140px;width:215px;opacity:.45;transform:rotate(-58deg)}
@@ -342,6 +374,21 @@ animation:float-y 8s var(--ease) infinite}
 .edge-ig .deco-edge{right:-30px;top:-96px;width:290px;opacity:.5;transform:scaleX(-1) rotate(6deg)}
 .edge-ig .pa-3{right:262px;top:-40px;width:18px;opacity:.5;animation-delay:1.1s}
 .edge-ig .pa-4{right:96px;top:-112px;width:14px;opacity:.4;animation-delay:2.4s}
+
+/* Продуктов лист: същата зелена клонка горе вдясно като над Instagram лентата,
+   а отдолу вляво — листенцата, огледални на тези под нея. Графиката им пада под
+   26°, затова първо изправяме, после огледаляме (CSS чете отдясно наляво). */
+.edge-psheet .deco-edge{right:-30px;top:-96px;width:290px;opacity:.5;transform:scaleX(-1) rotate(6deg)}
+.edge-psheet-bottom{z-index:1}
+/* Клонката е хоризонтална и стои върху самата граница: половината влиза в
+   ивори лентата, половината — в порцелана отдолу. */
+.edge-psheet-bottom .deco-edge{left:-56px;right:auto;top:-62px;width:380px;opacity:.5;transform:rotate(-5deg)}
+
+/* „Нашите принципи" — същата двойка клонки на разменени страни: изправената
+   горе вляво (затова без огледалене), хоризонталната долу вдясно. */
+.edge-vals .deco-edge{left:-40px;right:auto;top:-96px;width:290px;opacity:.5;transform:rotate(6deg)}
+.edge-vals-bottom{z-index:1}
+.edge-vals-bottom .deco-edge{right:-56px;left:auto;top:-64px;width:380px;opacity:.5;transform:scaleX(-1) rotate(-5deg)}
 /* Под ~1360 px обвивката вече не е центрирана с полета, затова отрицателният
    right излиза извън екрана. Завъртането разширява bounding box-а с още ~8 px,
    затова отстъпът е 12 px, а не 0. */
@@ -353,8 +400,13 @@ animation:float-y 8s var(--ease) infinite}
 .deco-cats{width:220px}.deco-best{width:250px}.deco-foot-fan{width:170px}
 .edge-concerns .deco-edge{width:230px;top:-52px}
 .edge-concerns-bottom .deco-edge{width:210px;top:-70px}
+.edge-faq .deco-edge{width:210px;top:-70px}
 .edge-ig .deco-edge{width:210px;top:-70px}
 .edge-igfoot .deco-edge{width:230px;top:-130px}
+.edge-psheet .deco-edge{width:210px;top:-70px}
+.edge-psheet-bottom .deco-edge{width:280px;top:-48px}
+.edge-vals .deco-edge{width:210px;top:-70px}
+.edge-vals-bottom .deco-edge{width:280px;top:-50px}
 .petal-accent:not(.foot-petal){display:none}
 }
 @media(max-width:760px){.deco,.edge-deco{display:none}}
@@ -364,6 +416,42 @@ animation:float-y 8s var(--ease) infinite}
 .pillar svg{width:19px;height:19px;stroke-width:1.2}
 .pillar h3{font-size:21px;margin-bottom:9px}
 .pillar p{font-size:14px;color:var(--ink-70)}
+
+/* ——— Нашите принципи: три панела, които се разгъват ———
+   Разгъването е само на CSS през :has(). Където :has() не се поддържа, първият
+   панел просто остава отворен — секцията се чете и без взаимодействие. */
+/* Разгъването върви на flex-grow, а не на :has() върху grid: Chrome не
+   преизчислява стила, когато :focus стои в :is() вътре в :has(), и панелът
+   не се отваря. Тук всичко е обикновени вложени селектори. */
+.vals{display:flex;gap:10px;height:440px}
+.val{flex:1 1 0;transition:flex-grow .55s var(--ease)}
+.val:first-child{flex-grow:2.4}
+.vals:hover .val,.vals:focus-within .val{flex-grow:1}
+.vals:hover .val:hover,.vals:focus-within .val:focus{flex-grow:2.4}
+.val{position:relative;min-width:0;overflow:hidden;border-radius:var(--r-l);outline:0;
+/* Ред, подравнен по долния ръб: така кръгчето стои долу вляво и в свитите
+   панели, където текстът е скрит, но още заема място в потока. */
+display:flex;align-items:flex-end;gap:18px;padding:26px;
+background:var(--cream) center/cover no-repeat}
+/* Снимките са светли (блъш и травертин), затова воалът е плътен — при по-леко
+   затъмняване бялото заглавие не се чете. */
+.val::before{content:"";position:absolute;inset:0;background:linear-gradient(to top,
+rgba(20,17,16,.86) 0%,rgba(20,17,16,.62) 34%,rgba(20,17,16,.18) 66%,rgba(20,17,16,0) 88%)}
+.val>*{position:relative;z-index:1}
+/* върху тъмен фон розовото става сакура, а текстът — топло бяло */
+.val .ring{flex:0 0 auto;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;
+border:1px solid rgba(250,244,242,.42);background:rgba(20,17,16,.28);color:var(--sakura)}
+.val .ring svg{width:19px;height:19px;stroke-width:1.3}
+.val-copy{opacity:0;transform:translateY(6px);max-width:54ch;
+transition:opacity .4s var(--ease),transform .4s var(--ease)}
+.val-copy h3{color:#fff;margin-bottom:7px}
+.val-copy p{font-size:14px;line-height:1.55;color:rgba(250,244,242,.82)}
+.vals:hover .val:hover .val-copy,.vals:focus-within .val:focus .val-copy{opacity:1;transform:none}
+.vals:not(:hover):not(:focus-within) .val:first-child .val-copy{opacity:1;transform:none}
+.val:focus-visible{box-shadow:0 0 0 2px var(--sakura)}
+@media(prefers-reduced-motion:reduce){.val,.val-copy{transition:none}}
+/* след базовите правила, за да ги надпише */
+@media(max-width:1080px){.vals{height:380px}.val{padding:22px}}
 .band{background:var(--ivory);position:relative;overflow:hidden}
 .band.ink{background:var(--ink);color:rgba(250,244,242,.82)}
 .band.ink h2,.band.ink a{color:#fff}
@@ -424,6 +512,57 @@ display:flex;flex-direction:column;gap:16px}
 .contact-list svg{width:18px;height:18px;stroke-width:1.3}
 .contact-list b{display:block;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-45)}
 .contact-list span{font-size:16px}
+/* Пътят на поръчката — номерирана последователност, а не три еднакви карти.
+   Номерата са носител на информация (редът на стъпките), затова са оправдани.
+   Кръгът е същият `.ring` речник; свързващата линия носи ✦ на средата си. */
+/* ✦ прикрива свързващата линия, затова фонът му следва фона на секцията. */
+.oflow{--oflow-bg:var(--porcelain);display:grid;grid-template-columns:repeat(3,1fr)}
+.band .oflow{--oflow-bg:var(--ivory)}
+/* четиристъпков вариант — ритуалът в „За нас" */
+.oflow-4{grid-template-columns:repeat(4,1fr)}
+.oflow-4 .oflow-item{padding-right:20px}
+.oflow-4 .oflow-item+.oflow-item{padding-left:28px}
+.oflow-4 .oflow-item+.oflow-item::before{left:-4px;width:28px}
+.oflow-4 .oflow-item+.oflow-item::after{left:10px}
+.oflow-4 .oflow-item h3{font-size:19px}
+/* Заглавията се подравняват отгоре, а кръгът се вдига с -11px, за да седне на
+   реда на заглавието. Така трите стъпки остават подравнени независимо от това
+   колко реда заема описанието — центрирането би ги разместило. */
+.oflow-item{position:relative;display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;padding-right:30px}
+.oflow-item+.oflow-item{padding-left:38px}
+.oflow-item+.oflow-item::before{content:"";position:absolute;left:-4px;top:12px;width:38px;height:1px;background:var(--rose-line)}
+.oflow-item+.oflow-item::after{content:"✦";position:absolute;left:15px;top:12px;transform:translate(-50%,-50%);background:var(--oflow-bg);color:var(--rose);font-size:11px;line-height:1;padding:0 5px}
+.oflow-n{width:46px;height:46px;margin-top:-11px;border-radius:50%;background:var(--white);border:1px solid var(--rose-line);color:var(--rose);display:grid;place-items:center;font-family:var(--font-display);font-size:22px;line-height:1;flex:0 0 auto}
+.oflow-item h3{font-size:22px;margin-bottom:7px}
+.oflow-item p{font-size:14px;color:var(--ink-70);max-width:32ch}
+
+/* Фактите под пътя: един панел, разделен с косъм — цените и плащането
+   остават заедно, без да се връщаме към решетка от карти. */
+.delivery-facts{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:44px;background:var(--white);border:1px solid var(--line);border-radius:var(--r-l);overflow:hidden}
+.dfact{display:flex;gap:15px;align-items:flex-start;padding:26px 28px}
+.dfact+.dfact{border-left:1px solid var(--line)}
+.dfact .ring{width:42px;height:42px;border-radius:50%;border:1px solid var(--rose-line);color:var(--rose);display:grid;place-items:center;flex:0 0 auto}
+.dfact svg{width:18px;height:18px;stroke-width:1.3}
+.dfact b{display:block;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-45);margin-bottom:9px}
+.dfact li{font-size:14px;color:var(--ink-70);line-height:1.7;list-style:none}
+.dfact ul{margin:0;padding:0}
+.dfact li span{color:var(--ink);font-variant-numeric:tabular-nums}
+
+@media(max-width:1080px){
+/* Вертикална стъпаловидна лента — линията минава през центъра на кръговете. */
+.oflow,.oflow-4{grid-template-columns:1fr;row-gap:34px}
+.oflow-4 .oflow-item{padding-right:0}
+.oflow-4 .oflow-item+.oflow-item{padding-left:0}
+.oflow-4 .oflow-item+.oflow-item::before{left:23px;width:1px}
+.oflow-4 .oflow-item+.oflow-item::after{left:23px}
+.oflow-item{padding:0}
+.oflow-item+.oflow-item{padding-left:0}
+.oflow-item+.oflow-item::before{left:23px;top:-34px;width:1px;height:23px}
+.oflow-item+.oflow-item::after{left:23px;top:-23px}
+.delivery-facts{grid-template-columns:1fr}
+.dfact+.dfact{border-left:0;border-top:1px solid var(--line)}
+}
+
 .faq{border-top:1px solid var(--line)}
 .faq details{border-bottom:1px solid var(--line);padding:20px 0}
 .faq summary{cursor:pointer;font-family:var(--font-display);font-size:20px;list-style:none;display:flex;justify-content:space-between;gap:16px}
@@ -460,6 +599,13 @@ footer.site .blossom{right:-40px;bottom:-30px;width:280px;opacity:.16;animation:
 .hero .wrap{grid-template-columns:1fr;gap:32px}
 .hero-copy{grid-column:auto;max-width:34rem}
 .pdp,.cartgrid,.split,.contact-grid{grid-template-columns:1fr;gap:40px}
+.pdp{padding-bottom:58px}
+/* В една колона снимката винаги идва след текста, за да се чете в реда на ползите.
+   Без съседна колона, от която да вземе височина, тя се връща към фиксиран кадър. */
+.pstory-row{grid-template-columns:1fr;gap:32px}
+.pstory-row.rev .pfig{order:0}
+.pstory-row.solo .benefits{grid-template-columns:1fr}
+.pfig-frame{flex:none;min-height:0;aspect-ratio:3/2}
 .summary{position:static}
 .hero-strip .wrap{grid-template-columns:repeat(2,1fr)}
 }
@@ -479,6 +625,10 @@ header.site .bar{gap:12px;min-height:72px}
 .products{gap:24px 14px}
 .cats{grid-template-columns:repeat(2,1fr)}
 .pillars{grid-template-columns:1fr}
+/* Разгъването е жест с мишка — на телефон панелите стоят един под друг, отворени. */
+.vals{flex-direction:column;height:auto;gap:12px}
+.val,.vals:hover .val,.vals:hover .val:hover,.vals:focus-within .val{flex:0 0 auto;min-height:230px}
+.val-copy{opacity:1;transform:none}
 .shop{grid-template-columns:1fr}
 .filters{position:static}
 .fgrid{grid-template-columns:1fr 1fr}
@@ -496,8 +646,15 @@ header.site .bar{gap:12px;min-height:72px}
 }
 
 .page-intro{background:radial-gradient(92% 130% at 94% -14%,var(--blush-2) 0%,rgba(246,220,216,0) 60%),linear-gradient(180deg,#fff,var(--porcelain));overflow:hidden}
-.page-bloom{right:-26px;top:-30px;width:190px;opacity:.7}
-@media(max-width:760px){.page-bloom{width:120px;right:-18px}}
+/* Клонката горе вдясно на вътрешните страници е `deco/cascade.png` — същият
+   мотив като долу вляво на „Според нуждите", огледален да пада от десния ъгъл.
+   Люлеенето е на самостоятелното свойство `translate`, а не на `transform`,
+   за да не изтрие огледалото (и то да остане при prefers-reduced-motion). */
+@keyframes float-t{0%,100%{translate:0 0}50%{translate:0 -7px}}
+/* CSS чете трансформациите отдясно наляво: първо огледалото, после завъртането
+   на 90° надясно — така клонката се завърта по часовниковата стрелка на екрана. */
+.page-bloom{right:-30px;top:-34px;width:186px;opacity:.58;transform:rotate(90deg) scaleX(-1);animation-name:float-t}
+@media(max-width:760px){.page-bloom{width:112px;right:-20px;top:-22px}}
 
 @keyframes rise{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
 @keyframes rise-tilt{from{opacity:0;transform:translateY(22px) rotate(-5deg)}to{opacity:1;transform:rotate(-5deg)}}

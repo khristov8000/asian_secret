@@ -79,8 +79,8 @@ function renderProducts(el, list) {
 }
 
 /* Плавно появяване при скрол */
-/* Продуктовите карти нарочно не се анимират — минималистичен, спокоен вид. */
-const REVEAL_SEL = '.cat,.pillar,.usp,.step,.dcard,.bcard,.overlay-sheet,.sec-head,.benefits li,.faq details';
+/* Продуктовите карти нарочно не се анимират - минималистичен, спокоен вид. */
+const REVEAL_SEL = '.cat,.pillar,.usp,.step,.oflow-item,.dcard,.bcard,.overlay-sheet,.sec-head,.benefits li,.faq details';
 let observer;
 function initReveal(scope) {
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -96,7 +96,7 @@ function initReveal(scope) {
   });
 }
 
-/* Падащи цветчета — деликатен акцент */
+/* Падащи цветчета - деликатен акцент */
 function spawnPetals(host, count = 6) {
   if (!host || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   for (let i = 0; i < count; i++) {
@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (window.lucide) lucide.createIcons();
   paintCount();
   initReveal();
-  /* Във футъра — няколко отделни листенца. Големите мотиви от assets/deco се
+  /* Във футъра - няколко отделни листенца. Големите мотиви от assets/deco се
      ползват по веднъж, затова тук е единичното листенце, а не цялата група. */
   const foot = document.querySelector('footer.site');
   if (foot && !foot.querySelector('.foot-petal')) {
