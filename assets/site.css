@@ -9,7 +9,10 @@
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--porcelain);color:var(--ink);font-family:var(--font-ui);font-size:16px;font-weight:400;line-height:1.62;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+/* `overflow-x:clip`, а не `hidden`: hidden прави от body скролируем контейнер и
+   съсипва `position:sticky` на филтрите и на резюмето в количката. `clip` реже
+   декора отстрани по същия начин, но не създава такъв контейнер. */
+body{margin:0;background:var(--porcelain);color:var(--ink);font-family:var(--font-ui);font-size:16px;font-weight:400;line-height:1.62;-webkit-font-smoothing:antialiased;overflow-x:clip}
 img{max-width:100%;display:block}
 h1,h2,h3,h4{font-family:var(--font-display);font-weight:500;line-height:1.08;margin:0;letter-spacing:-.02em}
 h1{font-size:clamp(42px,6vw,80px)}
@@ -77,7 +80,16 @@ nav.main a:hover::after,nav.main a.active::after{right:0}
 .petal,.blossom{position:absolute;pointer-events:none;user-select:none}
 @keyframes float-y{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-7px) rotate(-1.5deg)}}
 @keyframes drift{0%{transform:translate3d(0,-8%,0) rotate(0);opacity:0}12%{opacity:.85}100%{transform:translate3d(-40px,120vh,0) rotate(220deg);opacity:0}}
+/* Кратък вариант за ниските въвеждащи секции: пълният `drift` пада 120vh и
+   се появява чак след 130px, а `.page-intro` е висока ~230px — листенцето се
+   отрязваше точно когато се появи. Тук целият път се събира в самата лента. */
+@keyframes drift-short{0%{transform:translate3d(0,-30px,0) rotate(0);opacity:0}
+18%{opacity:.8}70%{opacity:.6}100%{transform:translate3d(-34px,300px,0) rotate(190deg);opacity:0}}
+.page-intro .petal{animation-name:drift-short;animation-duration:11s}
 .blossom{animation:float-y 9s var(--ease) infinite}
+/* Количката: решетъчните деца получават z-index без `position`, за да останат
+   над падащите листенца — `position:relative` тук би убило sticky резюмето. */
+.cartgrid.petal-host>*{z-index:2}
 
 /* hero — снимката е фон (продуктите са вдясно), текстът стои в свободното поле вляво */
 .hero{position:relative;overflow:hidden;padding:0;background:var(--blush);min-height:min(92vh,820px);display:flex;align-items:stretch}
@@ -90,6 +102,14 @@ linear-gradient(260deg,rgba(251,237,234,0) 34%,rgba(251,240,238,.72) 54%,rgba(25
 .hero-copy>*+*{margin-top:22px}
 .hero h1{max-width:13ch}
 .hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+
+/* „За нас" — огледалният герой. Натюрмортът е в лявата половина на снимката,
+   затова воалът и текстът стоят вдясно (началната страница е обратното). */
+.hero-right{min-height:min(78vh,660px)}
+.hero-right .hero-photo{object-position:left center}
+.hero-right::after{background:
+linear-gradient(100deg,rgba(251,237,234,0) 34%,rgba(251,240,238,.72) 54%,rgba(252,244,242,.94) 70%)}
+.hero-right .hero-copy{grid-column:2}
 
 /* marquee */
 .marquee{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--white);overflow:hidden}
@@ -170,7 +190,7 @@ letter-spacing:.08em;text-transform:uppercase;margin-right:6px}
 
 /* filters */
 .shop{display:grid;grid-template-columns:186px 1fr;gap:40px;align-items:start}
-.filters{position:sticky;top:112px;display:flex;flex-direction:column;gap:22px}
+.filters{position:sticky;top:100px;display:flex;flex-direction:column;gap:22px}
 .fgroup h4{font-family:var(--font-ui);font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--rose);margin:0 0 12px}
 .fopt{display:flex;align-items:center;gap:10px;padding:5px 0;font-size:13.5px;cursor:pointer;color:var(--ink-70);line-height:1.35}
 
@@ -258,7 +278,7 @@ border-radius:var(--r-l);box-shadow:var(--sh-2)}   /* снимка = физич�
 .citem h4{font-family:var(--font-display);font-size:19px;font-weight:500;margin:0 0 4px}
 .citem .rm{background:none;border:0;color:var(--ink-45);font-size:12.5px;cursor:pointer;padding:0;text-decoration:underline;text-underline-offset:3px}
 .citem .rm:hover{color:var(--rose)}
-.summary{background:var(--white);border:1px solid var(--line);border-radius:var(--r-l);padding:28px;position:sticky;top:112px}
+.summary{background:var(--white);border:1px solid var(--line);border-radius:var(--r-l);padding:28px;position:sticky;top:100px}
 .srow{display:flex;justify-content:space-between;gap:14px;padding:9px 0;font-size:14.5px;color:var(--ink-70)}
 .srow.total{border-top:1px solid var(--line);margin-top:10px;padding-top:16px;font-size:21px;color:var(--ink);font-family:var(--font-display)}
 .field{display:flex;flex-direction:column;gap:7px;margin-bottom:16px}
@@ -321,17 +341,13 @@ line-height:1.42;color:var(--rose-deep);padding-left:20px;border-left:1px solid 
 .deco.float{animation:float-y 11s var(--ease) infinite}
 /* Всеки мотив се ползва точно по веднъж — никъде не се повтаря един и същ файл. */
 .deco-cats{left:-118px;top:14px;width:330px;opacity:.5;transform:rotate(90deg)}    /* corner branch */
-/* Листенцата се ползват два пъти. Графиката пада под 26°, затова първо я
-   изправяме с rotate(-26deg) и чак после я огледаляме (CSS чете отдясно наляво). */
-.deco-best{right:70px;top:-20px;width:330px;opacity:.42;transform:scaleX(-1) rotate(-26deg)} /* drifting petals */
+/* Същата клонка горе ВДЯСНО на вътрешните страници. `scaleX(-1)` стои отляво,
+   за да огледали вече завъртяната графика (CSS чете трансформациите отдясно
+   наляво) — иначе завъртането тръгва в обратната посока. */
+.deco-pagetop{right:-118px;top:14px;width:330px;opacity:.5;transform:scaleX(-1) rotate(90deg)}
 /* футър: ветрилото долу вдясно, листенцата се преместват вляво да не се застъпват */
-.deco-foot-fan{right:-34px;bottom:-26px;width:240px;opacity:.26;transform:rotate(-6deg)}
 /* текстът във футъра стои над декора, а не под него */
 footer.site .wrap{position:relative;z-index:2}
-.foot-petal{opacity:.5}
-.fp-1{left:8%;bottom:14%;width:26px;animation-delay:.4s}
-.fp-2{left:15%;bottom:32%;width:18px;opacity:.38;animation-delay:1.6s}
-.fp-3{left:4%;bottom:44%;width:14px;opacity:.3;animation-delay:2.8s}
 
 /* ——— клонки върху границата между два фона ———
    Секциите са с overflow:hidden, затова декорът стои в собствен контейнер с
@@ -359,17 +375,19 @@ animation:float-y 8s var(--ease) infinite}
 .edge-faq .deco-edge{left:-108px;top:-140px;width:215px;opacity:.45;transform:rotate(-58deg)}
 .edge-faq .pa-1{left:196px;top:-30px;width:16px;opacity:.45;animation-delay:1.4s}
 
+/* „Марките, които предлагаме" носи същата двойка като „Подбери грижа“, но
+   огледално: полумесецът горе ВЛЯВО, каскадата долу ВДЯСНО. `right/left:auto`
+   е задължително — правилото под 1360px иначе задава и другата страна. */
+.edge-brands .deco-edge{left:-46px;right:auto;top:-72px;width:300px;opacity:.55;transform:rotate(-4deg)}
+.edge-brands .pa-1{left:272px;top:-14px;width:19px;opacity:.55;animation-delay:.7s}
+.edge-brands .pa-2{left:108px;top:-86px;width:14px;opacity:.42;animation-delay:2s}
+.edge-brands-bottom .deco-edge{right:-104px;left:auto;top:-140px;width:215px;opacity:.45;transform:scaleX(-1) rotate(-58deg)}
+.edge-brands-bottom .pa-1{right:190px;top:-30px;width:16px;opacity:.45;animation-delay:1.5s}
+
 /* Долу вляво на лентата „Според нуждите" — пресича в story секцията.
    Графиката е вертикална (ос 58°), затова -58° я полага хоризонтално. */
 .edge-concerns-bottom .deco-edge{left:-108px;top:-140px;width:215px;opacity:.45;transform:rotate(-58deg)}
 .edge-concerns-bottom .pa-5{left:196px;top:-30px;width:16px;opacity:.45;animation-delay:1.4s}
-
-/* Листенцата долу вляво в Instagram лентата: стоят в собствен контейнер между
-   секцията и футъра, за да не ги реже overflow:hidden — така се виждат цели
-   върху фона и минават през границата. */
-.edge-igfoot{z-index:1}
-/* Самата графика пада под 26°; контра-завъртането я изправя хоризонтално. */
-.edge-igfoot .deco-edge{right:-40px;left:auto;top:-132px;width:330px;opacity:.34;transform:rotate(-26deg)}
 
 .edge-ig .deco-edge{right:-30px;top:-96px;width:290px;opacity:.5;transform:scaleX(-1) rotate(6deg)}
 .edge-ig .pa-3{right:262px;top:-40px;width:18px;opacity:.5;animation-delay:1.1s}
@@ -394,22 +412,83 @@ animation:float-y 8s var(--ease) infinite}
    затова отстъпът е 12 px, а не 0. */
 @media(max-width:1360px){.edge-deco .deco-edge{right:12px}}
 
-.petal-host,section{position:relative;overflow:hidden}
+/* същата причина като при body — секцията пази клипването на декора, но вече
+   не е скролируем контейнер, за да работи sticky вътре в нея */
+.petal-host,section{position:relative;overflow:clip}
 .petal-host .wrap{position:relative;z-index:2}
 @media(max-width:1080px){
-.deco-cats{width:220px}.deco-best{width:250px}.deco-foot-fan{width:170px}
+.deco-cats{width:220px}.deco-pagetop{width:220px}
 .edge-concerns .deco-edge{width:230px;top:-52px}
 .edge-concerns-bottom .deco-edge{width:210px;top:-70px}
 .edge-faq .deco-edge{width:210px;top:-70px}
 .edge-ig .deco-edge{width:210px;top:-70px}
-.edge-igfoot .deco-edge{width:230px;top:-130px}
 .edge-psheet .deco-edge{width:210px;top:-70px}
 .edge-psheet-bottom .deco-edge{width:280px;top:-48px}
 .edge-vals .deco-edge{width:210px;top:-70px}
 .edge-vals-bottom .deco-edge{width:280px;top:-50px}
-.petal-accent:not(.foot-petal){display:none}
+.edge-brands .deco-edge{width:230px;top:-52px}
+.edge-brands-bottom .deco-edge{width:210px;top:-70px}
+.petal-accent{display:none}
 }
 @media(max-width:760px){.deco,.edge-deco{display:none}}
+/* Марките: регистър с косъм между редовете вместо решетка от еднакви карти.
+   „Един стандарт" се чете като списък с общо мерило, не като шест кутии. */
+.blines{border-top:1px solid var(--line)}
+/* Третата колона е с ляво подравняване, за да се подредят чиповете в отвесна
+   редица — иначе увисват до десния ръб и между тях и текста зее празнина. */
+.bline{display:grid;grid-template-columns:minmax(200px,.78fr) minmax(0,1.3fr) minmax(200px,.42fr);
+gap:32px;align-items:baseline;
+padding:24px 6px;border-bottom:1px solid var(--line);transition:background .28s var(--ease)}
+.bline:hover{background:var(--blush)}
+.bline-name{font-family:var(--font-display);font-size:22px;line-height:1.15;letter-spacing:-.01em;
+transition:color .22s var(--ease)}
+.bline:hover .bline-name{color:var(--rose)}
+.bline p{font-size:14.5px;color:var(--ink-70)}
+.bline-meta{display:flex;gap:9px;align-items:center;white-space:nowrap}
+.bline-chip{font-size:11px;color:var(--ink-70);background:var(--white);border:1px solid var(--line);
+border-radius:var(--r-pill);padding:5px 11px}
+.bline-count{font-size:11px;color:var(--ink-45);letter-spacing:.1em;text-transform:uppercase}
+@media(max-width:1080px){
+.bline{grid-template-columns:1fr auto;gap:8px 20px;align-items:center}
+.bline p{grid-column:1/-1;max-width:66ch}
+}
+@media(max-width:760px){
+.bline{grid-template-columns:1fr;padding:20px 2px;align-items:start}
+.bline-meta{justify-self:start;margin-top:4px}
+}
+
+/* „Как избираме" — текст вляво, двойка снимки вдясно (story секцията на
+   началната страница е обратната подредба, за да не се повтарят). */
+/* фонът е порцелан като „Ежедневен ритуал", а не ивори лента */
+.vet-grid{display:grid;grid-template-columns:.92fr 1.08fr;gap:56px;align-items:center}
+/* Двойката е ограничена по ширина, за да се побира секцията в един екран —
+   иначе портретът 3:4 израства до ~760px височина на широк монитор. */
+.vet-art{position:relative;max-width:460px;justify-self:center;padding-bottom:52px;padding-left:48px}
+.vet-main{margin:0;border-radius:var(--r-l);overflow:hidden;box-shadow:var(--sh-2);aspect-ratio:3/4}
+.vet-main img{width:100%;height:100%;object-fit:cover}
+/* детайлът се подава изпод основната снимка долу вляво */
+.vet-sub{position:absolute;left:0;bottom:0;width:46%;margin:0;border-radius:var(--r-l);overflow:hidden;
+box-shadow:var(--sh-2);border:5px solid var(--porcelain);aspect-ratio:1/1}
+.vet-sub img{width:100%;height:100%;object-fit:cover}
+.vet-copy>*+*{margin-top:16px}
+/* четирите неща, които се проверяват — редове с кръгче, не карти */
+.vet-list{display:grid;grid-template-columns:1fr 1fr;gap:16px 22px;margin-top:26px}
+.vet-list div{display:flex;gap:12px;align-items:flex-start}
+.vet-list .ring{flex:0 0 auto;width:34px;height:34px;border-radius:50%;border:1px solid var(--rose-line);
+color:var(--rose);display:grid;place-items:center;background:var(--white)}
+.vet-list svg{width:15px;height:15px;stroke-width:1.4}
+.vet-list b{display:block;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase}
+.vet-list span{font-size:13px;color:var(--ink-45);line-height:1.5}
+@media(max-width:1080px){
+.vet-grid{grid-template-columns:1fr;gap:44px}
+.vet-art{max-width:440px;justify-self:start}
+}
+@media(max-width:760px){
+.vet-art{padding-bottom:0;padding-left:0}
+.vet-sub{position:static;width:58%;margin-top:-46px;margin-left:auto;margin-right:0}
+.vet-list{grid-template-columns:1fr;gap:14px}
+}
+
 .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
 .pillar{background:var(--white);border:1px solid var(--line);border-radius:var(--r-l);padding:30px}
 .pillar .ring{width:46px;height:46px;border-radius:50%;border:1px solid var(--rose-line);display:grid;place-items:center;color:var(--rose);margin-bottom:18px}
@@ -587,6 +666,27 @@ footer.site h4{font-family:var(--font-ui);font-size:10px;letter-spacing:.24em;te
 .social svg{width:18px;height:18px;stroke-width:1.3}
 footer.site .blossom{right:-40px;bottom:-30px;width:280px;opacity:.16;animation:none}
 
+/* ─── Футър: „Мастилен масткед" ─────────────────────────────────────────
+   Тъмният фон остава, но стената от четири колони отпада. Горе стои марката
+   и двата реални канала за поръчка (телефон и имейл) в Playfair — те носят
+   продажбата, а не списъкът с връзки. Отдолу линковете вървят в един ред. */
+footer.f-mast{padding:64px 0 28px}
+.f-mast .fmast{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;flex-wrap:wrap}
+/* Двата реда се изчисляват да са точно колкото логото вляво (48px):
+   2 × (17px × 1.3) + 4px разстояние ≈ 48px, за да стоят двете страни наравно. */
+.f-mast .fmast-lines{display:flex;flex-direction:column;gap:4px;align-items:flex-end}
+.f-mast .fmast-lines a{display:inline-flex;align-items:center;gap:9px;
+font-family:var(--font-display);font-size:17px;line-height:1.3;color:#fff}
+.f-mast .fmast-lines a:hover{color:var(--sakura)}
+.f-mast .fmast-lines svg{width:15px;height:15px;stroke-width:1.5;color:var(--sakura);flex:0 0 auto}
+.f-mast .fsparkle{position:relative;height:1px;background:rgba(250,244,242,.16);margin:34px 0 30px}
+.f-mast .fsparkle::after{content:"✦";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+background:var(--ink);color:var(--sakura);font-size:13px;padding:0 14px}
+.f-mast .frow{display:flex;justify-content:space-between;gap:48px;flex-wrap:wrap}
+.f-mast .fcol h4{margin-bottom:14px}
+.f-mast .flist{gap:9px;font-size:13.5px}
+.f-mast .social{margin-top:0}
+
 /* toast */
 .toast{position:fixed;right:22px;bottom:22px;z-index:80;background:var(--ink);color:#fff;padding:16px 21px;border-radius:var(--r-m);box-shadow:var(--sh-2);font-size:14px;display:flex;gap:11px;align-items:center;transform:translateY(16px);opacity:0;pointer-events:none;transition:.34s var(--ease)}
 .toast.on{transform:none;opacity:1}
@@ -597,7 +697,16 @@ footer.site .blossom{right:-40px;bottom:-30px;width:280px;opacity:.16;animation:
 .cats{grid-template-columns:repeat(3,1fr)}
 .hero{min-height:min(80vh,700px)}
 .hero .wrap{grid-template-columns:1fr;gap:32px}
-.hero-copy{grid-column:auto;max-width:34rem}
+/* по-специфичното `.hero-right .hero-copy` иначе надделява и вкарва текста
+   във втора, несъществуваща колона — затова се нулира изрично */
+.hero-copy,.hero-right .hero-copy{grid-column:auto;max-width:34rem}
+/* При една колона текстът минава вляво, а воалът на огледалния герой светли
+   вдясно — текстът би легнал върху натюрморта. Затова тук снимката става
+   лента над текста (както на телефон), вместо фон под него. */
+.hero-right{min-height:0;display:block}
+.hero-right .hero-photo{position:static;width:100%;height:auto;aspect-ratio:16/9;object-position:center}
+.hero-right::after{display:none}
+.hero-right .wrap{padding-top:42px;padding-bottom:56px}
 .pdp,.cartgrid,.split,.contact-grid{grid-template-columns:1fr;gap:40px}
 .pdp{padding-bottom:58px}
 /* В една колона снимката винаги идва след текста, за да се чете в реда на ползите.

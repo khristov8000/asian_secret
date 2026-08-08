@@ -80,7 +80,7 @@ function renderProducts(el, list) {
 
 /* Плавно появяване при скрол */
 /* Продуктовите карти нарочно не се анимират - минималистичен, спокоен вид. */
-const REVEAL_SEL = '.cat,.pillar,.usp,.step,.oflow-item,.dcard,.bcard,.overlay-sheet,.sec-head,.benefits li,.faq details';
+const REVEAL_SEL = '.cat,.pillar,.usp,.step,.oflow-item,.dcard,.bline,.overlay-sheet,.sec-head,.benefits li,.faq details';
 let observer;
 function initReveal(scope) {
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -118,20 +118,6 @@ document.addEventListener('DOMContentLoaded', () => {
   if (window.lucide) lucide.createIcons();
   paintCount();
   initReveal();
-  /* Във футъра - няколко отделни листенца. Големите мотиви от assets/deco се
-     ползват по веднъж, затова тук е единичното листенце, а не цялата група. */
-  const foot = document.querySelector('footer.site');
-  if (foot && !foot.querySelector('.foot-petal')) {
-    [1, 2, 3].forEach(n => {
-      const b = document.createElement('img');
-      b.src = 'assets/sakura-petal.png'; b.alt = '';
-      b.className = 'petal-accent foot-petal fp-' + n;
-      foot.appendChild(b);
-    });
-    const fan = document.createElement('img');
-    fan.src = 'assets/deco/fan.png'; fan.alt = ''; fan.className = 'deco deco-foot-fan';
-    foot.appendChild(fan);
-  }
   const burger = document.querySelector('.burger');
   if (burger) burger.addEventListener('click', () => {
     const nav = document.querySelector('nav.main');

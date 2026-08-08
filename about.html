@@ -9,7 +9,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site.css">
-<style>.brands{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.bcard{border:1px solid var(--line);border-radius:var(--r-l);padding:22px;background:var(--white)}.bcard b{font-family:var(--font-display);font-size:21px;display:block;margin-bottom:6px}.bcard span{font-size:13.5px;color:var(--ink-70)}@media(max-width:1080px){.brands{grid-template-columns:1fr 1fr}}@media(max-width:760px){.brands{grid-template-columns:1fr}}</style>
 </head>
 <body>
 <div class="topbar"><div class="wrap"><span>Безплатна доставка над 60 €</span><span>·</span><span>Оригинални японски и корейски продукти</span><span>·</span><span>Изпращаме до 48 часа</span></div></div>
@@ -23,14 +22,16 @@
 </div>
 </div></header>
 
-<section class="page-intro"><img class="blossom page-bloom" src="assets/deco/cascade.png" alt=""><div class="wrap split">
-<div class="prose">
+<section class="hero hero-right">
+<img class="hero-photo" src="assets/about-hero.jpg" alt="Черен лакиран поднос с купа, ветрило и клонки върху розов фон" width="1672" height="941">
+<div class="wrap">
+<div class="hero-copy">
 <span class="eyebrow">За Asian Secret</span>
-<h1 style="margin-top:12px">Красотата на Азия - <em style="font-style:italic;color:var(--rose)">без компромис</em></h1>
-<p class="lead" style="margin-top:18px">Asian Secret е български магазин за японска и азиатска козметика. Внасяме тъканни маски, патчи за очи, слънцезащита и грижа за ръце и коса от Япония, Южна Корея и Тайланд.</p>
-<p style="margin-top:16px;color:var(--ink-70)">Избираме продукти, които се използват всеки ден - с ясни съставки, доказани формули и честно описание на количеството и произхода. Вярваме, че грижата за кожата е ритуал, а не обещание.</p>
+<h1>Красота <em>без компромис</em></h1>
+<p class="lead">Български магазин за японска и азиатска козметика. Внасяме тъканни маски, патчи за очи, слънцезащита и грижа за ръце и коса от Япония, Южна Корея и Тайланд.</p>
+<p style="color:var(--ink-70)">Избираме продукти, които се използват всеки ден - с ясни съставки и честно описание на количеството и произхода. Грижата за кожата е ритуал, а не обещание.</p>
+<div class="hero-cta"><a class="btn btn-primary" href="products.html">Виж каталога<i data-lucide="arrow-right"></i></a><a class="btn btn-ghost" href="#brands">Марките, които предлагаме</a></div>
 </div>
-<div class="overlay-sheet"><img src="assets/overlays/zen-no-shizuku.jpg" alt="Zen no Shizuku - японска тъканна маска"></div>
 </div></section>
 
 <!-- зелената клонка горе вляво, върху границата с ивори лентата -->
@@ -72,41 +73,93 @@
 </div>
 </div></section>
 
-<section class="band"><div class="wrap">
-<div class="sec-head"><div><span class="eyebrow">Марките, които предлагаме</span><h2>Пет линии, един стандарт</h2></div><a class="btn btn-ghost btn-sm" href="products.html">Виж каталога<i data-lucide="arrow-right"></i></a></div>
-<div class="brands">
-<div class="bcard"><b>Premium Resbro / Arbro</b><span>Японски изглаждащи маски с пептиди, ресвератрол и EGF в големи опаковки от 40 листа.</span></div>
-<div class="bcard"><b>TEMOGEY</b><span>Daily Moisture серия с Bakuchiol, Yomogi, Aomikan и червен прополис - цвят за всяка нужда.</span></div>
-<div class="bcard"><b>ESTE QUALITY / TUNE UP</b><span>Маски с муцин от охлюв, конско масло и пептид, плюс новата серия TUNE UP.</span></div>
-<div class="bcard"><b>Earthful Beauty</b><span>Powered by plants - натурален неизбелен памук и органични екстракти с деликатни аромати.</span></div>
-<div class="bcard"><b>PulluP / PuRu PuRu</b><span>Корейската Marshmallow маска и японските патчи за очи за уморен поглед.</span></div>
-<div class="bcard"><b>MHY</b><span>Слънцезащита SPF90+, крем за ръце с конско масло и финиширащ крем за коса от Тайланд.</span></div>
+<!-- полумесецът горе вляво върху границата с лентата - както при „Подбери грижа" -->
+<div class="edge-deco edge-brands">
+<img class="deco-edge" src="assets/deco/crescent.png" alt="">
+<img class="petal-accent pa-1" src="assets/sakura-petal.png" alt="">
+<img class="petal-accent pa-2" src="assets/sakura-petal.png" alt="">
+</div>
+
+<section class="band" id="brands"><div class="wrap">
+<div class="sec-head"><div><span class="eyebrow">Марките, които предлагаме</span><h2>Шест линии, <em>един стандарт</em></h2></div><a class="btn btn-ghost btn-sm" href="products.html">Виж каталога<i data-lucide="arrow-right"></i></a></div>
+<div class="blines">
+<div class="bline">
+<span class="bline-name">Premium Resbro / Arbro</span>
+<p>Изглаждащи маски с пептиди, ресвератрол и EGF в големи опаковки от 40 листа.</p>
+<span class="bline-meta"><span class="bline-chip">Япония</span><span class="bline-count">4 продукта</span></span>
+</div>
+<div class="bline">
+<span class="bline-name">TEMOGEY</span>
+<p>Daily Moisture серия с Bakuchiol, Yomogi, Aomikan и червен прополис - цвят за всяка нужда.</p>
+<span class="bline-meta"><span class="bline-chip">Япония</span><span class="bline-count">4 продукта</span></span>
+</div>
+<div class="bline">
+<span class="bline-name">ESTE QUALITY / TUNE UP</span>
+<p>Маски с муцин от охлюв, конско масло и пептид, плюс новата серия TUNE UP.</p>
+<span class="bline-meta"><span class="bline-chip">Япония</span><span class="bline-count">5 продукта</span></span>
+</div>
+<div class="bline">
+<span class="bline-name">Earthful Beauty</span>
+<p>Powered by plants - натурален неизбелен памук и органични екстракти с деликатни аромати.</p>
+<span class="bline-meta"><span class="bline-chip">Япония · Южна Корея</span><span class="bline-count">4 продукта</span></span>
+</div>
+<div class="bline">
+<span class="bline-name">PulluP / PuRu PuRu</span>
+<p>Корейската Marshmallow маска и японските патчи за очи за уморен поглед.</p>
+<span class="bline-meta"><span class="bline-chip">Япония · Южна Корея</span><span class="bline-count">2 продукта</span></span>
+</div>
+<div class="bline">
+<span class="bline-name">MHY</span>
+<p>Слънцезащита SPF90+, крем за ръце с конско масло и финиширащ крем за коса.</p>
+<span class="bline-meta"><span class="bline-chip">Тайланд</span><span class="bline-count">3 продукта</span></span>
+</div>
 </div>
 </div></section>
 
-<section class="page-intro"><img class="blossom page-bloom" src="assets/deco/cascade.png" alt=""><div class="wrap split">
-<div class="overlay-sheet"><img src="assets/overlays/puru-puru-eye.jpg" alt="PuRu PuRu патчи за очи"></div>
-<div class="prose">
+<!-- каскадата долу вдясно, пресича в „Как избираме" - огледално на полумесеца горе вляво -->
+<div class="edge-deco edge-brands-bottom">
+<img class="deco-edge" src="assets/deco/cascade.png" alt="">
+<img class="petal-accent pa-1" src="assets/sakura-petal.png" alt="">
+</div>
+
+<section class="vet"><div class="wrap vet-grid">
+<div class="vet-copy">
 <span class="eyebrow">Как избираме</span>
-<h2>Всеки продукт минава през нас</h2>
-<p style="margin-top:16px;color:var(--ink-70)">Тестваме продуктите лично, преди да ги предложим. Гледаме състава, тъканта, количеството есенция и как маската приляга към кожата. Ако нещо не ни хареса - не влиза в каталога.</p>
-<p style="margin-top:14px;color:var(--ink-70)">За въпроси относно избора на грижа ни пишете в Instagram или на имейл - отговаряме лично.</p>
-<div class="hero-cta" style="margin-top:26px"><a class="btn btn-primary" href="contact.html"><i data-lucide="mail"></i>Свържете се с нас</a></div>
+<h2>Всеки продукт <em>минава през нас</em></h2>
+<p class="lead">Тестваме продуктите лично, преди да ги предложим. Ако нещо не ни хареса - не влиза в каталога.</p>
+<div class="vet-list">
+<div><span class="ring"><i data-lucide="list-checks"></i></span><span><b>Съставът</b><span>Активните съставки и тяхната роля</span></span></div>
+<div><span class="ring"><i data-lucide="layers"></i></span><span><b>Тъканта</b><span>Плътност и качество на памука</span></span></div>
+<div><span class="ring"><i data-lucide="droplet"></i></span><span><b>Есенцията</b><span>Колко съдържа всяко листо</span></span></div>
+<div><span class="ring"><i data-lucide="scan-face"></i></span><span><b>Прилягането</b><span>Как маската ляга върху кожата</span></span></div>
+</div>
+<p style="margin-top:24px;color:var(--ink-70)">За въпроси относно избора на грижа ни пишете в Instagram или на имейл - отговаряме лично.</p>
+<div class="hero-cta" style="margin-top:24px"><a class="btn btn-primary" href="contact.html"><i data-lucide="mail"></i>Свържете се с нас</a></div>
+</div>
+<div class="vet-art">
+<figure class="vet-main"><img src="assets/vetting/main.jpg" alt="Разгъната тъканна маска над черен поднос, до нея оригинални опаковки" loading="lazy" width="1086" height="1448"></figure>
+<figure class="vet-sub"><img src="assets/vetting/sub.jpg" alt="Тъканта на маската под лупа, до петриево блюдо с капки есенция" loading="lazy" width="1254" height="1254"></figure>
 </div>
 </div></section>
 
-<footer class="site"><div class="wrap">
-<div class="fgrid">
-<div>
+<footer class="site f-mast"><div class="wrap">
+<div class="fmast">
 <a class="brand" href="index.html"><img src="assets/logo-as.png" alt="Asian Secret" style="width:56px"><span class="wordmark"><b>ASIAN SECRET</b><span>BEAUTY FROM ASIA</span></span></a>
-<p style="margin-top:18px;font-size:14px;max-width:34ch">Японска и азиатска козметика - натурални съставки, ефективни формули, ежедневна грижа.</p>
+<div class="fmast-lines">
+<a href="tel:0878141487"><i data-lucide="phone"></i>0878 141 487</a>
+<a href="mailto:zax12@abv.bg"><i data-lucide="mail"></i>zax12@abv.bg</a>
+</div>
+</div>
+<div class="fsparkle"></div>
+<div class="frow">
+<div class="fcol"><h4>Магазин</h4><div class="flist"><a href="products.html">Всички продукти</a><a href="products.html?c=masks">Тъканни маски</a><a href="products.html?c=eye">Патчи за очи</a><a href="products.html?c=spf">Слънцезащита</a><a href="products.html?c=hands">Грижа за ръце</a></div></div>
+<div class="fcol"><h4>Информация</h4><div class="flist"><a href="about.html">За нас</a><a href="contact.html#delivery">Доставка и плащане</a><a href="contact.html#faq">Често задавани въпроси</a><a href="cart.html">Количка</a></div></div>
+<div class="fcol"><h4>Доставка</h4><div class="flist"><span>До офис - 3,90 &euro;</span><span>До адрес - 4,90 &euro;</span><span>Безплатно над 60 &euro;</span><span>Изпращаме до 48 часа</span></div></div>
+<div class="fcol"><h4>Последвай ни</h4>
 <div class="social"><a href="https://www.instagram.com/asiansecret.bg/" target="_blank" rel="noopener" aria-label="Instagram"><i data-lucide="instagram"></i></a><a href="mailto:zax12@abv.bg" aria-label="Имейл"><i data-lucide="mail"></i></a><a href="tel:0878141487" aria-label="Телефон"><i data-lucide="phone"></i></a></div>
 </div>
-<div><h4>Магазин</h4><div class="flist"><a href="products.html">Всички продукти</a><a href="products.html?c=masks">Тъканни маски</a><a href="products.html?c=eye">Патчи за очи</a><a href="products.html?c=spf">Слънцезащита</a><a href="products.html?c=hands">Грижа за ръце</a></div></div>
-<div><h4>Информация</h4><div class="flist"><a href="about.html">За нас</a><a href="contact.html#delivery">Доставка и плащане</a><a href="contact.html#faq">Често задавани въпроси</a><a href="cart.html">Количка</a></div></div>
-<div><h4>Контакти</h4><div class="flist"><a href="mailto:zax12@abv.bg">zax12@abv.bg</a><a href="tel:0878141487">0878 141 487</a><a href="https://www.instagram.com/asiansecret.bg/" target="_blank" rel="noopener">@asiansecret.bg</a><span style="font-size:14px">България · доставка с куриер</span></div></div>
 </div>
-<div class="fbot"><span>© 2026 Asian Secret. Всички права запазени.</span><span>Оригинални продукти от Япония, Корея и Тайланд</span></div>
+<div class="fbot"><span>&copy; 2026 Asian Secret. Всички права запазени.</span><span>Оригинални продукти от Япония, Корея и Тайланд</span></div>
 </div></footer>
 
 <script src="https://unpkg.com/lucide@0.454.0/dist/umd/lucide.js"></script>
