@@ -30,7 +30,7 @@
 </div></section>
 
 <section class="petal-host" style="padding-top:0"><div class="wrap shop">
-<aside class="filters">
+<aside class="filters" id="filters">
 <div class="fsearch"><i data-lucide="search"></i><input type="search" id="q" placeholder="Търси продукт" aria-label="Търси продукт"></div>
 <div class="fgroup"><h2>Цена</h2>
 <div class="range-wrap">
@@ -47,6 +47,7 @@
 <div>
 <div class="shopbar">
 <span class="muted" id="count"></span>
+<button class="btn btn-ghost btn-sm filters-toggle" id="filtersToggle" type="button" aria-expanded="false" aria-controls="filters"><i data-lucide="sliders-horizontal"></i>Филтри<span class="ftcount" id="ftCount" hidden>0</span></button>
 <select class="sortsel" id="sort" aria-label="Подредба на продуктите">
 <option value="pop">Подредба: препоръчани</option>
 <option value="asc">Цена: ниска → висока</option>
@@ -77,6 +78,7 @@
 <div class="fcol"><h2>Доставка</h2><div class="flist"><span>До офис - 3,90 &euro;</span><span>До адрес - 4,90 &euro;</span><span>Безплатно над 60 &euro;</span><span>Изпращаме до 48 часа</span></div></div>
 <div class="fcol"><h2>Последвай ни</h2>
 <div class="social"><a href="https://www.instagram.com/asiansecret.bg/" target="_blank" rel="noopener" aria-label="Instagram"><i data-lucide="instagram"></i></a><a href="mailto:zax12@abv.bg" aria-label="Имейл"><i data-lucide="mail"></i></a><a href="tel:0878141487" aria-label="Телефон"><i data-lucide="phone"></i></a></div>
+<div class="flist fcontact"><a href="tel:0878141487">0878 141 487</a><a href="mailto:zax12@abv.bg">zax12@abv.bg</a></div>
 </div>
 </div>
 <div class="fbot"><span>&copy; 2026 Asian Secret. Всички права запазени.</span><span>Оригинални продукти от Япония, Корея и Тайланд</span></div>
@@ -179,6 +181,27 @@ document.getElementById('clear').addEventListener('click', () => {
   syncRange();
   apply();
 });
+/* Панелът с филтри на телефон: свит по подразбиране, отваря се с бутона до
+   подредбата. Броячът показва колко филтъра са активни, докато е свит. */
+const filtersEl = document.getElementById('filters');
+const ftBtn = document.getElementById('filtersToggle');
+const ftCount = document.getElementById('ftCount');
+ftBtn.addEventListener('click', () => {
+  const open = filtersEl.classList.toggle('open');
+  ftBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  if (open) filtersEl.scrollIntoView({ block: 'nearest' });
+});
+function paintFilterCount() {
+  const n = state.cats.length + state.concerns.length
+    + (state.q ? 1 : 0)
+    + (state.min !== PRICE_MIN || state.max !== PRICE_MAX ? 1 : 0);
+  ftCount.textContent = n;
+  ftCount.hidden = n === 0;
+}
+/* `apply()` е дефинирана по-горе - обвиваме я, за да не я пипаме на две места. */
+const _apply = apply;
+apply = function () { _apply(); paintFilterCount(); };
+
 syncRange();
 apply();
 </script>

@@ -226,6 +226,8 @@ letter-spacing:.08em;text-transform:uppercase;margin-right:6px}
 .fopt input:checked{background:var(--rose);border-color:var(--rose);box-shadow:inset 0 0 0 3px var(--white)}
 .fopt:hover{color:var(--ink)}
 .shopbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:28px;flex-wrap:wrap;padding-bottom:16px;border-bottom:1px solid var(--line)}
+/* Бутонът „Филтри" съществува само на телефон - на широк екран лентата стои отляво */
+.filters-toggle{display:none}
 select.sortsel{appearance:none;border:1px solid var(--line);background:var(--white);border-radius:var(--r-pill);padding:10px 34px 10px 16px;font-family:var(--font-ui);font-size:13.5px;cursor:pointer;color:var(--ink)}
 
 /* product detail */
@@ -277,6 +279,8 @@ border-radius:var(--r-l);box-shadow:var(--sh-2)}   /* снимка = физич�
 
 /* cart */
 .cartgrid{display:grid;grid-template-columns:1.35fr .65fr;gap:48px;align-items:start;padding-top:36px}
+/* и малко въздух точно след дясната кутия - на телефон тя е последна преди футъра */
+.summary{margin-bottom:16px}
 .citem{display:grid;grid-template-columns:104px 1fr auto;gap:20px;padding:22px 0;border-bottom:1px solid var(--line);align-items:center}
 .citem img{width:104px;height:104px;object-fit:contain;padding:8px;border-radius:var(--r-m);border:1px solid var(--line)}
 .citem h4{font-family:var(--font-display);font-size:19px;font-weight:500;margin:0 0 4px}
@@ -562,13 +566,16 @@ box-shadow:var(--sh-2)}                     /* снимка = физически
 /* ——— Вариант 1 „Разпръснато": текстът вляво, снимките разпилени вдясно ——— */
 .ig-v1 .ig-wrap{display:grid;grid-template-columns:.78fr 1.22fr;gap:56px;align-items:center}
 .ig-v1 .ig-scatter{position:relative;aspect-ratio:1.42/1}
+/* Лентата и футърът са с един и същ мастилен фон, затова 88+64px отдолу се
+   четяха като празнина. Намалено на всички ширини. */
+.ig-section{padding-bottom:10px}
 .ig-v1 .ig-tile{position:absolute}
 .ig-v1 .t1{left:0;top:28%;width:33%;transform:rotate(-4deg)}
 .ig-v1 .t2{left:30%;top:2%;width:26%;transform:rotate(3deg);z-index:3}
-.ig-v1 .t3{left:79%;top:42%;width:21%;transform:rotate(5deg)}
+.ig-v1 .t3{left:71%;top:46%;width:29%;transform:rotate(5deg)}
 .ig-v1 .t4{left:40%;top:60%;width:38%;transform:rotate(-2deg);z-index:2}
 /* t5 слиза от горния към долния ред, за да не се редят три в една линия */
-.ig-v1 .t5{left:62%;top:20%;width:25%;transform:rotate(-6deg)}
+.ig-v1 .t5{left:56%;top:16%;width:31%;transform:rotate(-6deg)}
 
 @media(max-width:1080px){
 .ig-v1 .ig-wrap{grid-template-columns:1fr;gap:40px}
@@ -690,6 +697,8 @@ background:var(--ink);color:var(--sakura);font-size:13px;padding:0 14px}
 .f-mast .fcol h2{margin-bottom:14px}
 .f-mast .flist{gap:9px;font-size:13.5px}
 .f-mast .social{margin-top:0}
+/* дублиращите се контакти в „Последвай ни" са само за телефон */
+.fcontact{display:none}
 
 /* toast */
 .toast{position:fixed;right:22px;bottom:22px;z-index:80;background:var(--ink);color:#fff;padding:16px 21px;border-radius:var(--r-m);box-shadow:var(--sh-2);font-size:14px;display:flex;gap:11px;align-items:center;transform:translateY(16px);opacity:0;pointer-events:none;transition:.34s var(--ease)}
@@ -794,10 +803,88 @@ header.site .bar{gap:12px;min-height:72px}
 .range-wrap input[type=range]{top:0;height:44px}
 .social a{width:44px;height:44px}
 nav.main a{min-height:44px;display:flex;align-items:center}
-.flist a{min-height:44px;display:flex;align-items:center}
+/* по-стегнати редове във футъра; 34px още е над минимума 24px на WCAG 2.5.8 */
+.flist a{min-height:34px;display:flex;align-items:center}
 .f-mast .flist{gap:0}
 .f-mast .fmast-lines{gap:0}
 .f-mast .fmast-lines a{min-height:44px}
 .fopt{min-height:44px;padding:0}
 .qty button{min-width:44px;min-height:44px}
 }
+
+/* ─── Мобилни промени ───────────────────────────────────────────────────────
+   Само под 760px. Настолната версия остава непроменена. */
+@media(max-width:760px){
+
+/* 1. Лентата с трите съобщения над хедъра се пренасяше на три реда и изяждаше
+      цял екран височина преди логото. */
+.topbar{display:none}
+
+/* 2. „Категории": пет плочки в две колони оставят петата сама вляво.
+      Тя се разпъва по цялата ширина и се центрира със същата ширина. */
+.cats>:last-child:nth-child(odd){grid-column:1/-1;max-width:calc(50% - 9px);margin-inline:auto}
+
+/* 3. Продуктовите ленти („Любими", „Подбери грижа", „Подобни продукти") стават
+      хоризонтална въртележка вместо решетка. Каталогът НЕ е такъв - там
+      решетката остава, защото се преглежда цялата наведнъж. */
+.products.rail{display:flex;grid-template-columns:none;overflow-x:auto;
+scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+gap:14px;margin-inline:-18px;padding:0 18px 6px;
+scrollbar-width:none}
+.products.rail::-webkit-scrollbar{display:none}
+.products.rail>*{flex:0 0 62%;scroll-snap-align:start}
+
+/* Футър: телефонът и имейлът слизат от масткеда в колоната „Последвай ни",
+   с размера на останалите връзки вместо 17px Playfair. */
+.f-mast .fmast-lines{display:none}
+.f-mast .fmast{justify-content:flex-start}
+.fcontact{display:flex;margin-top:14px}
+
+/* 4. Instagram: три плочки в един ред вместо пет в колона - лентата беше
+      по-висока от два екрана. */
+.ig-v1 .t4,.ig-v1 .t5{display:none}
+.ig-v1 .ig-scatter{flex-direction:row;align-items:flex-start;justify-content:center;gap:10px}
+.ig-v1 .ig-tile{width:31%}
+.ig-v1 .t2{align-self:auto}
+
+}
+
+/* ─── Каталог на телефон ────────────────────────────────────────────────────
+   Само под 760px. Настолната лента с филтри отляво остава непроменена. */
+@media(max-width:760px){
+
+/* Филтрите са свити по подразбиране и се отварят с бутон до подредбата.
+   Разгънати заемаха 794px - три екрана преди първия продукт. */
+.filters{display:none}
+.filters.open{display:flex}
+.shopbar{gap:10px;flex-wrap:nowrap}
+.shopbar #count{flex:1 1 auto;min-width:0}
+.filters-toggle{display:inline-flex;flex:0 0 auto;position:relative}
+.ftcount{position:absolute;top:-6px;right:-6px;min-width:18px;height:18px;padding:0 5px;
+border-radius:var(--r-pill);background:var(--rose);color:#fff;font-size:10px;font-weight:700;
+display:grid;place-items:center;letter-spacing:0}
+.ftcount[hidden]{display:none}
+select.sortsel{flex:0 0 auto;max-width:47%;text-overflow:ellipsis}
+
+/* Броят продукти сяда на собствен ред над контролите - иначе се смачкваше
+   на два реда до бутона „Филтри". */
+.shopbar{flex-wrap:wrap}
+.shopbar #count{flex:1 0 100%;order:-1}
+
+/* В карта от 170px цената и бутонът не се събират на един ред и „29,90 €"
+   се пречупваше след числото. Долният ред минава вертикално. */
+.card .foot{flex-direction:column;align-items:stretch;gap:10px}
+.card .foot .btn{width:100%}
+.price{white-space:nowrap}
+
+/* Двете колони трябва да могат да се свият под min-content на картата.
+   С `1fr` пистите не слизаха под 194px и решетката излизаше на 405px в
+   контейнер от 354px - затова картите изглеждаха отрязани. */
+.products{grid-template-columns:repeat(2,minmax(0,1fr))}
+
+}
+
+/* `.wrap{padding:0 18px}` в мобилния блок е съкратен запис и нулира вертикалния
+   падинг на количката. Тук се задава само падингът - НЕ и колоните, за да не
+   надделее над `grid-template-columns:1fr` от адаптивните правила. */
+main.cartgrid{padding-top:36px;padding-bottom:72px}
