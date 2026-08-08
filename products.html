@@ -14,14 +14,15 @@
 <div class="topbar"><div class="wrap"><span>Безплатна доставка над 60 €</span><span>·</span><span>Оригинални японски и корейски продукти</span><span>·</span><span>Изпращаме до 48 часа</span></div></div>
 <header class="site"><div class="wrap bar">
 <a class="brand" href="index.html"><img src="assets/logo-as.png" alt="Asian Secret"><span class="wordmark"><b>ASIAN SECRET</b><span>BEAUTY FROM ASIA</span></span></a>
-<nav class="main"><a href="index.html">Начало</a><a href="products.html" class="active">Продукти</a><a href="about.html">За нас</a><a href="contact.html">Контакти</a></nav>
+<nav class="main" id="mainnav"><a href="index.html">Начало</a><a href="products.html" class="active">Продукти</a><a href="about.html">За нас</a><a href="contact.html">Контакти</a></nav>
 <div class="actions">
 <a class="icon-btn" href="https://www.instagram.com/asiansecret.bg/" target="_blank" rel="noopener" aria-label="Instagram"><i data-lucide="instagram"></i></a>
 <a class="icon-btn" href="cart.html" aria-label="Количка"><i data-lucide="shopping-bag"></i><span class="cart-count" data-cart-count hidden>0</span></a>
-<button class="icon-btn burger" aria-label="Меню"><i data-lucide="menu"></i></button>
+<button class="icon-btn burger" aria-label="Меню" aria-expanded="false" aria-controls="mainnav"><i data-lucide="menu"></i></button>
 </div>
 </div></header>
 
+<main id="content">
 <section class="page-intro petal-host" style="padding-bottom:34px"><img class="deco deco-pagetop" src="assets/deco/branch.png" alt=""><div class="wrap">
 <span class="eyebrow">Каталог</span>
 <h1 style="margin-top:10px">Всички продукти</h1>
@@ -31,7 +32,7 @@
 <section class="petal-host" style="padding-top:0"><div class="wrap shop">
 <aside class="filters">
 <div class="fsearch"><i data-lucide="search"></i><input type="search" id="q" placeholder="Търси продукт" aria-label="Търси продукт"></div>
-<div class="fgroup"><h4>Цена</h4>
+<div class="fgroup"><h2>Цена</h2>
 <div class="range-wrap">
 <span class="range-track"></span><span class="range-fill" id="rFill"></span>
 <input type="range" id="rMin" aria-label="Минимална цена">
@@ -39,14 +40,14 @@
 </div>
 <div class="range-vals"><span id="rMinVal"></span><span id="rMaxVal"></span></div>
 </div>
-<div class="fgroup"><h4>Категория</h4><div id="fCats"></div></div>
-<div class="fgroup"><h4>Нужда на кожата</h4><div id="fConcerns"></div></div>
+<div class="fgroup"><h2>Категория</h2><div id="fCats"></div></div>
+<div class="fgroup"><h2>Нужда на кожата</h2><div id="fConcerns"></div></div>
 <button class="btn btn-ghost btn-sm" id="clear">Изчисти филтрите</button>
 </aside>
 <div>
 <div class="shopbar">
 <span class="muted" id="count"></span>
-<select class="sortsel" id="sort">
+<select class="sortsel" id="sort" aria-label="Подредба на продуктите">
 <option value="pop">Подредба: препоръчани</option>
 <option value="asc">Цена: ниска → висока</option>
 <option value="desc">Цена: висока → ниска</option>
@@ -59,6 +60,8 @@
 </div>
 </div></section>
 
+</main>
+
 <footer class="site f-mast"><div class="wrap">
 <div class="fmast">
 <a class="brand" href="index.html"><img src="assets/logo-as.png" alt="Asian Secret" style="width:56px"><span class="wordmark"><b>ASIAN SECRET</b><span>BEAUTY FROM ASIA</span></span></a>
@@ -69,10 +72,10 @@
 </div>
 <div class="fsparkle"></div>
 <div class="frow">
-<div class="fcol"><h4>Магазин</h4><div class="flist"><a href="products.html">Всички продукти</a><a href="products.html?c=masks">Тъканни маски</a><a href="products.html?c=eye">Патчи за очи</a><a href="products.html?c=spf">Слънцезащита</a><a href="products.html?c=hands">Грижа за ръце</a></div></div>
-<div class="fcol"><h4>Информация</h4><div class="flist"><a href="about.html">За нас</a><a href="contact.html#delivery">Доставка и плащане</a><a href="contact.html#faq">Често задавани въпроси</a><a href="cart.html">Количка</a></div></div>
-<div class="fcol"><h4>Доставка</h4><div class="flist"><span>До офис - 3,90 &euro;</span><span>До адрес - 4,90 &euro;</span><span>Безплатно над 60 &euro;</span><span>Изпращаме до 48 часа</span></div></div>
-<div class="fcol"><h4>Последвай ни</h4>
+<div class="fcol"><h2>Магазин</h2><div class="flist"><a href="products.html">Всички продукти</a><a href="products.html?c=masks">Тъканни маски</a><a href="products.html?c=eye">Патчи за очи</a><a href="products.html?c=spf">Слънцезащита</a><a href="products.html?c=hands">Грижа за ръце</a></div></div>
+<div class="fcol"><h2>Информация</h2><div class="flist"><a href="about.html">За нас</a><a href="contact.html#delivery">Доставка и плащане</a><a href="contact.html#faq">Често задавани въпроси</a><a href="cart.html">Количка</a></div></div>
+<div class="fcol"><h2>Доставка</h2><div class="flist"><span>До офис - 3,90 &euro;</span><span>До адрес - 4,90 &euro;</span><span>Безплатно над 60 &euro;</span><span>Изпращаме до 48 часа</span></div></div>
+<div class="fcol"><h2>Последвай ни</h2>
 <div class="social"><a href="https://www.instagram.com/asiansecret.bg/" target="_blank" rel="noopener" aria-label="Instagram"><i data-lucide="instagram"></i></a><a href="mailto:zax12@abv.bg" aria-label="Имейл"><i data-lucide="mail"></i></a><a href="tel:0878141487" aria-label="Телефон"><i data-lucide="phone"></i></a></div>
 </div>
 </div>

@@ -124,6 +124,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!nav) return;
     const open = nav.style.display === 'flex';
     nav.style.display = open ? '' : 'flex';
+    /* състоянието се съобщава и на екранните четци, не само визуално */
+    burger.setAttribute('aria-expanded', open ? 'false' : 'true');
     if (!open) { nav.style.position = 'absolute'; nav.style.top = '82px'; nav.style.left = '0'; nav.style.right = '0'; nav.style.flexDirection = 'column'; nav.style.background = '#fff'; nav.style.padding = '18px 22px'; nav.style.borderBottom = '1px solid rgba(10,9,8,.12)'; nav.style.margin = '0'; }
   });
 });

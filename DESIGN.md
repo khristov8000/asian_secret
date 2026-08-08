@@ -13,12 +13,40 @@ colors:
   ink: "#141110"
   white: "#FFFFFF"
   ink-70: "rgba(20,17,16,.68)"
-  ink-45: "rgba(20,17,16,.44)"
+  ink-45: "rgba(20,17,16,.60)"
   line: "rgba(20,17,16,.10)"
   rose-line: "rgba(212,102,111,.32)"
   on-ink: "rgba(250,244,242,.82)"
-  on-ink-muted: "rgba(250,244,242,.45)"
+  on-ink-muted: "rgba(250,244,242,.55)"
 typography:
+  scale:
+    micro: "7.5px"
+    wordmark-sub: "8.5px"
+    badge: "9px"
+    tag: "9.5px"
+    spec-key: "10px"
+    filter-head: "10.5px"
+    label: "11px"
+    button-sm: "11.5px"
+    meta: "12px"
+    usp: "12.5px"
+    button: "13px"
+    nav: "13.5px"
+    body-sm: "14px"
+    answer: "14.5px"
+    input: "15px"
+    cart-line: "15.5px"
+    body: "16px"
+    lead: "17px"
+    card-title: "18px"
+    marquee: "19px"
+    wordmark: "20px"
+    brand-name: "21px"
+    title: "22px"
+    form-head: "26px"
+    pdp-price: "32px"
+    ritual-numeral: "34px"
+    story-quote: "23px"
   display:
     fontFamily: "Playfair Display, Georgia, serif"
     fontSize: "clamp(42px, 6vw, 80px)"
@@ -62,6 +90,7 @@ typography:
     lineHeight: 1.2
     letterSpacing: "normal"
 rounded:
+  xs: "2px"
   sm: "3px"
   md: "6px"
   lg: "10px"
@@ -158,7 +187,7 @@ components:
 
 The page is a porcelain surface with an ink-black weight at either end and one blossom of colour between them. Everything rests on a near-white ground (`porcelain`, #FBF9F8) that is warm rather than clinical; the header floats over it on frosted glass, the footer and the Instagram band drop to near-black, and between those two anchors the content is allowed to breathe at 88px of vertical air per section.
 
-The shrine is literal, not metaphorical decoration. Category tiles and the product-detail image are arched — fully round at the top, barely rounded at the base (`999px 999px 6px 6px`) — a torii silhouette that appears nowhere else in the system. A `✦` is the system's punctuation mark: it opens every eyebrow, sits in the centre of every divider, and rotates 45° when an FAQ opens. Brand branches, a crescent, a fan and a medallion are placed across the *seams* between sections, each motif used exactly once across the entire site, the way objects are placed at a shrine rather than repeated as a pattern. Only the small petal repeats, and its repetition is the deliberate exception.
+The shrine is literal, not metaphorical decoration. Category tiles and the product-detail image are arched — fully round at the top, barely rounded at the base (`999px 999px 6px 6px`) — a torii silhouette that appears nowhere else in the system. A `✦` is the system's punctuation mark: it opens every eyebrow, sits in the centre of every divider, and rotates 45° when an FAQ opens. Brand branches, a crescent and a medallion are placed across the *seams* between sections, the way objects are placed at a shrine rather than repeated as a pattern. Each motif keeps a fixed job rather than a single appearance: the branch marks a page's top corner, the crescent opens an ivory band, the cascade closes one, the sage crosses into a dark band. A motif recurs only in that same role.
 
 Restraint carries the retail side. Product cards have no border, no background, no shadow and no lift — the cut-out bottle or sachet floats directly on the porcelain and grows 5% on hover, which is the only thing that moves. Where the rest of the category shouts with discount stickers and star ratings, this system states the sheet count, the origin and the price in a Playfair numeral and stops. The retired gold theme kept at `assets/site-v1-gold.css` is the anti-reference: warmth without metal, ceremony without luxury cliché.
 
@@ -167,7 +196,7 @@ Restraint carries the retail side. Product cards have no border, no background, 
 - The arch (`999px 999px 6px 6px`) is the signature silhouette, reserved for category tiles and the PDP image.
 - `✦` is the recurring mark: eyebrow prefix, divider centre, FAQ toggle.
 - Product cards are frameless and shadowless; the product itself is the card.
-- Decorative motifs cross section boundaries and are each used once.
+- Decorative motifs cross section boundaries; each keeps one fixed role across the site.
 - Every motion is suppressed under `prefers-reduced-motion`.
 - Playfair Display for anything that names or prices; Manrope for everything that instructs.
 
@@ -176,7 +205,7 @@ Restraint carries the retail side. Product cards have no border, no background, 
 A warm near-monochrome — five barely-separated whites running from porcelain to blush — interrupted by a single desaturated rose and grounded by an almost-black brown-black.
 
 ### Primary
-- **Faded Camellia** (`{colors.rose}`): the one accent. It carries eyebrows, the italic word inside a headline, ring outlines, the active nav underline, the cart badge, focus borders, spec labels, and the `✦`. It is never a background for large areas — only for the 20px cart count, small filled states, and button hover.
+- **Faded Camellia** (`{colors.rose}`): the one accent. It carries the italic word inside a headline, ring outlines and icons, the active nav underline, the cart badge, focus borders, and the `✦`. It is **not** used for small uppercase text — at 3.37:1 on porcelain it fails WCAG AA below 18.66px, so eyebrows, filter headings and spec keys take `rose-deep` instead. It is never a background for large areas — only for the 20px cart count, small filled states, and button hover.
 - **Camellia Shadow** (`{colors.rose-deep}`): the pressed/darker register. Story pull-quotes, selected filter-chip text, selected variant sub-labels. Used where rose on a blush ground would be too light to read.
 
 ### Secondary
@@ -326,7 +355,19 @@ Borders are always exactly 1px and almost always `line` (10% ink). `rose-line` (
 
 ### Decorative System (signature)
 
-The brand's own motifs — branch, crescent, medallion, sage, petals, fan — sit in `assets/deco/`, pre-trimmed and pre-scaled to their display size. **Each is used exactly once across the site**, on a documented position class (`.deco-cats`, `.deco-best`, `.edge-concerns`, `.deco-foot-fan`, …), at 26–55% opacity behind a `z-index: 2` content layer. `petals.png` alone appears twice, and `sakura-petal.png` repeats as a small drifting accent — the only intentional repetition.
+The brand's own motifs sit in `assets/deco/`, pre-trimmed and pre-scaled to their display size, at 26–55% opacity behind a `z-index: 2` content layer. **Each motif holds one fixed role**, and recurs only in that role — the scarcity is in the job, not the file. Current census:
+
+| motif | role | uses |
+| --- | --- | --- |
+| `branch.png` | top corner of a page | 4 — Категории (left), interior page tops (right, mirrored) |
+| `cascade.png` | closes an ivory band, bottom | 3 — story seam, Въпроси seam, За нас hero |
+| `crescent.png` | opens an ivory band, top | 3 — Подбери грижа, Доставка, Марките |
+| `sage.png` | crosses into a dark band | 3 |
+| `sage-horizontal.png` | mirrored horizontal seam | 2 |
+| `medallion.png` | seal on the story photograph | 1 |
+| `divider.png`, `fan.png`, `petals.png`, `ring.png` | **unused** | 0 |
+
+`sakura-petal.png` is the drifting accent spawned by `spawnPetals()`; it is not part of this census. `ring.png` and `divider.png` contain gold and cannot be used without re-cutting — the palette bans it.
 
 Motifs that must cross a background seam live in a zero-height `.edge-deco` container between the two sections. Several are counter-rotated in CSS to correct the artwork's own axis (`rotate(-26deg)` for the petals, `rotate(-58deg)` for the vertical branch); when mirroring one, remember CSS applies transforms right-to-left. All decoration is hidden below 760px.
 

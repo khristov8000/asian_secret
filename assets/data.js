@@ -367,7 +367,11 @@ const TRANSPARENT_SHOTS = new Set([
   'earthful-verbena-30', 'earthful-verbena-10', 'earthful-immortelle', 'earthful-geranium',
   'mhy-spf90', 'mhy-hand-cream', 'mhy-hair-cream', 'phytocotton'
 ]);
-const imgSrc = slug => 'assets/products/' + slug + (TRANSPARENT_SHOTS.has(slug) ? '.png' : '.jpg');
+/* Продуктовите снимки се сервират като WebP - същите 1200px, но ~91% по-леки
+   (33,67 MB -> 3,01 MB за цялата папка). WebP пази прозрачността, така че
+   изрязаните снимки върху порцелан изглеждат идентично. Оригиналните .png/.jpg
+   остават в папката като мастъри и не се зареждат от никоя страница. */
+const imgSrc = slug => 'assets/products/' + slug + '.webp';
 const img = p => imgSrc(defaultVariant(p).sku);
 
 /* Продуктов лист - уводният абзац и снимките към него.
