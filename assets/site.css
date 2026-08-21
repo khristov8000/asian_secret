@@ -309,6 +309,8 @@ border-radius:var(--r-l);box-shadow:var(--sh-2)}   /* снимка = физич�
 
 /* cart */
 .cartgrid{display:grid;grid-template-columns:1.35fr .65fr;gap:48px;align-items:start;padding-top:36px}
+/* както при `.shop`: решетъчните деца иначе не слизат под min-content */
+.cartgrid>*{min-width:0}
 /* и малко въздух точно след дясната кутия - на телефон тя е последна преди футъра */
 .summary{margin-bottom:16px}
 .citem{display:grid;grid-template-columns:104px 1fr auto;gap:20px;padding:22px 0;border-bottom:1px solid var(--line);align-items:center}
@@ -321,7 +323,7 @@ border-radius:var(--r-l);box-shadow:var(--sh-2)}   /* снимка = физич�
 .srow.total{border-top:1px solid var(--line);margin-top:10px;padding-top:16px;font-size:21px;color:var(--ink);font-family:var(--font-display)}
 .field{display:flex;flex-direction:column;gap:7px;margin-bottom:16px}
 .field label{font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-45)}
-.field input,.field textarea,.field select{font-family:var(--font-ui);font-size:15px;padding:14px 16px;border:1px solid var(--line);border-radius:var(--r-m);background:var(--white);color:var(--ink);transition:border-color .22s var(--ease),box-shadow .22s var(--ease)}
+.field input,.field textarea,.field select{min-width:0;width:100%;font-family:var(--font-ui);font-size:15px;padding:14px 16px;border:1px solid var(--line);border-radius:var(--r-m);background:var(--white);color:var(--ink);transition:border-color .22s var(--ease),box-shadow .22s var(--ease)}
 .field input:focus,.field textarea:focus,.field select:focus{outline:0;border-color:var(--rose);box-shadow:0 0 0 3px rgba(212,102,111,.13)}
 .field textarea{min-height:92px;resize:vertical}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}
@@ -969,4 +971,10 @@ main.cartgrid{padding-top:36px;padding-bottom:72px}
 .brand .wordmark span{font-size:7px;letter-spacing:.18em}
 .actions{gap:4px}
 header.site .bar{gap:8px}
+}
+
+/* ── Ниво E/F: формуляри на телефон ──────────────────────────────────────── */
+@media(max-width:430px){
+/* Две полета в ред падат до ~150px - име и телефон се четат по-добре в колона. */
+.two{grid-template-columns:1fr}
 }
