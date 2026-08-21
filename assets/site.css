@@ -683,8 +683,21 @@ background:var(--ink);color:var(--sakura);font-size:13px;padding:0 14px}
 .hero-copy>*:nth-child(4){animation-delay:.28s}
 .hero-copy>*:nth-child(5){animation-delay:.36s}
 .hero-photo{animation:hero-in 1.1s var(--ease) both}
+
+/* Въвеждащата лента на вътрешните страници (количка, контакти, каталог) се
+   появява като героя на началната - иначе тези страници просто изникват
+   готови, докато „Начало" и „За нас" се разгръщат. Тук е анимация, а не
+   reveal при скрол: лентата винаги е над сгъвката, така че наблюдателят
+   няма какво да изчака. */
+.page-intro .wrap>*{animation:rise .75s var(--ease-settle) both}
+.page-intro .wrap>*:nth-child(1){animation-delay:.06s}
+.page-intro .wrap>*:nth-child(2){animation-delay:.16s}
+.page-intro .wrap>*:nth-child(3){animation-delay:.26s}
+/* Продуктовата страница няма въвеждаща лента - трохите и самата карта поемат
+   ролята, за да не влиза потребителят в неподвижен екран. */
+.pdp-crumb{animation:rise .75s var(--ease-settle) both;animation-delay:.06s}
 @keyframes hero-in{from{opacity:0;transform:scale(1.02)}to{opacity:1;transform:none}}
-@media(prefers-reduced-motion:reduce){.hero-copy>*,.hero-photo{animation:none}}
+@media(prefers-reduced-motion:reduce){.hero-copy>*,.hero-photo,.page-intro .wrap>*,.pdp-crumb{animation:none}}
 
 
 /* `.wrap{padding:0 18px}` в мобилния блок е съкратен запис и нулира вертикалния

@@ -81,9 +81,11 @@ function renderProducts(el, list) {
 /* Плавно появяване при скрол.
    Картите също се появяват, но само с просветляване - вж. `.card[data-reveal]`
    в site.css. Мащаб, рамка и сянка остават извън играта. */
-const REVEAL_SEL = '.cat,.pillar,.usp,.step,.oflow-item,.dcard,.bline,.overlay-sheet,.sec-head,' +
+const REVEAL_SEL = '.cat,.pillar,.usp,.step,.oflow-item,.dcard,.dfact,.bline,.overlay-sheet,.sec-head,' +
   '.benefits li,.faq details,.card,.val,.ig-tile,.story-art,.story-copy,.vet-art,.vet-copy,' +
-  '.contact-list a,.contact-list div,.formbox,.hero-strip .wrap>*,.blines';
+  '.contact-list a,.contact-list div,.formbox,.hero-strip .wrap>*,.blines,' +
+  /* количка: редовете, резюмето и изборът на доставка/плащане */
+  '.citem,.summary,.radio-card';
 let observer;
 /* Предпазна мрежа около IntersectionObserver. Наблюдателят се справя сам при
    нормално превъртане - това тук е застраховка за случаите, в които браузърът
@@ -127,7 +129,10 @@ function initReveal(scope) {
     el.style.setProperty('--d', Math.min(n, 5) * 80 + 'ms');
     observer.observe(el);
   });
-  queueSweep();
+  /* Два кадъра, не един: `data-reveal` тъкмо е сложен и още не е нарисуван.
+     Ако `.in` дойде в същия кадър, двете състояния се сливат и преходът изобщо
+     не тръгва - елементите над сгъвката просто изникваха готови. */
+  requestAnimationFrame(() => requestAnimationFrame(sweepReveal));
 }
 
 /* Падащи цветчета - деликатен акцент */
