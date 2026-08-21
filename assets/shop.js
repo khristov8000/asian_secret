@@ -78,22 +78,56 @@ function renderProducts(el, list) {
   initReveal(el);
 }
 
-/* Плавно появяване при скрол */
-/* Продуктовите карти нарочно не се анимират - минималистичен, спокоен вид. */
-const REVEAL_SEL = '.cat,.pillar,.usp,.step,.oflow-item,.dcard,.bline,.overlay-sheet,.sec-head,.benefits li,.faq details';
+/* Плавно появяване при скрол.
+   Картите също се появяват, но само с просветляване - вж. `.card[data-reveal]`
+   в site.css. Мащаб, рамка и сянка остават извън играта. */
+const REVEAL_SEL = '.cat,.pillar,.usp,.step,.oflow-item,.dcard,.bline,.overlay-sheet,.sec-head,' +
+  '.benefits li,.faq details,.card,.val,.ig-tile,.story-art,.story-copy,.vet-art,.vet-copy,' +
+  '.contact-list a,.contact-list div,.formbox,.hero-strip .wrap>*,.blines';
 let observer;
+/* Предпазна мрежа около IntersectionObserver. Наблюдателят се справя сам при
+   нормално превъртане - това тук е застраховка за случаите, в които браузърът
+   може да пропусне наблюдение (много бърз флик, върната от bfcache страница,
+   пренареждане при въртене на телефона). Цената е нулева: минава само през
+   още непоказаните елементи, по същия праг, веднъж на кадър. */
+let sweepQueued = false;
+function sweepReveal() {
+  sweepQueued = false;
+  const limit = innerHeight * 0.94;
+  document.querySelectorAll('[data-reveal]:not(.in)').forEach(el => {
+    if (el.getBoundingClientRect().top < limit) el.classList.add('in');
+  });
+}
+function queueSweep() {
+  if (sweepQueued) return;
+  sweepQueued = true;
+  requestAnimationFrame(sweepReveal);
+}
+
 function initReveal(scope) {
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  if (!observer) observer = new IntersectionObserver(es => {
-    es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); observer.unobserve(e.target); } });
-  }, { rootMargin: '0px 0px -8% 0px', threshold: .06 });
+  if (!observer) {
+    observer = new IntersectionObserver(es => {
+      es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); observer.unobserve(e.target); } });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: .06 });
+    addEventListener('scroll', queueSweep, { passive: true });
+    addEventListener('resize', queueSweep, { passive: true });
+  }
   const root = scope || document;
-  root.querySelectorAll(REVEAL_SEL).forEach((el, i) => {
+  /* Забавянето се брои в рамките на съседите, а не глобално: така всеки ред
+     се излива отляво надясно, вместо да се получава случаен ритъм по цялата
+     страница. Таванът е 5 стъпки - иначе последната карта в дълъг ред чака
+     цяла секунда, преди изобщо да тръгне. */
+  const seen = new Map();
+  root.querySelectorAll(REVEAL_SEL).forEach(el => {
     if (el.hasAttribute('data-reveal')) return;
     el.setAttribute('data-reveal', '');
-    el.style.transitionDelay = (i % 4) * 70 + 'ms';
+    const n = seen.get(el.parentElement) || 0;
+    seen.set(el.parentElement, n + 1);
+    el.style.setProperty('--d', Math.min(n, 5) * 80 + 'ms');
     observer.observe(el);
   });
+  queueSweep();
 }
 
 /* Падащи цветчета - деликатен акцент */

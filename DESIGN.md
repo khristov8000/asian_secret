@@ -258,10 +258,17 @@ A warm near-monochrome — five barely-separated whites running from porcelain t
 
 A single centred container of 1280px with 28px gutters, dropping to 18px under 760px. Sections run 88px of vertical padding, tightening to 58px on phones, and alternate ground colour (`porcelain` → `ivory` via `.band`) rather than using rules to separate themselves.
 
-The grids are fixed-column and step down at two breakpoints only, **1080px** and **760px**:
+The product and category grids are **intrinsically fluid**, not fixed-column.
+They reflow at every width via `auto-fill`/`auto-fit` rather than stepping at
+named breakpoints:
 
-- Products: 4 → 3 → 2 columns, with a deliberately asymmetric gap (`56px 40px`) that gives each frameless card more air below than beside it.
-- Categories: 5 → 3 → 2 columns at 18px.
+- Products: `repeat(auto-fill, minmax(min(216px,100%), 1fr))`, with a deliberately asymmetric gap (`56px 40px`, tightening to `36px 24px` at 1080px) that gives each frameless card more air below than beside it.
+- Categories: `repeat(auto-fit, minmax(min(180px,100%), 1fr))` at 18px.
+
+**216px is derived, not chosen.** To keep 4 columns in the 998px catalog
+container the track minimum must be `<= 219.5px`; to stop a 5th column appearing
+in the 1224px rail it must be `> 212.8px`. Any replacement value must satisfy
+both, or the desktop layout changes.
 - Instagram: 6 → 3 → 2 columns (the only grid with a third stop, at 560px).
 - Catalog page: a 186px sticky filter rail beside the grid, collapsing to a static full-width block on phones.
 - Product detail: `1.02fr .98fr`; cart: `1.35fr .65fr`; story: `.92fr 1.08fr` — all collapsing to one column at 1080px.
@@ -384,12 +391,15 @@ Fixed bottom-right, ink fill, 6px radius, `Float` shadow, a sakura check icon, r
 - **Do** swap `rose` for `sakura` and body text for `on-ink` on any ink-grounded surface.
 - **Do** place decoration outside the container and rely on `body { overflow-x: hidden }`, using `.edge-deco` whenever the motif must cross a seam.
 - **Do** guard every animation with `@media (prefers-reduced-motion: reduce)` — the existing code disables reveals, petals, blossoms and the hero entrance.
+- **Do** express a reveal's travel through the `--rise` custom property, never as a `transform` on the variant selector. `.card[data-reveal]{transform:…}` ties with `[data-reveal].in{transform:none}` on specificity and, sitting lower in the file, wins — leaving the element visible but permanently displaced.
 - **Do** give new interactive controls the pill radius and Manrope uppercase at 0.12em.
-- **Do** hold the two breakpoints, 1080px and 760px.
+- **Do** work in the six named tiers, not two breakpoints: A `>=1281` (desktop, frozen), B `1081-1280`, C `901-1080`, D `601-900`, E `391-600`, F `<=390`. The old two-breakpoint rule left 761-1080px unhandled, which clipped a third of the catalog behind a viewport edge that could not be scrolled to.
+- **Do** verify any layout change with a pixel-diff at 1280/1440/1920 before shipping. Tier A must come back byte-identical.
+- **Do** pin `clamp()` upper bounds so they are reached at **1200px**, not at the tier-A edge — a ramp topping out at 1281px lands on sub-pixel values and shifts desktop text.
 - **Do** clamp equivalent card fields to fixed heights so prices align across a frameless row.
 
 ### Don't:
-- **Don't** put a border, background, shadow or lift on a product card. The frameless card is the deliberate centre of the system.
+- **Don't** put a border, background, shadow or lift on a product card. The frameless card is the deliberate centre of the system. Cards *do* now fade in on scroll (`--rise:9px`, no scale) — appearance only; nothing that frames or raises the card.
 - **Don't** use the arch (`999px 999px x x`) anywhere but category tiles and the product-detail image.
 - **Don't** reintroduce gold. `assets/site-v1-gold.css` is a retired theme kept only as a backup, and the palette's warmth must come from blush and cream.
 - **Don't** add a second accent hue. Per-product `accent` colours stay confined to badges and origin chips.
