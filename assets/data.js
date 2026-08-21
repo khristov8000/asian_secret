@@ -1,7 +1,5 @@
 /* Каталог Asian Secret - текстовете са адаптирани от продуктовите оверлеи на бранда. */
-const EUR_BGN = 1.95583;
 const money = e => e.toFixed(2).replace('.', ',') + ' €';
-const moneyBgn = e => (e * EUR_BGN).toFixed(2).replace('.', ',') + ' лв.';
 
 const CATS = [
   { id: 'masks', name: 'Тъканни маски за лице', desc: 'Ежедневен ритуал за хидратация и сияние', color: '#F3A9AD' },

@@ -8,7 +8,10 @@
 --max:1280px;--ease:cubic-bezier(.22,.61,.36,1); /* @kind other */
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
+/* `overflow-x:clip` и на `html`, не само на `body`: декорът е нарочно изнесен
+   извън контейнера (виж по-долу), но клипването само върху body не спира
+   `html` да скролира — оттам идваше хоризонталният скрол на „За нас". */
+html{scroll-behavior:smooth;overflow-x:clip}
 /* `overflow-x:clip`, а не `hidden`: hidden прави от body скролируем контейнер и
    съсипва `position:sticky` на филтрите и на резюмето в количката. `clip` реже
    декора отстрани по същия начин, но не създава такъв контейнер. */
@@ -17,7 +20,7 @@ img{max-width:100%;display:block}
 h1,h2,h3,h4{font-family:var(--font-display);font-weight:500;line-height:1.08;margin:0;letter-spacing:-.02em}
 h1{font-size:clamp(42px,6vw,80px)}
 h2{font-size:clamp(30px,3.9vw,50px)}
-h3{font-size:22px;letter-spacing:-.01em}
+h3{font-size:clamp(19px,.3571vw + 17.71px,22px);letter-spacing:-.01em}
 em,.it{font-style:italic;color:var(--rose)}
 p{margin:0}
 a{color:var(--ink);text-decoration:none;transition:color .22s var(--ease)}
@@ -25,7 +28,7 @@ a:hover{color:var(--rose)}
 .wrap{max-width:var(--max);margin:0 auto;padding:0 28px}
 .eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--rose-deep);font-weight:600}
 .eyebrow::before{content:"✦";font-size:12px;letter-spacing:0}
-.lead{font-size:17px;color:var(--ink-70);max-width:58ch;text-wrap:pretty}
+.lead{font-size:clamp(15.5px,.1786vw + 14.86px,17px);color:var(--ink-70);max-width:58ch;text-wrap:pretty}
 .muted{color:var(--ink-45)}
 .rule{height:1px;background:var(--rose-line);border:0;margin:0}
 .center{text-align:center}
@@ -128,12 +131,14 @@ linear-gradient(100deg,rgba(251,237,234,0) 34%,rgba(251,240,238,.72) 54%,rgba(25
 .usp b{display:block;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase}
 .usp span{font-size:12.5px;color:var(--ink-45);line-height:1.5}
 
-section{padding:88px 0;position:relative}
+section{padding:clamp(52px,4.2857vw + 36.57px,88px) 0;position:relative}
 .sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:28px;margin-bottom:38px}
 .sec-head p{margin-top:14px}
 
 /* category tiles */
-.cats{display:grid;grid-template-columns:repeat(5,1fr);gap:18px}
+/* Решетките текат сами при всяка ширина, вместо да прескачат на два прага.
+   При контейнер 1224px това дава точно 5 плочки — както досега на десктоп. */
+.cats{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(180px,100%),1fr));gap:18px}
 .cat{position:relative;border-radius:999px 999px var(--r-m) var(--r-m);overflow:hidden;padding:30px 22px 24px;min-height:250px;display:flex;flex-direction:column;justify-content:flex-end;border:1px solid var(--line);transition:transform .4s var(--ease),border-color .4s var(--ease)}
 .cat::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.5),rgba(255,255,255,0) 55%);pointer-events:none}
 /* без сянка — само лек ход нагоре и по-топъл кант */
@@ -143,7 +148,10 @@ section{padding:88px 0;position:relative}
 .cat .cnt{position:absolute;top:22px;left:0;right:0;text-align:center;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-45);z-index:1}
 
 /* product cards */
-.products{display:grid;grid-template-columns:repeat(4,1fr);gap:56px 40px}
+/* 216px не е избрано на око: за да останат 4 колони в каталога (контейнер
+   998px) трябва min<=219.5px, а за да НЕ станат 5 в лентите (контейнер 1224px)
+   трябва min>212.8px. 216 е в средата на прозореца и пази десктопа непокътнат. */
+.products{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(216px,100%),1fr));gap:56px 40px}
 /* Прозрачни, минималистични карти — без рамка, без повдигане и зуум при hover. */
 .card{background:transparent;border:0;border-radius:0;display:flex;flex-direction:column}
 .card .shot{position:relative;aspect-ratio:1/1;display:block;background:transparent}
@@ -184,7 +192,6 @@ letter-spacing:.08em;text-transform:uppercase;margin-right:6px}
 .chip-variants{white-space:nowrap}
 
 .price{font-family:var(--font-display);font-size:22px}
-.price small{display:block;font-family:var(--font-ui);font-size:11px;color:var(--ink-45);letter-spacing:.02em}
 .chips{display:flex;gap:7px;flex-wrap:wrap}
 .chip{font-size:11px;padding:5px 11px;border-radius:var(--r-pill);border:1px solid var(--line);color:var(--ink-70);background:var(--white);letter-spacing:.02em}
 
@@ -538,7 +545,7 @@ transition:opacity .4s var(--ease),transform .4s var(--ease)}
 .val:focus-visible{box-shadow:0 0 0 2px var(--sakura)}
 @media(prefers-reduced-motion:reduce){.val,.val-copy{transition:none}}
 /* след базовите правила, за да ги надпише */
-@media(max-width:1080px){.vals{height:380px}.val{padding:22px}}
+@media(max-width:1080px){.vals{min-height:380px;height:auto}.val{padding:22px}}
 .band{background:var(--ivory);position:relative;overflow:hidden}
 .band.ink{background:var(--ink);color:rgba(250,244,242,.82)}
 .band.ink h2,.band.ink a{color:#fff}
@@ -706,8 +713,6 @@ background:var(--ink);color:var(--sakura);font-size:13px;padding:0 14px}
 .toast svg{width:18px;height:18px;stroke-width:1.6;color:var(--sakura)}
 
 @media(max-width:1080px){
-.products{grid-template-columns:repeat(3,1fr)}
-.cats{grid-template-columns:repeat(3,1fr)}
 .hero{min-height:min(80vh,700px)}
 .hero .wrap{grid-template-columns:1fr;gap:32px}
 /* по-специфичното `.hero-right .hero-copy` иначе надделява и вкарва текста
@@ -747,12 +752,6 @@ header.site .bar{gap:12px;min-height:72px}
 .products{gap:24px 14px}
 .cats{grid-template-columns:repeat(2,1fr)}
 .pillars{grid-template-columns:1fr}
-/* Разгъването е жест с мишка — на телефон панелите стоят един под друг, отворени. */
-.vals{flex-direction:column;height:auto;gap:12px}
-.val,.vals:hover .val,.vals:hover .val:hover,.vals:focus-within .val{flex:0 0 auto;min-height:230px}
-.val-copy{opacity:1;transform:none}
-.shop{grid-template-columns:1fr}
-.filters{position:static}
 .fgrid{grid-template-columns:1fr 1fr}
 .specs{grid-template-columns:1fr}
 .citem{grid-template-columns:76px 1fr;gap:14px}
@@ -849,13 +848,13 @@ scrollbar-width:none}
 
 }
 
-/* ─── Каталог на телефон ────────────────────────────────────────────────────
-   Само под 760px. Настолната лента с филтри отляво остава непроменена. */
-@media(max-width:760px){
-
-/* Филтрите са свити по подразбиране и се отварят с бутон до подредбата.
-   Разгънати заемаха 794px - три екрана преди първия продукт. */
-.filters{display:none}
+/* ─── Каталог: свити филтри ─────────────────────────────────────────────────
+   Прагът е 1080px, а не 760px. Страничната лента от 186px не се сгъваше на
+   таблет и оставяше 486px за решетката — третата колона излизаше извън екрана
+   и понеже `overflow-x:clip` не се скролира, беше недостижима. */
+@media(max-width:1080px){
+.shop{grid-template-columns:1fr}
+.filters{display:none;position:static}
 .filters.open{display:flex}
 .shopbar{gap:10px;flex-wrap:nowrap}
 .shopbar #count{flex:1 1 auto;min-width:0}
@@ -864,6 +863,14 @@ scrollbar-width:none}
 border-radius:var(--r-pill);background:var(--rose);color:#fff;font-size:10px;font-weight:700;
 display:grid;place-items:center;letter-spacing:0}
 .ftcount[hidden]{display:none}
+/* Отворените филтри на таблет се редят в няколко колони, вместо в една дълга
+   отвесна лента, която би избутала продуктите на два екрана надолу. */
+.filters.open{flex-direction:row;flex-wrap:wrap;gap:26px 40px;margin-bottom:8px}
+}
+
+/* ─── Каталог на телефон ─────────────────────────────────────────────────── */
+@media(max-width:760px){
+.filters.open{flex-direction:column;gap:22px}
 select.sortsel{flex:0 0 auto;max-width:47%;text-overflow:ellipsis}
 
 /* Броят продукти сяда на собствен ред над контролите - иначе се смачкваше
@@ -888,3 +895,55 @@ select.sortsel{flex:0 0 auto;max-width:47%;text-overflow:ellipsis}
    падинг на количката. Тук се задава само падингът - НЕ и колоните, за да не
    надделее над `grid-template-columns:1fr` от адаптивните правила. */
 main.cartgrid{padding-top:36px;padding-bottom:72px}
+
+
+/* ═══ Адаптивни нива ════════════════════════════════════════════════════════
+   Шест нива вместо два прага. Подредени от голямо към малко, за да е ясен
+   редът на надписване. Ниво A (>=1281px) е настолната версия и НЕ се пипа —
+   нито едно правило тук не важи за нея.
+
+     A  >=1281   десктоп — замразен
+     B  1081-1280 широк лаптоп
+     C  901-1080  лаптоп / таблет легнал
+     D  601-900   таблет изправен
+     E  391-600   телефон
+     F  <=390     малък телефон
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Ниво C+D: таблет ────────────────────────────────────────────────────── */
+@media(max-width:1080px){
+/* По-стегната фуга, за да се събират 3 колони от 216px на 768px вместо 2 от 336. */
+.products{gap:36px 24px}
+.cats{gap:14px}
+/* Стойностите се разкриват на допир: на таблет и телефон няма hover, а с
+   „Ефективни формули" и „Честен състав" скрити картите оставаха безсмислени.
+   Щом и трите текста се четат, редът не ги побира — панелите слизат в колона
+   (иначе „Натурални съставки" преливаше 8px извън екрана на 768px). */
+.vals{flex-direction:column;height:auto;gap:12px}
+.val,.vals:hover .val,.vals:hover .val:hover,.vals:focus-within .val{flex:0 0 auto;min-height:230px}
+.vals .val-copy{opacity:1;transform:none}
+}
+
+/* На всяко устройство без истински hover — включително таблети с мишка изключена. */
+@media(hover:none){
+.vals .val-copy{opacity:1;transform:none}
+}
+
+/* ── Ниво D: таблет изправен ─────────────────────────────────────────────── */
+@media(max-width:900px){
+.sec-head{flex-wrap:wrap;gap:16px}
+.shopbar{flex-wrap:wrap}
+}
+
+/* ── Ниво F: малък телефон ───────────────────────────────────────────────── */
+@media(max-width:390px){
+/* На 360px логото и трите бутона се събираха на 361px — бургерът опираше
+   в ръба. Марката отстъпва, за да остане ръб от порядъка на 12px. */
+.wrap{padding:0 14px}
+.brand{gap:8px}
+.brand img{width:34px}
+.brand .wordmark b{font-size:13.5px;letter-spacing:.1em}
+.brand .wordmark span{font-size:7px;letter-spacing:.18em}
+.actions{gap:4px}
+header.site .bar{gap:8px}
+}

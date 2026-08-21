@@ -68,7 +68,6 @@
 <div class="srow"><span>Междинна сума</span><span id="sub">0,00 €</span></div>
 <div class="srow"><span>Доставка</span><span id="ship">3,90 €</span></div>
 <div class="srow total"><span>Общо</span><span id="total">0,00 €</span></div>
-<p class="muted" style="font-size:12px;margin-top:6px" id="bgnTotal"></p>
 <button class="btn btn-primary btn-block" style="margin-top:18px" id="submit" form="checkout"><i data-lucide="check"></i>Завърши поръчката</button>
 <p class="muted" style="font-size:12px;margin-top:12px;text-align:center">Поръчката се изпраща на zax12@abv.bg</p>
 <p class="muted" style="font-size:12.5px;margin-top:16px;padding-top:16px;border-top:1px solid var(--line)">Безплатна доставка при поръчка над 40 €.</p>
@@ -149,7 +148,6 @@ function paint() {
   document.getElementById('sub').textContent = money(sub);
   shipEl.textContent = ship === 0 ? 'Безплатна' : money(ship);
   document.getElementById('total').textContent = money(sub + ship);
-  document.getElementById('bgnTotal').textContent = moneyBgn(sub + ship) + ' (по фиксиран курс 1,95583)';
   if (window.lucide) lucide.createIcons();
 }
 
@@ -202,7 +200,7 @@ document.getElementById('checkout').addEventListener('submit', async e => {
     'Плащане': f.querySelector('[name="Плащане"]:checked').value,
     'Продукти': items.join('\n'),
     'Междинна сума': money(sub), 'Цена доставка': ship === 0 ? 'Безплатна' : money(ship),
-    'Общо': money(sub + ship) + ' / ' + moneyBgn(sub + ship),
+    'Общо': money(sub + ship),
     'Бележка': f.note.value
   };
   let sent = false;

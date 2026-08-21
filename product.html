@@ -105,7 +105,7 @@ document.getElementById('pdp').innerHTML = `
 <div class="spec"><b>Произход</b><span>${p.specs.origin}</span></div>
 </div>
 ${variantHTML()}
-<div style="display:flex;align-items:baseline;gap:14px"><span class="price" id="price">${money(variant.price)}</span><span class="muted" id="priceBgn">${moneyBgn(variant.price)}</span></div>
+<div style="display:flex;align-items:baseline;gap:14px"><span class="price" id="price">${money(variant.price)}</span></div>
 <div class="buyrow">
 <span class="qty"><button id="minus" aria-label="По-малко">−</button><span id="q">1</span><button id="plus" aria-label="Повече">+</button></span>
 <button class="btn btn-primary" id="add"><i data-lucide="shopping-bag"></i>Добави в количката</button>
@@ -144,7 +144,6 @@ if (vopts) vopts.addEventListener('click', e => {
   variant = VARIANTS.find(v => v.sku === b.dataset.sku);
   vopts.querySelectorAll('.vopt').forEach(o => o.classList.toggle('on', o.dataset.sku === variant.sku));
   document.getElementById('price').textContent = money(variant.price);
-  document.getElementById('priceBgn').textContent = moneyBgn(variant.price);
   document.getElementById('specCount').textContent = variant.count;
   document.getElementById('mainImg').src = imgSrc(variant.sku);
 });

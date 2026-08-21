@@ -53,8 +53,8 @@ function cardHTML(p) {
   /* При няколко опаковки показваме „от <най-ниската цена>" и размерите,
      а бутонът води към продуктовата страница, за да се избере опаковка. */
   const priceHTML = multi
-    ? `<span class="price"><small class="from">от</small>${money(from)}<small>${moneyBgn(from)}</small></span>`
-    : `<span class="price">${money(p.price)}<small>${moneyBgn(p.price)}</small></span>`;
+    ? `<span class="price"><small class="from">от</small>${money(from)}</span>`
+    : `<span class="price">${money(p.price)}</span>`;
   const sizeChip = multi
     ? `<span class="chip chip-variants">${vs.map(v => v.size).join(' · ')}</span>`
     : `<span class="chip">${p.size}</span>`;
