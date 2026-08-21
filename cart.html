@@ -12,7 +12,7 @@
 <style>.steps{display:flex;gap:10px;align-items:center;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-45);margin-bottom:8px}.steps b{color:var(--ink)}.done{max-width:640px;margin:0 auto;text-align:center;background:var(--white);border:1px solid var(--line);border-radius:var(--r-l);padding:52px 40px;box-shadow:var(--sh-1)}.done .ring{width:64px;height:64px;border-radius:50%;border:1px solid var(--rose-line);color:var(--rose);display:grid;place-items:center;margin:0 auto 22px}.done .ring svg{width:26px;height:26px;stroke-width:1.3}.orderno{font-family:var(--font-display);font-size:22px;margin-top:6px}</style>
 </head>
 <body>
-<div class="topbar"><div class="wrap"><span>Безплатна доставка над 60 €</span><span>·</span><span>Оригинални японски и корейски продукти</span><span>·</span><span>Изпращаме до 48 часа</span></div></div>
+<div class="topbar"><div class="wrap"><span>Безплатна доставка над 40 €</span><span>·</span><span>Оригинални японски и корейски продукти</span><span>·</span><span>Изпращаме до 48 часа</span></div></div>
 <header class="site"><div class="wrap bar">
 <a class="brand" href="index.html"><img src="assets/logo-as.png" alt="Asian Secret"><span class="wordmark"><b>ASIAN SECRET</b><span>BEAUTY FROM ASIA</span></span></a>
 <nav class="main" id="mainnav"><a href="index.html">Начало</a><a href="products.html">Продукти</a><a href="about.html">За нас</a><a href="contact.html">Контакти</a></nav>
@@ -48,11 +48,10 @@
 <div class="field"><label for="city">Град / село</label><input id="city" name="Град" required placeholder="София"></div>
 <div class="field"><label for="zip">Пощенски код</label><input id="zip" name="Пощенски код" placeholder="1000"></div>
 </div>
-<div class="field"><label for="addr">Адрес или офис на куриер</label><input id="addr" name="Адрес" required placeholder="ул. Витоша 15, ет. 3 / Офис Еконт Център"></div>
-
 <h3 style="margin:28px 0 14px">Доставка</h3>
-<label class="radio-card"><input type="radio" name="Доставка" value="До офис на куриер - 3,90 €" checked data-ship="3.90"><span><b>До офис на куриер</b><span>Еконт или Спиди · 1-3 работни дни · 3,90 €</span></span></label>
-<label class="radio-card"><input type="radio" name="Доставка" value="До адрес - 4,90 €" data-ship="4.90"><span><b>До адрес</b><span>Куриер до врата · 1-3 работни дни · 4,90 €</span></span></label>
+<label class="radio-card"><input type="radio" name="Доставка" value="До офис на Спиди - 3,90 €" checked data-ship="3.90" data-mode="office"><span><b>До офис на Спиди</b><span>Спиди · 1-3 работни дни · 3,90 €</span></span></label>
+<label class="radio-card"><input type="radio" name="Доставка" value="До адрес със Спиди - 3,90 €" data-ship="3.90" data-mode="address"><span><b>До адрес</b><span>Куриер Спиди до врата · 1-3 работни дни · 3,90 €</span></span></label>
+<div class="field" style="margin-top:16px"><label for="addr" id="addrLabel">Офис на Спиди</label><input id="addr" name="Адрес" required placeholder="Например: Спиди офис Витоша, ул. Витоша 15"><span class="muted" style="font-size:12.5px;margin-top:6px;display:block" id="addrHint">Напишете кой офис на Спиди да получи пратката.</span></div>
 
 <h3 style="margin:28px 0 14px">Плащане</h3>
 <label class="radio-card"><input type="radio" name="Плащане" value="Наложен платеж" checked><span><b>Наложен платеж</b><span>Плащате при получаване на пратката</span></span></label>
@@ -72,7 +71,7 @@
 <p class="muted" style="font-size:12px;margin-top:6px" id="bgnTotal"></p>
 <button class="btn btn-primary btn-block" style="margin-top:18px" id="submit" form="checkout"><i data-lucide="check"></i>Завърши поръчката</button>
 <p class="muted" style="font-size:12px;margin-top:12px;text-align:center">Поръчката се изпраща на zax12@abv.bg</p>
-<p class="muted" style="font-size:12.5px;margin-top:16px;padding-top:16px;border-top:1px solid var(--line)">Безплатна доставка при поръчка над 60 €.</p>
+<p class="muted" style="font-size:12.5px;margin-top:16px;padding-top:16px;border-top:1px solid var(--line)">Безплатна доставка при поръчка над 40 €.</p>
 </aside>
 </main>
 
@@ -99,7 +98,7 @@
 <div class="frow">
 <div class="fcol"><h2>Магазин</h2><div class="flist"><a href="products.html">Всички продукти</a><a href="products.html?c=masks">Тъканни маски</a><a href="products.html?c=eye">Патчи за очи</a><a href="products.html?c=spf">Слънцезащита</a><a href="products.html?c=hands">Грижа за ръце</a></div></div>
 <div class="fcol"><h2>Информация</h2><div class="flist"><a href="about.html">За нас</a><a href="contact.html#delivery">Доставка и плащане</a><a href="contact.html#faq">Често задавани въпроси</a><a href="cart.html">Количка</a></div></div>
-<div class="fcol"><h2>Доставка</h2><div class="flist"><span>До офис - 3,90 &euro;</span><span>До адрес - 4,90 &euro;</span><span>Безплатно над 60 &euro;</span><span>Изпращаме до 48 часа</span></div></div>
+<div class="fcol"><h2>Доставка</h2><div class="flist"><span>До офис - 3,90 &euro;</span><span>До адрес - 3,90 &euro;</span><span>Безплатно над 40 &euro;</span><span>Изпращаме до 48 часа</span></div></div>
 <div class="fcol"><h2>Последвай ни</h2>
 <div class="social"><a href="https://www.instagram.com/asiansecret.bg/" target="_blank" rel="noopener" aria-label="Instagram"><i data-lucide="instagram"></i></a><a href="mailto:zax12@abv.bg" aria-label="Имейл"><i data-lucide="mail"></i></a><a href="tel:0878141487" aria-label="Телефон"><i data-lucide="phone"></i></a></div>
 <div class="flist fcontact"><a href="tel:0878141487">0878 141 487</a><a href="mailto:zax12@abv.bg">zax12@abv.bg</a></div>
@@ -163,7 +162,23 @@ document.getElementById('items').addEventListener('click', e => {
     paint();
   }
 });
-document.querySelectorAll('[data-ship]').forEach(r => r.addEventListener('change', paint));
+const addrLabel = document.getElementById('addrLabel');
+const addrInput = document.getElementById('addr');
+const addrHint = document.getElementById('addrHint');
+const ADDR_COPY = {
+  office: { label: 'Офис на Спиди', ph: 'Например: Спиди офис Витоша, ул. Витоша 15', hint: 'Напишете кой офис на Спиди да получи пратката.' },
+  address: { label: 'Адрес за доставка', ph: 'Например: ул. Витоша 15, вх. Б, ет. 3, ап. 7', hint: 'Напишете точния адрес, на който куриерът да достави пратката.' }
+};
+
+function paintAddr() {
+  const r = document.querySelector('[data-mode]:checked');
+  const c = ADDR_COPY[r ? r.dataset.mode : 'office'];
+  addrLabel.textContent = c.label;
+  addrInput.placeholder = c.ph;
+  addrHint.textContent = c.hint;
+}
+
+document.querySelectorAll('[data-ship]').forEach(r => r.addEventListener('change', () => { paint(); paintAddr(); }));
 
 document.getElementById('checkout').addEventListener('submit', async e => {
   e.preventDefault();
@@ -180,7 +195,9 @@ document.getElementById('checkout').addEventListener('submit', async e => {
     _subject: 'Нова поръчка ' + no + ' от asiansecret.bg',
     'Номер на поръчка': no,
     'Име': f.name.value, 'Телефон': f.phone.value, 'Имейл': f.email.value,
-    'Град': f.city.value, 'Пощенски код': f.zip.value, 'Адрес': f.addr.value,
+    'Град': f.city.value, 'Пощенски код': f.zip.value,
+    'Адрес / офис': f.addr.value,
+    'Куриер': 'Спиди',
     'Доставка': f.querySelector('[name="Доставка"]:checked').value,
     'Плащане': f.querySelector('[name="Плащане"]:checked').value,
     'Продукти': items.join('\n'),
@@ -216,6 +233,7 @@ document.getElementById('checkout').addEventListener('submit', async e => {
 });
 
 paint();
+paintAddr();
 </script>
 </body>
 </html>

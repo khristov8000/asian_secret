@@ -1,7 +1,7 @@
 /* Кошница, рендиране на продукти и общи взаимодействия */
 const CART_KEY = 'as_cart_v1';
-const SHIPPING_FLAT = 4.90;
-const FREE_SHIPPING = 60;
+const SHIPPING_FLAT = 3.90;
+const FREE_SHIPPING = 40;
 
 const cartRead = () => { try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; } catch (e) { return []; } };
 const cartWrite = items => { localStorage.setItem(CART_KEY, JSON.stringify(items)); paintCount(); };
