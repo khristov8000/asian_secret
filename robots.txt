@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+
+# Служебни страници и работни папки - няма смисъл да се обхождат
+Disallow: /cart.html
+Disallow: /product.html
+Disallow: /tmp/
+Disallow: /output/
+Disallow: /images/
+Disallow: /product_images/
+Disallow: /docs/
+Disallow: /tools/
+
+Sitemap: https://asiansecret.bg/sitemap.xml

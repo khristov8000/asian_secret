@@ -59,13 +59,13 @@ function cardHTML(p) {
     ? `<span class="chip chip-variants">${vs.map(v => v.size).join(' · ')}</span>`
     : `<span class="chip">${p.size}</span>`;
   const action = multi
-    ? `<a class="btn btn-primary btn-sm" href="product.html?p=${p.slug}"><i data-lucide="sliders-horizontal"></i>Избери</a>`
+    ? `<a class="btn btn-primary btn-sm" href="/produkt/${p.slug}/"><i data-lucide="sliders-horizontal"></i>Избери</a>`
     : `<button class="btn btn-primary btn-sm" data-add="${defaultVariant(p).sku}"><i data-lucide="shopping-bag"></i>Купи</button>`;
   return `<article class="card">
-<a class="shot" href="product.html?p=${p.slug}"><img src="${imgSrc(defaultVariant(p).sku)}" alt="${p.brand} ${p.name}" loading="lazy"><span class="tags">${tags}</span></a>
+<a class="shot" href="/produkt/${p.slug}/"><img src="${imgSrc(defaultVariant(p).sku)}" alt="${p.brand} ${p.name}" loading="lazy"><span class="tags">${tags}</span></a>
 <div class="body">
 <span class="brandline">${p.brand}</span>
-<h3><a href="product.html?p=${p.slug}">${p.name}</a></h3>
+<h3><a href="/produkt/${p.slug}/">${p.name}</a></h3>
 <p class="benefit">${p.short}</p>
 <div class="chips">${sizeChip}<span class="chip" style="border-color:${p.accent}66;color:${p.accent}">${p.specs.origin}</span></div>
 <div class="foot">${priceHTML}${action}</div>
@@ -140,7 +140,7 @@ function spawnPetals(host, count = 6) {
   if (!host || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   for (let i = 0; i < count; i++) {
     const p = document.createElement('img');
-    p.src = 'assets/sakura-petal.png';
+    p.src = '/assets/sakura-petal.png';
     p.alt = '';
     p.className = 'petal';
     p.style.cssText = `left:${6 + Math.random() * 88}%;top:-8%;width:${14 + Math.random() * 16}px;opacity:0;z-index:1;animation:drift ${16 + Math.random() * 12}s linear ${Math.random() * 14}s infinite`;
