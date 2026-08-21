@@ -368,12 +368,6 @@ line-height:1.42;color:var(--rose-deep);padding-left:20px;border-left:1px solid 
 .principles .pn{grid-row:1/3;font-family:var(--font-display);font-size:15px;color:var(--sakura);padding-top:2px}
 .principles b{font-size:12.5px;letter-spacing:.1em;text-transform:uppercase}
 .principles li>span:last-child{font-size:13.5px;color:var(--ink-70);line-height:1.5;margin-top:3px}
-@media(max-width:1080px){
-.story-grid{grid-template-columns:1fr;gap:44px}
-.story-art{max-width:460px;margin-inline:auto;width:100%}
-}
-/* На телефон медальонът излизаше извън екрана и се режеше от overflow:hidden. */
-@media(max-width:760px){.story-seal{left:-12px;width:88px}}
 
 /* ——— брандови декоративни детайли (assets/deco) ———
    Всеки елемент се ползва по веднъж, за да не се повтаря един и същ мотив. */
@@ -447,30 +441,11 @@ animation:float-y 8s var(--ease) infinite}
 .edge-vals .deco-edge{left:-40px;right:auto;top:-96px;width:290px;opacity:.5;transform:rotate(6deg)}
 .edge-vals-bottom{z-index:1}
 .edge-vals-bottom .deco-edge{right:-56px;left:auto;top:-64px;width:380px;opacity:.5;transform:scaleX(-1) rotate(-5deg)}
-/* Под ~1360 px обвивката вече не е центрирана с полета, затова отрицателният
-   right излиза извън екрана. Завъртането разширява bounding box-а с още ~8 px,
-   затова отстъпът е 12 px, а не 0. */
-@media(max-width:1360px){.edge-deco .deco-edge{right:12px}}
 
 /* същата причина като при body — секцията пази клипването на декора, но вече
    не е скролируем контейнер, за да работи sticky вътре в нея */
 .petal-host,section{position:relative;overflow:clip}
 .petal-host .wrap{position:relative;z-index:2}
-@media(max-width:1080px){
-.deco-cats{width:220px}.deco-pagetop{width:220px}
-.edge-concerns .deco-edge{width:230px;top:-52px}
-.edge-concerns-bottom .deco-edge{width:210px;top:-70px}
-.edge-faq .deco-edge{width:210px;top:-70px}
-.edge-ig .deco-edge{width:210px;top:-70px}
-.edge-psheet .deco-edge{width:210px;top:-70px}
-.edge-psheet-bottom .deco-edge{width:280px;top:-48px}
-.edge-vals .deco-edge{width:210px;top:-70px}
-.edge-vals-bottom .deco-edge{width:280px;top:-50px}
-.edge-brands .deco-edge{width:230px;top:-52px}
-.edge-brands-bottom .deco-edge{width:210px;top:-70px}
-.petal-accent{display:none}
-}
-@media(max-width:760px){.deco,.edge-deco{display:none}}
 /* Марките: регистър с косъм между редовете вместо решетка от еднакви карти.
    „Един стандарт" се чете като списък с общо мерило, не като шест кутии. */
 .blines{border-top:1px solid var(--line)}
@@ -488,14 +463,6 @@ transition:color .22s var(--ease)}
 .bline-chip{font-size:11px;color:var(--ink-70);background:var(--white);border:1px solid var(--line);
 border-radius:var(--r-pill);padding:5px 11px}
 .bline-count{font-size:11px;color:var(--ink-45);letter-spacing:.1em;text-transform:uppercase}
-@media(max-width:1080px){
-.bline{grid-template-columns:1fr auto;gap:8px 20px;align-items:center}
-.bline p{grid-column:1/-1;max-width:66ch}
-}
-@media(max-width:760px){
-.bline{grid-template-columns:1fr;padding:20px 2px;align-items:start}
-.bline-meta{justify-self:start;margin-top:4px}
-}
 
 /* „Как избираме" — текст вляво, двойка снимки вдясно (story секцията на
    началната страница е обратната подредба, за да не се повтарят). */
@@ -519,15 +486,6 @@ color:var(--rose);display:grid;place-items:center;background:var(--white)}
 .vet-list svg{width:15px;height:15px;stroke-width:1.4}
 .vet-list b{display:block;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase}
 .vet-list span{font-size:13px;color:var(--ink-45);line-height:1.5}
-@media(max-width:1080px){
-.vet-grid{grid-template-columns:1fr;gap:44px}
-.vet-art{max-width:440px;justify-self:start}
-}
-@media(max-width:760px){
-.vet-art{padding-bottom:0;padding-left:0}
-.vet-sub{position:static;width:58%;margin-top:-46px;margin-left:auto;margin-right:0}
-.vet-list{grid-template-columns:1fr;gap:14px}
-}
 
 .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
 .pillar{background:var(--white);border:1px solid var(--line);border-radius:var(--r-l);padding:30px}
@@ -569,8 +527,6 @@ transition:opacity .4s var(--ease),transform .4s var(--ease)}
 .vals:not(:hover):not(:focus-within) .val:first-child .val-copy{opacity:1;transform:none}
 .val:focus-visible{box-shadow:0 0 0 2px var(--sakura)}
 @media(prefers-reduced-motion:reduce){.val,.val-copy{transition:none}}
-/* след базовите правила, за да ги надпише */
-@media(max-width:1080px){.vals{min-height:380px;height:auto}.val{padding:22px}}
 .band{background:var(--ivory);position:relative;overflow:hidden}
 .band.ink{background:var(--ink);color:rgba(250,244,242,.82)}
 .band.ink h2,.band.ink a{color:#fff}
@@ -609,22 +565,6 @@ box-shadow:var(--sh-2)}                     /* снимка = физически
 /* t5 слиза от горния към долния ред, за да не се редят три в една линия */
 .ig-v1 .t5{left:56%;top:16%;width:31%;transform:rotate(-6deg)}
 
-@media(max-width:1080px){
-.ig-v1 .ig-wrap{grid-template-columns:1fr;gap:40px}
-.ig-v1 .ig-scatter{aspect-ratio:1.3/1;max-width:620px}
-}
-/* Под 760 px разпръскването не работи — снимките се редят в изместена колона. */
-@media(max-width:760px){
-.ig-v1 .ig-scatter{position:relative;inset:auto;aspect-ratio:auto;max-width:none;
-display:flex;flex-direction:column;gap:16px}
-.ig-v1 .ig-tile{position:static;width:76%}
-.ig-v1 .t2,.ig-v1 .t4{align-self:flex-end}
-.ig-v1 .t1{transform:rotate(-2deg)}
-.ig-v1 .t2{transform:rotate(2deg)}
-.ig-v1 .t3{transform:rotate(-1.5deg)}
-.ig-v1 .t4{transform:rotate(1.5deg)}
-.ig-v1 .t5{transform:rotate(-2.5deg)}
-}
 @media(prefers-reduced-motion:reduce){.ig-tile img{transition:none}}
 
 .contact-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:start}
@@ -670,20 +610,6 @@ display:flex;flex-direction:column;gap:16px}
 .dfact ul{margin:0;padding:0}
 .dfact li span{color:var(--ink);font-variant-numeric:tabular-nums}
 
-@media(max-width:1080px){
-/* Вертикална стъпаловидна лента — линията минава през центъра на кръговете. */
-.oflow,.oflow-4{grid-template-columns:1fr;row-gap:34px}
-.oflow-4 .oflow-item{padding-right:0}
-.oflow-4 .oflow-item+.oflow-item{padding-left:0}
-.oflow-4 .oflow-item+.oflow-item::before{left:23px;width:1px}
-.oflow-4 .oflow-item+.oflow-item::after{left:23px}
-.oflow-item{padding:0}
-.oflow-item+.oflow-item{padding-left:0}
-.oflow-item+.oflow-item::before{left:23px;top:-34px;width:1px;height:23px}
-.oflow-item+.oflow-item::after{left:23px;top:-23px}
-.delivery-facts{grid-template-columns:1fr}
-.dfact+.dfact{border-left:0;border-top:1px solid var(--line)}
-}
 
 .faq{border-top:1px solid var(--line)}
 .faq details{border-bottom:1px solid var(--line);padding:20px 0}
@@ -737,6 +663,126 @@ background:var(--ink);color:var(--sakura);font-size:13px;padding:0 14px}
 .toast.on{transform:none;opacity:1}
 .toast svg{width:18px;height:18px;stroke-width:1.6;color:var(--sakura)}
 
+
+.page-intro{background:radial-gradient(92% 130% at 94% -14%,var(--blush-2) 0%,rgba(246,220,216,0) 60%),linear-gradient(180deg,#fff,var(--porcelain));overflow:hidden}
+/* Клонката горе вдясно на вътрешните страници е `deco/cascade.png` — същият
+   мотив като долу вляво на „Според нуждите", огледален да пада от десния ъгъл.
+   Люлеенето е на самостоятелното свойство `translate`, а не на `transform`,
+   за да не изтрие огледалото (и то да остане при prefers-reduced-motion). */
+@keyframes float-t{0%,100%{translate:0 0}50%{translate:0 -7px}}
+/* CSS чете трансформациите отдясно наляво: първо огледалото, после завъртането
+   на 90° надясно — така клонката се завърта по часовниковата стрелка на екрана. */
+.page-bloom{right:-30px;top:-34px;width:186px;opacity:.58;transform:rotate(90deg) scaleX(-1);animation-name:float-t}
+
+@keyframes rise{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
+@keyframes rise-tilt{from{opacity:0;transform:translateY(22px) rotate(-5deg)}to{opacity:1;transform:rotate(-5deg)}}
+.hero-copy>*{animation:rise .7s var(--ease) both}
+.hero-copy>*:nth-child(1){animation-delay:.04s}
+.hero-copy>*:nth-child(2){animation-delay:.12s}
+.hero-copy>*:nth-child(3){animation-delay:.2s}
+.hero-copy>*:nth-child(4){animation-delay:.28s}
+.hero-copy>*:nth-child(5){animation-delay:.36s}
+.hero-photo{animation:hero-in 1.1s var(--ease) both}
+@keyframes hero-in{from{opacity:0;transform:scale(1.02)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.hero-copy>*,.hero-photo{animation:none}}
+
+
+/* `.wrap{padding:0 18px}` в мобилния блок е съкратен запис и нулира вертикалния
+   падинг на количката. Тук се задава само падингът - НЕ и колоните, за да не
+   надделее над `grid-template-columns:1fr` от адаптивните правила. */
+main.cartgrid{padding-top:36px;padding-bottom:72px}
+
+
+/* ═══ Адаптивни нива ════════════════════════════════════════════════════════
+   Шест нива вместо два прага. Подредени от голямо към малко, за да е ясен
+   редът на надписване. Ниво A (>=1281px) е настолната версия и НЕ се пипа —
+   нито едно правило тук не важи за нея.
+
+     A  >=1281   десктоп — замразен
+     B  1081-1280 широк лаптоп
+     C  901-1080  лаптоп / таблет легнал
+     D  601-900   таблет изправен
+     E  391-600   телефон
+     F  <=390     малък телефон
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+
+/* ╔═══════════════════════════════════════╗
+   ║  АДАПТИВНИ НИВА - всички прагове са събрани тук и само тук  ║
+   ╚═══════════════════════════════════════╝
+   Подредени от голяма към малка ширина, за да е видим редът на надписване.
+   Ниво A (>=1281px) е настолната версия - тя няма блок, защото нищо
+   тук не я засяга. Всяко ново правило за праг влиза тук, а НЕ до компонента:
+   разпръснатите @media бяха причината 761-1080px да остане непокрит.
+
+     A  >=1281    десктоп - замразен, проверява се с пиксел-диф
+     B  1081-1280 широк лаптоп
+     C  901-1080  лаптоп / таблет легнал
+     D  601-900   таблет изправен
+     E  391-760   телефон
+     F  <=390     малък телефон
+
+
+/* ── Ниво B - широк лаптоп ───────────────────────────────────── */
+/* Под ~1360 px обвивката вече не е центрирана с полета, затова отрицателният
+   right излиза извън екрана. Завъртането разширява bounding box-а с още ~8 px,
+   затова отстъпът е 12 px, а не 0. */
+@media(max-width:1360px){.edge-deco .deco-edge{right:12px}}
+
+/* ── Ниво C+D - лаптоп и таблет ──────────────────────────────── */
+@media(max-width:1080px){
+.story-grid{grid-template-columns:1fr;gap:44px}
+.story-art{max-width:460px;margin-inline:auto;width:100%}
+}
+
+@media(max-width:1080px){
+.deco-cats{width:220px}.deco-pagetop{width:220px}
+.edge-concerns .deco-edge{width:230px;top:-52px}
+.edge-concerns-bottom .deco-edge{width:210px;top:-70px}
+.edge-faq .deco-edge{width:210px;top:-70px}
+.edge-ig .deco-edge{width:210px;top:-70px}
+.edge-psheet .deco-edge{width:210px;top:-70px}
+.edge-psheet-bottom .deco-edge{width:280px;top:-48px}
+.edge-vals .deco-edge{width:210px;top:-70px}
+.edge-vals-bottom .deco-edge{width:280px;top:-50px}
+.edge-brands .deco-edge{width:230px;top:-52px}
+.edge-brands-bottom .deco-edge{width:210px;top:-70px}
+.petal-accent{display:none}
+}
+
+@media(max-width:1080px){
+.bline{grid-template-columns:1fr auto;gap:8px 20px;align-items:center}
+.bline p{grid-column:1/-1;max-width:66ch}
+}
+
+@media(max-width:1080px){
+.vet-grid{grid-template-columns:1fr;gap:44px}
+.vet-art{max-width:440px;justify-self:start}
+}
+
+/* след базовите правила, за да ги надпише */
+@media(max-width:1080px){.vals{min-height:380px;height:auto}.val{padding:22px}}
+
+@media(max-width:1080px){
+.ig-v1 .ig-wrap{grid-template-columns:1fr;gap:40px}
+.ig-v1 .ig-scatter{aspect-ratio:1.3/1;max-width:620px}
+}
+
+@media(max-width:1080px){
+/* Вертикална стъпаловидна лента — линията минава през центъра на кръговете. */
+.oflow,.oflow-4{grid-template-columns:1fr;row-gap:34px}
+.oflow-4 .oflow-item{padding-right:0}
+.oflow-4 .oflow-item+.oflow-item{padding-left:0}
+.oflow-4 .oflow-item+.oflow-item::before{left:23px;width:1px}
+.oflow-4 .oflow-item+.oflow-item::after{left:23px}
+.oflow-item{padding:0}
+.oflow-item+.oflow-item{padding-left:0}
+.oflow-item+.oflow-item::before{left:23px;top:-34px;width:1px;height:23px}
+.oflow-item+.oflow-item::after{left:23px;top:-23px}
+.delivery-facts{grid-template-columns:1fr}
+.dfact+.dfact{border-left:0;border-top:1px solid var(--line)}
+}
+
 @media(max-width:1080px){
 .hero{min-height:min(80vh,700px)}
 .hero .wrap{grid-template-columns:1fr;gap:32px}
@@ -761,6 +807,78 @@ background:var(--ink);color:var(--sakura);font-size:13px;padding:0 14px}
 .summary{position:static}
 .hero-strip .wrap{grid-template-columns:repeat(2,1fr)}
 }
+
+/* ─── Каталог: свити филтри ─────────────────────────────────────────────────
+   Прагът е 1080px, а не 760px. Страничната лента от 186px не се сгъваше на
+   таблет и оставяше 486px за решетката — третата колона излизаше извън екрана
+   и понеже `overflow-x:clip` не се скролира, беше недостижима. */
+@media(max-width:1080px){
+.shop{grid-template-columns:1fr}
+.filters{display:none;position:static}
+.filters.open{display:flex}
+.shopbar{gap:10px;flex-wrap:nowrap}
+.shopbar #count{flex:1 1 auto;min-width:0}
+.filters-toggle{display:inline-flex;flex:0 0 auto;position:relative}
+.ftcount{position:absolute;top:-6px;right:-6px;min-width:18px;height:18px;padding:0 5px;
+border-radius:var(--r-pill);background:var(--rose);color:#fff;font-size:10px;font-weight:700;
+display:grid;place-items:center;letter-spacing:0}
+.ftcount[hidden]{display:none}
+/* Отворените филтри на таблет се редят в няколко колони, вместо в една дълга
+   отвесна лента, която би избутала продуктите на два екрана надолу. */
+.filters.open{flex-direction:row;flex-wrap:wrap;gap:26px 40px;margin-bottom:8px}
+}
+
+/* ── Ниво C+D: таблет ────────────────────────────────────────────────────── */
+@media(max-width:1080px){
+/* По-стегната фуга, за да се събират 3 колони от 216px на 768px вместо 2 от 336. */
+.products{gap:36px 24px}
+.cats{gap:14px}
+/* Стойностите се разкриват на допир: на таблет и телефон няма hover, а с
+   „Ефективни формули" и „Честен състав" скрити картите оставаха безсмислени.
+   Щом и трите текста се четат, редът не ги побира — панелите слизат в колона
+   (иначе „Натурални съставки" преливаше 8px извън екрана на 768px). */
+.vals{flex-direction:column;height:auto;gap:12px}
+.val,.vals:hover .val,.vals:hover .val:hover,.vals:focus-within .val{flex:0 0 auto;min-height:230px}
+.vals .val-copy{opacity:1;transform:none}
+}
+
+/* ── Ниво D - таблет изправен ────────────────────────────────── */
+/* ── Ниво D: таблет изправен ─────────────────────────────────────────────── */
+@media(max-width:900px){
+.sec-head{flex-wrap:wrap;gap:16px}
+.shopbar{flex-wrap:wrap}
+}
+
+/* ── Ниво E - телефон ────────────────────────────────────────── */
+/* На телефон медальонът излизаше извън екрана и се режеше от overflow:hidden. */
+@media(max-width:760px){.story-seal{left:-12px;width:88px}}
+
+@media(max-width:760px){.deco,.edge-deco{display:none}}
+
+@media(max-width:760px){
+.bline{grid-template-columns:1fr;padding:20px 2px;align-items:start}
+.bline-meta{justify-self:start;margin-top:4px}
+}
+
+@media(max-width:760px){
+.vet-art{padding-bottom:0;padding-left:0}
+.vet-sub{position:static;width:58%;margin-top:-46px;margin-left:auto;margin-right:0}
+.vet-list{grid-template-columns:1fr;gap:14px}
+}
+
+/* Под 760 px разпръскването не работи — снимките се редят в изместена колона. */
+@media(max-width:760px){
+.ig-v1 .ig-scatter{position:relative;inset:auto;aspect-ratio:auto;max-width:none;
+display:flex;flex-direction:column;gap:16px}
+.ig-v1 .ig-tile{position:static;width:76%}
+.ig-v1 .t2,.ig-v1 .t4{align-self:flex-end}
+.ig-v1 .t1{transform:rotate(-2deg)}
+.ig-v1 .t2{transform:rotate(2deg)}
+.ig-v1 .t3{transform:rotate(-1.5deg)}
+.ig-v1 .t4{transform:rotate(1.5deg)}
+.ig-v1 .t5{transform:rotate(-2.5deg)}
+}
+
 @media(max-width:760px){
 .wrap{padding:0 18px}
 section{padding:58px 0}
@@ -791,28 +909,7 @@ header.site .bar{gap:12px;min-height:72px}
 .card h3{font-size:16px}
 }
 
-.page-intro{background:radial-gradient(92% 130% at 94% -14%,var(--blush-2) 0%,rgba(246,220,216,0) 60%),linear-gradient(180deg,#fff,var(--porcelain));overflow:hidden}
-/* Клонката горе вдясно на вътрешните страници е `deco/cascade.png` — същият
-   мотив като долу вляво на „Според нуждите", огледален да пада от десния ъгъл.
-   Люлеенето е на самостоятелното свойство `translate`, а не на `transform`,
-   за да не изтрие огледалото (и то да остане при prefers-reduced-motion). */
-@keyframes float-t{0%,100%{translate:0 0}50%{translate:0 -7px}}
-/* CSS чете трансформациите отдясно наляво: първо огледалото, после завъртането
-   на 90° надясно — така клонката се завърта по часовниковата стрелка на екрана. */
-.page-bloom{right:-30px;top:-34px;width:186px;opacity:.58;transform:rotate(90deg) scaleX(-1);animation-name:float-t}
 @media(max-width:760px){.page-bloom{width:112px;right:-20px;top:-22px}}
-
-@keyframes rise{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
-@keyframes rise-tilt{from{opacity:0;transform:translateY(22px) rotate(-5deg)}to{opacity:1;transform:rotate(-5deg)}}
-.hero-copy>*{animation:rise .7s var(--ease) both}
-.hero-copy>*:nth-child(1){animation-delay:.04s}
-.hero-copy>*:nth-child(2){animation-delay:.12s}
-.hero-copy>*:nth-child(3){animation-delay:.2s}
-.hero-copy>*:nth-child(4){animation-delay:.28s}
-.hero-copy>*:nth-child(5){animation-delay:.36s}
-.hero-photo{animation:hero-in 1.1s var(--ease) both}
-@keyframes hero-in{from{opacity:0;transform:scale(1.02)}to{opacity:1;transform:none}}
-@media(prefers-reduced-motion:reduce){.hero-copy>*,.hero-photo{animation:none}}
 
 /* ─── Тъч цели, само за телефон ─────────────────────────────────────────────
    Настолната версия остава недокосната - с мишка 38-40px са достатъчни.
@@ -873,26 +970,6 @@ scrollbar-width:none}
 
 }
 
-/* ─── Каталог: свити филтри ─────────────────────────────────────────────────
-   Прагът е 1080px, а не 760px. Страничната лента от 186px не се сгъваше на
-   таблет и оставяше 486px за решетката — третата колона излизаше извън екрана
-   и понеже `overflow-x:clip` не се скролира, беше недостижима. */
-@media(max-width:1080px){
-.shop{grid-template-columns:1fr}
-.filters{display:none;position:static}
-.filters.open{display:flex}
-.shopbar{gap:10px;flex-wrap:nowrap}
-.shopbar #count{flex:1 1 auto;min-width:0}
-.filters-toggle{display:inline-flex;flex:0 0 auto;position:relative}
-.ftcount{position:absolute;top:-6px;right:-6px;min-width:18px;height:18px;padding:0 5px;
-border-radius:var(--r-pill);background:var(--rose);color:#fff;font-size:10px;font-weight:700;
-display:grid;place-items:center;letter-spacing:0}
-.ftcount[hidden]{display:none}
-/* Отворените филтри на таблет се редят в няколко колони, вместо в една дълга
-   отвесна лента, която би избутала продуктите на два екрана надолу. */
-.filters.open{flex-direction:row;flex-wrap:wrap;gap:26px 40px;margin-bottom:8px}
-}
-
 /* ─── Каталог на телефон ─────────────────────────────────────────────────── */
 @media(max-width:760px){
 .filters.open{flex-direction:column;gap:22px}
@@ -916,50 +993,14 @@ select.sortsel{flex:0 0 auto;max-width:47%;text-overflow:ellipsis}
 
 }
 
-/* `.wrap{padding:0 18px}` в мобилния блок е съкратен запис и нулира вертикалния
-   падинг на количката. Тук се задава само падингът - НЕ и колоните, за да не
-   надделее над `grid-template-columns:1fr` от адаптивните правила. */
-main.cartgrid{padding-top:36px;padding-bottom:72px}
-
-
-/* ═══ Адаптивни нива ════════════════════════════════════════════════════════
-   Шест нива вместо два прага. Подредени от голямо към малко, за да е ясен
-   редът на надписване. Ниво A (>=1281px) е настолната версия и НЕ се пипа —
-   нито едно правило тук не важи за нея.
-
-     A  >=1281   десктоп — замразен
-     B  1081-1280 широк лаптоп
-     C  901-1080  лаптоп / таблет легнал
-     D  601-900   таблет изправен
-     E  391-600   телефон
-     F  <=390     малък телефон
-   ═══════════════════════════════════════════════════════════════════════════ */
-
-/* ── Ниво C+D: таблет ────────────────────────────────────────────────────── */
-@media(max-width:1080px){
-/* По-стегната фуга, за да се събират 3 колони от 216px на 768px вместо 2 от 336. */
-.products{gap:36px 24px}
-.cats{gap:14px}
-/* Стойностите се разкриват на допир: на таблет и телефон няма hover, а с
-   „Ефективни формули" и „Честен състав" скрити картите оставаха безсмислени.
-   Щом и трите текста се четат, редът не ги побира — панелите слизат в колона
-   (иначе „Натурални съставки" преливаше 8px извън екрана на 768px). */
-.vals{flex-direction:column;height:auto;gap:12px}
-.val,.vals:hover .val,.vals:hover .val:hover,.vals:focus-within .val{flex:0 0 auto;min-height:230px}
-.vals .val-copy{opacity:1;transform:none}
+/* ── Ниво E/F - тесен телефон ────────────────────────────────── */
+/* ── Ниво E/F: формуляри на телефон ──────────────────────────────────────── */
+@media(max-width:430px){
+/* Две полета в ред падат до ~150px - име и телефон се четат по-добре в колона. */
+.two{grid-template-columns:1fr}
 }
 
-/* На всяко устройство без истински hover — включително таблети с мишка изключена. */
-@media(hover:none){
-.vals .val-copy{opacity:1;transform:none}
-}
-
-/* ── Ниво D: таблет изправен ─────────────────────────────────────────────── */
-@media(max-width:900px){
-.sec-head{flex-wrap:wrap;gap:16px}
-.shopbar{flex-wrap:wrap}
-}
-
+/* ── Ниво F - малък телефон ──────────────────────────────────── */
 /* ── Ниво F: малък телефон ───────────────────────────────────────────────── */
 @media(max-width:390px){
 /* На 360px логото и трите бутона се събираха на 361px — бургерът опираше
@@ -973,8 +1014,8 @@ main.cartgrid{padding-top:36px;padding-bottom:72px}
 header.site .bar{gap:8px}
 }
 
-/* ── Ниво E/F: формуляри на телефон ──────────────────────────────────────── */
-@media(max-width:430px){
-/* Две полета в ред падат до ~150px - име и телефон се четат по-добре в колона. */
-.two{grid-template-columns:1fr}
+/* ── Устройства без hover ────────────────────────────────────── */
+/* На всяко устройство без истински hover — включително таблети с мишка изключена. */
+@media(hover:none){
+.vals .val-copy{opacity:1;transform:none}
 }
