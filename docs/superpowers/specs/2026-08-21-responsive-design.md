@@ -74,12 +74,18 @@ would risk the desktop for no user-visible gain. Six named tiers:
 
 | Tier | Range | Purpose |
 |---|---|---|
-| A | >=1281 | Desktop — frozen |
-| B | 1081-1280 | Wide laptop |
+| A | >=1281 | Desktop — frozen, verified by pixel-diff |
+| B | 1081-1280 | Wide laptop (plus a 1360px inset for edge decoration) |
 | C | 901-1080 | Laptop / landscape tablet |
-| D | 601-900 | Portrait tablet (new) |
-| E | 391-600 | Phone |
-| F | <=390 | Small phone (new) |
+| D | 761-900 | Portrait tablet |
+| E | 431-760 | Phone |
+| F | <=430 | Small phone (with a further <=390 step for the header) |
+
+**Corrected after implementation.** The table first drafted here listed
+601-900 / 391-600 / <=390 and omitted the long-standing 760px phone breakpoint
+entirely, which carries ~15 rule blocks. The shipped tiers are the ones above:
+the phone breakpoint stays at 760, and the narrow-phone step is 430 (where the
+two-column field row becomes cramped) rather than 600.
 
 ### 2. Fluid grids
 
@@ -138,6 +144,23 @@ where genuinely component-scoped.
 
 HTML restructuring beyond adding class hooks; new images; any change to the
 desktop design; `_ds_bundle.js` (generated, unreferenced by any page).
+
+## Implementation status (2026-08-21)
+
+All six sections implemented and verified. Notes:
+
+- §1 tier boundaries corrected as above.
+- §5 consolidation moved all 25 responsive `@media` blocks into one ordered
+  section. `prefers-reduced-motion` guards deliberately stay with their
+  features — they guard an animation, not a breakpoint.
+- §5 also uncovered and fixed a real cascade bug: while the tier block sat at
+  the end of the file, its `@media(max-width:1080px){.products{gap:36px 24px}}`
+  beat the phone `gap:24px 14px`, because both match at 390px and 1080 came
+  later. Phones were rendering with tablet spacing.
+- A seventh defect (D7) was found after the audit: the checkout form pinned to
+  446px on phones because `.field input` lacked `min-width:0`. The audit had
+  missed it because the cart is empty on load, so the form never rendered at
+  any width. Any future audit must seed a cart first.
 
 ## Verification
 
