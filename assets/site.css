@@ -18,7 +18,11 @@ html{scroll-behavior:smooth;overflow-x:clip}
    съсипва `position:sticky` на филтрите и на резюмето в количката. `clip` реже
    декора отстрани по същия начин, но не създава такъв контейнер. */
 body{margin:0;background:var(--porcelain);color:var(--ink);font-family:var(--font-ui);font-size:16px;font-weight:400;line-height:1.62;-webkit-font-smoothing:antialiased;overflow-x:clip}
-img{max-width:100%;display:block}
+/* `height:auto` е задължително, откакто <img> носи width/height атрибути:
+   без него височината остава закована на атрибута, а max-width свива само
+   ширината - и снимката се деформира. Компонентите с изрична CSS височина
+   (object-fit кадрите) са по-специфични и запазват своята. */
+img{max-width:100%;height:auto;display:block}
 h1,h2,h3,h4{font-family:var(--font-display);font-weight:500;line-height:1.08;margin:0;letter-spacing:-.02em}
 h1{font-size:clamp(42px,6vw,80px)}
 h2{font-size:clamp(30px,3.9vw,50px)}
