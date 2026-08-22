@@ -71,6 +71,7 @@
 <label class="radio-card"><input type="radio" name="Плащане" value="Наложен платеж" checked><span><b>Наложен платеж</b><span>Плащате при получаване на пратката</span></span></label>
 <label class="radio-card"><input type="radio" name="Плащане" value="Банков превод"><span><b>Банков превод</b><span>Ще получите данни за плащане по имейл</span></span></label>
 
+<div aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden"><label>Фирма<input name="company" id="company" tabindex="-1" autocomplete="off"></label></div>
 <div class="field" style="margin-top:22px"><label for="note">Бележка към поръчката</label><textarea id="note" name="Бележка" placeholder="Например: обадете се преди доставка"></textarea></div>
 <p class="muted" style="font-size:12.5px;margin-top:14px;margin-bottom:40px">С изпращането на поръчката се съгласявате да се свържем с вас за потвърждение.</p>
 </form>
@@ -126,6 +127,10 @@
 <script>document.querySelectorAll(".petal-host").forEach(s => spawnPetals(s, 3));</script>
 <script>
 const ORDER_EMAIL = 'zax12@abv.bg';
+/* Функцията живее във Vercel и приема заявки и от домейна в Hostinger. */
+const ORDER_API = location.hostname === 'localhost'
+  ? '/api/order'
+  : 'https://asiansecret-bg.vercel.app/api/order';
 const shipEl = document.getElementById('ship');
 
 function currentShip(sub) {
@@ -202,10 +207,10 @@ document.getElementById('checkout').addEventListener('submit', async e => {
     return `${r.product.brand} - ${r.product.name} (${r.variant.size}) × ${i.qty} = ${money(r.variant.price * i.qty)}`;
   }).filter(Boolean);
   const sub = cartSubtotal(), ship = currentShip(sub);
-  const no = 'AS-' + Date.now().toString().slice(-6);
+  const fallbackNo = 'AS-' + Date.now().toString().slice(-6);
   const data = {
-    _subject: 'Нова поръчка ' + no + ' от asiansecret.bg',
-    'Номер на поръчка': no,
+    _subject: 'Нова поръчка ' + fallbackNo + ' от asiansecret.bg',
+    'Номер на поръчка': fallbackNo,
     'Име': f.name.value, 'Телефон': f.phone.value, 'Имейл': f.email.value,
     'Град': f.city.value, 'Пощенски код': f.zip.value,
     'Адрес / офис': f.addr.value,
@@ -217,15 +222,42 @@ document.getElementById('checkout').addEventListener('submit', async e => {
     'Общо': money(sub + ship),
     'Бележка': f.note.value
   };
-  let sent = false;
+  /* Поръчката минава през нашата функция: тя преизчислява сумите по каталога,
+     праща оформено писмо на клиента и на магазина. Ключът за пощата стои само
+     там - в браузъра не може да се пази тайна.
+     Ако функцията не отговори, се пробва старият релей, а най-накрая остава
+     връзката "изпрати по имейл" отдолу. Поръчка не бива да се губи мълчаливо. */
+  const payload = {
+    name: f.name.value, phone: f.phone.value, email: f.email.value,
+    city: f.city.value, zip: f.zip.value, address: f.addr.value,
+    deliveryMode: f.querySelector('[data-mode]:checked').dataset.mode,
+    payment: f.querySelector('[name="Плащане"]:checked').value,
+    note: f.note.value,
+    company: f.company ? f.company.value : '',
+    items: cartRead().map(i => ({ sku: i.slug, qty: i.qty }))
+  };
+
+  let sent = false, no = null;
   try {
-    const res = await fetch('https://formsubmit.co/ajax/' + ORDER_EMAIL, {
+    const res = await fetch(ORDER_API, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify(data)
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
     });
-    sent = res.ok;
+    if (res.ok) { const j = await res.json(); sent = !!j.ok; no = j.number || null; }
   } catch (err) { sent = false; }
+
+  if (!sent) {
+    try {
+      const res = await fetch('https://formsubmit.co/ajax/' + ORDER_EMAIL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      sent = res.ok;
+    } catch (err) { sent = false; }
+  }
+  if (!no) no = fallbackNo;
 
   document.getElementById('cartView').hidden = true;
   document.querySelector('.steps').parentElement.parentElement.hidden = true;

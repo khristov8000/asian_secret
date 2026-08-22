@@ -1,0 +1,296 @@
+{
+ "generated": "2026-08-22",
+ "currency": "EUR",
+ "items": [
+  {
+   "sku": "resbro-ex",
+   "slug": "resbro-ex",
+   "brand": "Premium Resbro EX",
+   "name": "Изглаждаща тъканна маска за лице",
+   "size": "40 листа",
+   "price": 29.9,
+   "url": "https://asiansecret.bg/produkt/resbro-ex/",
+   "image": "https://asiansecret.bg/assets/products/resbro-ex.jpg"
+  },
+  {
+   "sku": "resbro-5gf",
+   "slug": "resbro-5gf",
+   "brand": "Premium Resbro 5GF",
+   "name": "Премиална изглаждаща маска",
+   "size": "40 листа",
+   "price": 32.9,
+   "url": "https://asiansecret.bg/produkt/resbro-5gf/",
+   "image": "https://asiansecret.bg/assets/products/resbro-5gf.jpg"
+  },
+  {
+   "sku": "arbro-eg",
+   "slug": "arbro-eg",
+   "brand": "Arbro EG",
+   "name": "Smooth face mask с EGF",
+   "size": "40 листа",
+   "price": 31.9,
+   "url": "https://asiansecret.bg/produkt/arbro-eg/",
+   "image": "https://asiansecret.bg/assets/products/arbro-eg.jpg"
+  },
+  {
+   "sku": "zen-no-shizuku",
+   "slug": "zen-no-shizuku",
+   "brand": "Zen no Shizuku",
+   "name": "Японска тъканна маска за лице",
+   "size": "30 листа",
+   "price": 26.9,
+   "url": "https://asiansecret.bg/produkt/zen-no-shizuku/",
+   "image": "https://asiansecret.bg/assets/products/zen-no-shizuku.jpg"
+  },
+  {
+   "sku": "tuneup-niacinamide-36",
+   "slug": "tuneup-niacinamide",
+   "brand": "TUNE UP",
+   "name": "Niacinamide Daily Clear Mask",
+   "size": "36 броя",
+   "price": 27.9,
+   "url": "https://asiansecret.bg/produkt/tuneup-niacinamide/",
+   "image": "https://asiansecret.bg/assets/products/tuneup-niacinamide-36.jpg"
+  },
+  {
+   "sku": "tuneup-niacinamide-7",
+   "slug": "tuneup-niacinamide",
+   "brand": "TUNE UP",
+   "name": "Niacinamide Daily Clear Mask",
+   "size": "7 броя",
+   "price": 7.9,
+   "url": "https://asiansecret.bg/produkt/tuneup-niacinamide/",
+   "image": "https://asiansecret.bg/assets/products/tuneup-niacinamide-7.jpg"
+  },
+  {
+   "sku": "tuneup-dokudami-36",
+   "slug": "tuneup-dokudami",
+   "brand": "TUNE UP",
+   "name": "Dokudami Daily Protection Mask",
+   "size": "36 броя",
+   "price": 27.9,
+   "url": "https://asiansecret.bg/produkt/tuneup-dokudami/",
+   "image": "https://asiansecret.bg/assets/products/tuneup-dokudami-36.jpg"
+  },
+  {
+   "sku": "tuneup-dokudami-7",
+   "slug": "tuneup-dokudami",
+   "brand": "TUNE UP",
+   "name": "Dokudami Daily Protection Mask",
+   "size": "7 броя",
+   "price": 7.9,
+   "url": "https://asiansecret.bg/produkt/tuneup-dokudami/",
+   "image": "https://asiansecret.bg/assets/products/tuneup-dokudami-7.jpg"
+  },
+  {
+   "sku": "temogey-propolis-30",
+   "slug": "temogey-propolis",
+   "brand": "TEMOGEY",
+   "name": "Daily Moisture Mask Red Propolis",
+   "size": "30 листа",
+   "price": 22.9,
+   "url": "https://asiansecret.bg/produkt/temogey-propolis/",
+   "image": "https://asiansecret.bg/assets/products/temogey-propolis-30.jpg"
+  },
+  {
+   "sku": "temogey-propolis-7",
+   "slug": "temogey-propolis",
+   "brand": "TEMOGEY",
+   "name": "Daily Moisture Mask Red Propolis",
+   "size": "7 листа",
+   "price": 7.5,
+   "url": "https://asiansecret.bg/produkt/temogey-propolis/",
+   "image": "https://asiansecret.bg/assets/products/temogey-propolis-7.jpg"
+  },
+  {
+   "sku": "temogey-yomogi-30",
+   "slug": "temogey-yomogi",
+   "brand": "TEMOGEY",
+   "name": "Daily Moisture Mask Yomogi",
+   "size": "30 листа",
+   "price": 22.9,
+   "url": "https://asiansecret.bg/produkt/temogey-yomogi/",
+   "image": "https://asiansecret.bg/assets/products/temogey-yomogi-30.jpg"
+  },
+  {
+   "sku": "temogey-yomogi-7",
+   "slug": "temogey-yomogi",
+   "brand": "TEMOGEY",
+   "name": "Daily Moisture Mask Yomogi",
+   "size": "7 листа",
+   "price": 7.5,
+   "url": "https://asiansecret.bg/produkt/temogey-yomogi/",
+   "image": "https://asiansecret.bg/assets/products/temogey-yomogi-7.jpg"
+  },
+  {
+   "sku": "temogey-bakuchiol-30",
+   "slug": "temogey-bakuchiol",
+   "brand": "TEMOGEY",
+   "name": "Daily Moisture Mask Bakuchiol",
+   "size": "30 листа",
+   "price": 22.9,
+   "url": "https://asiansecret.bg/produkt/temogey-bakuchiol/",
+   "image": "https://asiansecret.bg/assets/products/temogey-bakuchiol-30.jpg"
+  },
+  {
+   "sku": "temogey-bakuchiol-7",
+   "slug": "temogey-bakuchiol",
+   "brand": "TEMOGEY",
+   "name": "Daily Moisture Mask Bakuchiol",
+   "size": "7 листа",
+   "price": 7.5,
+   "url": "https://asiansecret.bg/produkt/temogey-bakuchiol/",
+   "image": "https://asiansecret.bg/assets/products/temogey-bakuchiol-7.jpg"
+  },
+  {
+   "sku": "temogey-aomikan-30",
+   "slug": "temogey-aomikan",
+   "brand": "TEMOGEY",
+   "name": "Daily Moisture Mask Aomikan",
+   "size": "30 листа",
+   "price": 22.9,
+   "url": "https://asiansecret.bg/produkt/temogey-aomikan/",
+   "image": "https://asiansecret.bg/assets/products/temogey-aomikan-30.jpg"
+  },
+  {
+   "sku": "temogey-aomikan-7",
+   "slug": "temogey-aomikan",
+   "brand": "TEMOGEY",
+   "name": "Daily Moisture Mask Aomikan",
+   "size": "7 листа",
+   "price": 7.5,
+   "url": "https://asiansecret.bg/produkt/temogey-aomikan/",
+   "image": "https://asiansecret.bg/assets/products/temogey-aomikan-7.jpg"
+  },
+  {
+   "sku": "este-snail",
+   "slug": "este-snail",
+   "brand": "ESTE QUALITY",
+   "name": "Маска с муцин от охлюв",
+   "size": "50 листа",
+   "price": 27.9,
+   "url": "https://asiansecret.bg/produkt/este-snail/",
+   "image": "https://asiansecret.bg/assets/products/este-snail.jpg"
+  },
+  {
+   "sku": "este-horse-oil",
+   "slug": "este-horse-oil",
+   "brand": "ESTE QUALITY",
+   "name": "Маска с конско масло",
+   "size": "50 листа",
+   "price": 27.9,
+   "url": "https://asiansecret.bg/produkt/este-horse-oil/",
+   "image": "https://asiansecret.bg/assets/products/este-horse-oil.jpg"
+  },
+  {
+   "sku": "este-viper",
+   "slug": "este-viper",
+   "brand": "ESTE QUALITY",
+   "name": "Маска с пептид Viper Peptide-3",
+   "size": "50 листа",
+   "price": 29.9,
+   "url": "https://asiansecret.bg/produkt/este-viper/",
+   "image": "https://asiansecret.bg/assets/products/este-viper.jpg"
+  },
+  {
+   "sku": "pullup-marshmallow",
+   "slug": "pullup-marshmallow",
+   "brand": "PulluP",
+   "name": "SRS Marshmallow Sheet Mask",
+   "size": "12 листа",
+   "price": 24.9,
+   "url": "https://asiansecret.bg/produkt/pullup-marshmallow/",
+   "image": "https://asiansecret.bg/assets/products/pullup-marshmallow.jpg"
+  },
+  {
+   "sku": "puru-puru-eye",
+   "slug": "puru-puru-eye",
+   "brand": "PuRu PuRu",
+   "name": "Патчи за очи",
+   "size": "60 патча (30 приложения)",
+   "price": 19.9,
+   "url": "https://asiansecret.bg/produkt/puru-puru-eye/",
+   "image": "https://asiansecret.bg/assets/products/puru-puru-eye.jpg"
+  },
+  {
+   "sku": "earthful-verbena-30",
+   "slug": "earthful-verbena",
+   "brand": "Earthful Beauty",
+   "name": "i Sheet Mask Verbena",
+   "size": "30 листа",
+   "price": 21.9,
+   "url": "https://asiansecret.bg/produkt/earthful-verbena/",
+   "image": "https://asiansecret.bg/assets/products/earthful-verbena-30.jpg"
+  },
+  {
+   "sku": "earthful-verbena-10",
+   "slug": "earthful-verbena",
+   "brand": "Earthful Beauty",
+   "name": "i Sheet Mask Verbena",
+   "size": "10 листа",
+   "price": 9.9,
+   "url": "https://asiansecret.bg/produkt/earthful-verbena/",
+   "image": "https://asiansecret.bg/assets/products/earthful-verbena-10.jpg"
+  },
+  {
+   "sku": "earthful-immortelle",
+   "slug": "earthful-immortelle",
+   "brand": "Earthful Beauty",
+   "name": "i Sheet Mask Immortelle",
+   "size": "10 листа",
+   "price": 9.9,
+   "url": "https://asiansecret.bg/produkt/earthful-immortelle/",
+   "image": "https://asiansecret.bg/assets/products/earthful-immortelle.jpg"
+  },
+  {
+   "sku": "earthful-geranium",
+   "slug": "earthful-geranium",
+   "brand": "Earthful Beauty",
+   "name": "i Sheet Mask Geranium",
+   "size": "10 листа",
+   "price": 9.9,
+   "url": "https://asiansecret.bg/produkt/earthful-geranium/",
+   "image": "https://asiansecret.bg/assets/products/earthful-geranium.jpg"
+  },
+  {
+   "sku": "phytocotton",
+   "slug": "phytocotton",
+   "brand": "Earthful Beauty",
+   "name": "Phytocotton натурална памучна маска",
+   "size": "36 листа",
+   "price": 23.9,
+   "url": "https://asiansecret.bg/produkt/phytocotton/",
+   "image": "https://asiansecret.bg/assets/products/phytocotton.jpg"
+  },
+  {
+   "sku": "mhy-spf90",
+   "slug": "mhy-spf90",
+   "brand": "MHY",
+   "name": "Hello SunShine SPF90+ PA+++",
+   "size": "60 мл",
+   "price": 16.9,
+   "url": "https://asiansecret.bg/produkt/mhy-spf90/",
+   "image": "https://asiansecret.bg/assets/products/mhy-spf90.jpg"
+  },
+  {
+   "sku": "mhy-hand-cream",
+   "slug": "mhy-hand-cream",
+   "brand": "MHY",
+   "name": "Крем за ръце с конско масло",
+   "size": "100 г",
+   "price": 9.9,
+   "url": "https://asiansecret.bg/produkt/mhy-hand-cream/",
+   "image": "https://asiansecret.bg/assets/products/mhy-hand-cream.jpg"
+  },
+  {
+   "sku": "mhy-hair-cream",
+   "slug": "mhy-hair-cream",
+   "brand": "MHY Hair Expert",
+   "name": "Финиширащ крем за коса",
+   "size": "1 брой",
+   "price": 12.9,
+   "url": "https://asiansecret.bg/produkt/mhy-hair-cream/",
+   "image": "https://asiansecret.bg/assets/products/mhy-hair-cream.jpg"
+  }
+ ]
+}

@@ -242,8 +242,30 @@ for (const c of CATS) {
   fs.writeFileSync(path.join(root, f), html);
 }
 
-/* ── sitemap + robots ────────────────────────────────────────────────────── */
 const today = new Date().toISOString().slice(0, 10);
+
+/* ── каталог за сървърната част ──────────────────────────────────────────────
+   Функцията за поръчки НЕ вярва на цените от браузъра - смята ги наново по
+   този списък. Затова се излива от същия източник, при всяко build-ване. */
+{
+  const rows = [];
+  for (const p of PRODUCTS) {
+    for (const v of variantsOf(p)) {
+      rows.push({
+        sku: v.sku, slug: p.slug, brand: p.brand, name: p.name,
+        size: v.size || p.size || '', price: v.price,
+        url: SITE + '/produkt/' + p.slug + '/',
+        /* JPG, а не WebP: Outlook и част от клиентите не показват WebP. */
+        image: SITE + '/assets/products/' + v.sku + '.jpg'
+      });
+    }
+  }
+  fs.mkdirSync(path.join(root, 'api'), { recursive: true });
+  fs.writeFileSync(path.join(root, 'api', '_catalog.json'),
+    JSON.stringify({ generated: today, currency: 'EUR', items: rows }, null, 1));
+}
+
+/* ── sitemap + robots ────────────────────────────────────────────────────── */
 const urls = [
   { loc: SITE + '/', pri: '1.0', freq: 'weekly' },
   { loc: SITE + '/products.html', pri: '0.9', freq: 'weekly' },
