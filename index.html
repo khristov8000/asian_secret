@@ -89,7 +89,7 @@
 
 <section class="band petal-host"><div class="wrap">
 <div class="sec-head"><div><span class="eyebrow">Подбери грижа</span><h2>Според нуждите <em>на кожата</em></h2></div></div>
-<div class="chips" id="concerns" style="gap:10px"></div>
+<div class="needsel" id="concerns" role="group" aria-label="Избери грижа според нуждата"></div>
 <div class="products rail" id="concernGrid" style="margin-top:32px"></div>
 </div></section>
 
@@ -181,15 +181,16 @@ document.getElementById('cats').innerHTML = CATS.map(c => {
 const bestSlugs = ['resbro-ex','puru-puru-eye','temogey-propolis','tuneup-niacinamide','este-snail','temogey-bakuchiol','zen-no-shizuku','pullup-marshmallow'];
 renderProducts(document.getElementById('best'), bestSlugs.map(bySlug));
 const cw = document.getElementById('concerns');
-cw.innerHTML = CONCERNS.map((c,i) => `<button class="chip" data-concern="${c.id}" style="cursor:pointer;padding:9px 18px;font-size:13px;${i===0?'background:var(--ink);color:#fff;border-color:var(--ink)':''}">${c.name}</button>`).join('');
+/* Състоянието е в `aria-pressed`, а видът - в CSS (`.needsel`). Преди цветовете
+   се сменяха с инлайн стилове от JS: екранните четци не разбираха кой е избран,
+   а видът не можеше да се пипне от стиловия файл. */
+cw.innerHTML = CONCERNS.map(c =>
+  `<button type="button" class="chip" data-concern="${c.id}" aria-pressed="false">${c.name}</button>`
+).join('');
 const grid = document.getElementById('concernGrid');
 function showConcern(id){
-  cw.querySelectorAll('.chip').forEach(b => {
-    const on = b.dataset.concern === id;
-    b.style.background = on ? 'var(--ink)' : 'var(--white)';
-    b.style.color = on ? '#fff' : 'var(--ink-70)';
-    b.style.borderColor = on ? 'var(--ink)' : 'rgba(10,9,8,.12)';
-  });
+  cw.querySelectorAll('[data-concern]').forEach(b =>
+    b.setAttribute('aria-pressed', b.dataset.concern === id ? 'true' : 'false'));
   renderProducts(grid, PRODUCTS.filter(p => p.concerns.includes(id)).slice(0,4));
 }
 cw.addEventListener('click', e => { const b = e.target.closest('[data-concern]'); if (b) showConcern(b.dataset.concern); });

@@ -821,6 +821,22 @@ main.cartgrid{padding-top:36px;padding-bottom:72px}
 .hero-right .hero-photo{position:static;width:100%;height:auto;aspect-ratio:16/9;object-position:center}
 .hero-right::after{display:none}
 .hero-right .wrap{padding-top:42px;padding-bottom:56px}
+/* Под 760px огледалният герой се държи като началния: снимката е фон, а
+   текстът лежи върху воал отдолу. Кадрирането е огледално - натюрмортът е
+   в лявата половина на снимката. */
+@media(max-width:760px){
+/* По-висок от началния герой: текстът тук е два абзаца и два бутона, а при
+   ниска рамка той опираше в лепкавия хедър и заглавието се скриваше под него.
+   Затова и `.wrap` носи горен отстъп колкото хедъра. */
+.hero-right{min-height:min(94vh,740px);display:flex;align-items:flex-end}
+.hero-right .hero-photo{position:absolute;inset:0;width:100%;height:100%;
+aspect-ratio:auto;object-fit:cover;object-position:26% 24%}
+.hero-right::after{display:block;background:linear-gradient(180deg,
+rgba(252,244,242,0) 14%,rgba(252,244,242,.55) 30%,rgba(252,244,242,.9) 43%,
+rgba(252,244,242,.985) 55%,rgb(252,244,242) 68%)}
+.hero-right .wrap{padding-top:104px;padding-bottom:38px}
+.hero-right .hero-copy{grid-column:auto;max-width:none;margin-left:0}
+}
 .pdp,.cartgrid,.split,.contact-grid{grid-template-columns:1fr;gap:40px}
 .pdp{padding-bottom:58px}
 /* В една колона снимката винаги идва след текста, за да се чете в реда на ползите.
@@ -887,8 +903,13 @@ display:grid;place-items:center;letter-spacing:0}
 
 @media(max-width:760px){
 /* Кадрите бяха почти колкото екрана и изтикваха текста надолу. */
-.vet-art{padding-bottom:0;padding-left:0;max-width:300px;margin-inline:auto}
+.vet-art{padding-bottom:0;padding-left:0;max-width:300px;margin-inline:auto;position:relative}
 .vet-sub{position:static;width:52%;margin-top:-38px;margin-left:auto;margin-right:0}
+/* Призивът се качва върху кадрите вместо да виси отделно под текста -
+   снимките и бутонът стават един блок. */
+.vet-grid .hero-cta{position:absolute;left:0;right:0;bottom:14px;z-index:2;
+justify-content:center;margin:0}
+.vet-grid .hero-cta .btn{box-shadow:0 10px 30px -12px rgba(20,17,16,.55)}
 .vet-list{grid-template-columns:1fr;gap:14px}
 }
 
@@ -929,9 +950,8 @@ nav.main a::after{display:none}
 to{opacity:1;transform:none}}
 /* На 390 px логото + 3 бутона не се събираха и бургерът излизаше извън екрана. */
 header.site .bar{gap:12px;min-height:72px}
-/* Логото остава вляво, а бургерът е първият бутон в групата вдясно - преди
-   стоеше последен, най-вдясно, и не се разпознаваше като бутон за меню. */
-.actions .burger{order:-1}
+/* Логото вляво, бургерът - най-вдясно, там където палецът го стига най-лесно. */
+.actions .burger{order:2}
 .brand img{width:40px}
 .brand .wordmark b{font-size:15.5px;letter-spacing:.13em}
 .brand .wordmark span{font-size:7.5px;letter-spacing:.24em;margin-top:5px}
@@ -1105,3 +1125,36 @@ border-radius:var(--r-pill);background:var(--rose);
 transition:transform .18s linear}
 }
 @media(prefers-reduced-motion:reduce){.rail-bar>span,.rail-hint{transition:none}}
+
+
+/* ── Началната страница на телефон ────────────────────────────────────────── */
+@media(max-width:760px){
+/* В лентите картата е тясна и трите реда описание я правеха двойно по-висока,
+   без да помагат за избора - името, цената и бутонът вършат работата.
+   Каталогът НЕ се променя: там описанието е част от сравняването. */
+.products.rail .benefit{display:none}
+.products.rail .card h3{min-height:0}
+}
+
+/* ── „Според нуждите на кожата": избор на грижа ───────────────────────────
+   Бяха инлайн-стилизирани чипове с ръчно сменяни цветове от JS. Сега са
+   истински превключватели: пилюла с кант, активният е мастилен. */
+.needsel{display:flex;flex-wrap:wrap;gap:9px}
+.needsel .chip{cursor:pointer;padding:10px 18px;font-size:13px;line-height:1;
+background:var(--white);color:var(--ink-70);border:1px solid var(--line);
+border-radius:var(--r-pill);transition:background .28s var(--ease),
+color .28s var(--ease),border-color .28s var(--ease),transform .2s var(--ease)}
+.needsel .chip:hover{border-color:var(--rose-line);color:var(--rose)}
+.needsel .chip:active{transform:scale(.97)}
+.needsel .chip[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.needsel .chip:focus-visible{outline:2px solid var(--rose);outline-offset:2px}
+
+@media(max-width:760px){
+/* На телефон се редят в лента, която се плъзга - на два-три реда чипове
+   изяждаха половин екран, преди да се стигне до продуктите. */
+.needsel{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;
+margin-inline:calc(var(--gutter) * -1);padding-inline:var(--gutter);
+scroll-padding-inline:var(--gutter);scroll-snap-type:x proximity}
+.needsel::-webkit-scrollbar{display:none}
+.needsel .chip{flex:0 0 auto;scroll-snap-align:start;padding:11px 17px}
+}

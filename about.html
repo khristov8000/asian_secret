@@ -182,5 +182,24 @@
 <script src="https://unpkg.com/lucide@0.454.0/dist/umd/lucide.js"></script>
 <script src="assets/data.js"></script>
 <script src="assets/shop.js"></script>
+<script>
+/* На телефон призивът от „Как избираме" сяда ВЪРХУ двойката кадри, за да са
+   един блок. Бутонът стои в текстовата колона, а `position:absolute` се мери
+   спрямо най-близкия позициониран предшественик - секцията, не снимките.
+   Затова се мести в самия .vet-art, а над 760px се връща обратно. */
+(() => {
+  const cta = document.querySelector('.vet-copy .hero-cta, .vet-art .hero-cta');
+  const art = document.querySelector('.vet-art');
+  const copy = document.querySelector('.vet-copy');
+  if (!cta || !art || !copy) return;
+  const small = matchMedia('(max-width:760px)');
+  const place = () => {
+    if (small.matches) { if (cta.parentElement !== art) art.appendChild(cta); }
+    else if (cta.parentElement !== copy) copy.appendChild(cta);
+  };
+  place();
+  small.addEventListener('change', place);
+})();
+</script>
 </body>
 </html>
