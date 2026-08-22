@@ -273,6 +273,9 @@ select.sortsel{appearance:none;border:1px solid var(--line);background:var(--whi
 /* padding-bottom: .pdp е <main>, не <section>, затова сам дава въздуха преди
    лентата отдолу — иначе ивори фонът тръгва плътно до галерията. */
 .pdp{display:grid;grid-template-columns:1.02fr .98fr;gap:64px;align-items:start;padding-top:44px;padding-bottom:88px}
+/* Както при `.shop`: решетъчните деца по подразбиране не слизат под
+   min-content и разпъват колоната извън екрана. */
+.pdp>*{min-width:0}
 .gallery{display:flex;flex-direction:column;gap:14px}
 .gallery .main{border-radius:999px 999px var(--r-l) var(--r-l);overflow:hidden;border:1px solid var(--line);background:var(--white)}
 .gallery .main img{width:100%;aspect-ratio:.86/1;object-fit:contain;padding:7%;
@@ -756,7 +759,7 @@ main.cartgrid{padding-top:36px;padding-bottom:72px}
 .story-grid{grid-template-columns:1fr;gap:44px}
 /* Снимките идват СЛЕД текста: в една колона разказът трябва да се прочете
    пръв, а кадърът да го илюстрира отдолу. */
-.story-art{max-width:460px;margin-inline:auto;width:100%;order:2}
+.story-art{max-width:460px;margin-inline:auto;width:100%;order:2;position:relative}
 .story-copy{order:1}
 }
 
@@ -1050,10 +1053,23 @@ scrollbar-width:none}
 
 /* 4. Instagram: три плочки в един ред вместо пет в колона - лентата беше
       по-висока от два екрана. */
-.ig-v1 .t4,.ig-v1 .t5{display:none}
-.ig-v1 .ig-scatter{flex-direction:row;align-items:flex-start;justify-content:center;gap:10px}
-.ig-v1 .ig-tile{width:31%}
+/* И петте плочки се виждат: редят се в лента, в която всяка следваща леко
+   застъпва предишната - същият разпилян дух като на широк екран, но в един
+   ред вместо в колона. Отрицателният марж прави застъпването. */
+.ig-v1 .t4,.ig-v1 .t5{display:block}
+.ig-v1 .ig-scatter{flex-direction:row;align-items:center;justify-content:center;gap:0}
+/* 5 x 22% минус 4 застъпвания по 4% = 94%. Остатъкът е за завъртането:
+   наклонената плочка е с по-широка описана рамка от самата себе си и при
+   24% крайните излизаха 2px извън екрана на 600px. */
+.ig-v1 .ig-tile{width:22%;flex:0 0 auto;margin-left:-4%}
+.ig-v1 .ig-tile:first-child{margin-left:0}
 .ig-v1 .t2{align-self:auto}
+/* Всяка следваща е над предишната, за да е ясна посоката на застъпване. */
+.ig-v1 .t1{z-index:1;transform:rotate(-4deg)}
+.ig-v1 .t2{z-index:2;transform:rotate(3deg)}
+.ig-v1 .t3{z-index:3;transform:rotate(-2.5deg)}
+.ig-v1 .t4{z-index:4;transform:rotate(3.5deg)}
+.ig-v1 .t5{z-index:5;transform:rotate(-3deg)}
 
 }
 
@@ -1120,9 +1136,13 @@ color:var(--ink-45);white-space:nowrap;transition:opacity .4s var(--ease)}
 .rail-nav.at-end .rail-hint{opacity:0}
 .rail-bar{position:relative;flex:1 1 auto;height:2px;border-radius:var(--r-pill);
 background:var(--line);overflow:hidden}
+/* БЕЗ преход по transform: палецът трябва да стои под пръста, а преходът го
+   влачеше със закъснение след него - точно това се усещаше като забиване.
+   `will-change` държи отсечката на собствен слой, за да не се прерисува
+   цялата лента при всяко движение. */
 .rail-bar>span{position:absolute;inset:0 auto 0 0;height:100%;width:30%;
 border-radius:var(--r-pill);background:var(--rose);
-transition:transform .18s linear}
+will-change:transform}
 }
 @media(prefers-reduced-motion:reduce){.rail-bar>span,.rail-hint{transition:none}}
 
@@ -1157,4 +1177,44 @@ margin-inline:calc(var(--gutter) * -1);padding-inline:var(--gutter);
 scroll-padding-inline:var(--gutter);scroll-snap-type:x proximity}
 .needsel::-webkit-scrollbar{display:none}
 .needsel .chip{flex:0 0 auto;scroll-snap-align:start;padding:11px 17px}
+}
+
+
+/* ── Продуктовата страница на телефон: по-стегната ────────────────────────
+   Купуването се събираше на четири реда (количество, „Добави", „Към
+   количката", после двата чипа), а характеристиките на още три. */
+@media(max-width:760px){
+/* Ред 1: количество + „Добави в количката". Ред 2: „Към количката". */
+/* `minmax(0,1fr)`, а не `1fr`: иначе пистата не слиза под min-content на
+   бутона и цялата продуктова колона излизаше 4px извън екрана на 360px. */
+.buyrow{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;align-items:stretch}
+.buyrow .qty{grid-column:1;grid-row:1}
+.buyrow .btn-primary{grid-column:2;grid-row:1;width:100%;padding-inline:14px}
+.buyrow .btn-outline{grid-column:1/-1;grid-row:2;width:100%}
+/* Двата чипа под тях остават на един ред. */
+.pdp-info>.chips:last-of-type{flex-wrap:nowrap;gap:8px}
+.pdp-info>.chips:last-of-type .chip{flex:1 1 0;text-align:center;
+white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* Характеристиките: три колони с етикет над стойността вместо три реда. */
+.specs{grid-template-columns:repeat(3,1fr);gap:10px;padding:16px 0}
+.spec{min-width:0}
+.spec b{font-size:10px;letter-spacing:.1em}
+.spec span{font-size:12.5px;line-height:1.35;word-break:break-word}
+}
+
+
+/* Призивът в „Красотата, вдъхновена от Азия" сяда върху кадъра, както в
+   „Как избираме" на страницата за нас. Бутоните се местят в .story-art със
+   скрипт - в разметката те са в текстовата колона, а absolute там се мери
+   спрямо секцията, не спрямо снимката. */
+@media(max-width:760px){
+/* Един под друг, а не един до друг: на 390px две пилюли се падат по ~179px
+   и „ВИЖ КАТАЛОГА" се отрязваше до „ВИЖ". */
+.story-art .hero-cta{position:absolute;left:14px;right:14px;bottom:14px;z-index:2;
+flex-direction:column;align-items:stretch;gap:8px;margin:0}
+.story-art .hero-cta .btn{width:100%;justify-content:center;padding-block:13px;
+box-shadow:0 10px 30px -12px rgba(20,17,16,.55)}
+/* Върху снимка прозрачният бутон не се чете - и двата стават плътни. */
+.story-art .hero-cta .btn-ghost{background:var(--white);border-color:var(--white)}
+.story-art .hero-cta .btn-outline{background:var(--ink);color:#fff;border-color:var(--ink)}
 }

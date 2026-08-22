@@ -222,6 +222,26 @@ document.getElementById('mq').innerHTML = [...brands, ...brands].map(b => `<span
 spawnPetals(document.getElementById('hero'), 8);
 /* по няколко листенца и в останалите секции - съвсем дискретно */
 document.querySelectorAll('.petal-host').forEach(s => spawnPetals(s, 3));
+
+/* На телефон призивът от „Красотата, вдъхновена от Азия" сяда върху кадъра.
+   Бутоните стоят в текстовата колона, а `position:absolute` се мери спрямо
+   най-близкия позициониран предшественик - секцията, не снимката. Затова се
+   местят в .story-art и се връщат обратно над 760px. */
+(() => {
+  const art = document.querySelector('.story-art');
+  const copy = document.querySelector('.story-copy');
+  if (!art || !copy) return;
+  const cta = copy.querySelector('.hero-cta') || art.querySelector('.hero-cta');
+  if (!cta) return;
+  const small = matchMedia('(max-width:760px)');
+  const place = () => {
+    if (small.matches) { if (cta.parentElement !== art) art.appendChild(cta); }
+    else if (cta.parentElement !== copy) copy.appendChild(cta);
+  };
+  place();
+  small.addEventListener('change', place);
+})();
+
 if (window.lucide) lucide.createIcons();
 </script>
 </body>

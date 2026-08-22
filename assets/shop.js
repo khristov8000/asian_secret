@@ -204,18 +204,44 @@ function initRails() {
     rail.insertAdjacentElement('afterend', nav);
     const thumb = nav.querySelector('.rail-bar > span');
 
-    const paint = () => {
-      const max = rail.scrollWidth - rail.clientWidth;
+    /* Мерките се четат САМО при промяна на размера и се пазят тук. Преди се
+       четяха scrollWidth и clientWidth при всяко събитие от скрола: браузърът
+       е принуден да преизчисли оформлението насред плъзгането, а веднага след
+       това се пишеше и нов style - точно редуването четене/писане прави
+       движението накъсано. */
+    let max = 0, span = 0, ticking = false;
+
+    const measure = () => {
+      max = rail.scrollWidth - rail.clientWidth;
       /* Няма преливане - няма какво да се подсказва. */
       nav.hidden = max < 8;
       if (nav.hidden) return;
       const frac = Math.max(0.18, rail.clientWidth / rail.scrollWidth);
       thumb.style.width = (frac * 100) + '%';
-      thumb.style.transform = 'translateX(' + ((rail.scrollLeft / max) * (100 / frac - 100)) + '%)';
-      nav.classList.toggle('at-end', rail.scrollLeft >= max - 2);
+      /* Колко процента от собствената си ширина да измине палецът. */
+      span = 100 / frac - 100;
+      draw();
     };
-    rail.addEventListener('scroll', paint, { passive: true });
-    addEventListener('resize', paint, { passive: true });
-    paint();
+
+    const draw = () => {
+      ticking = false;
+      if (nav.hidden || max <= 0) return;
+      const p = Math.min(1, Math.max(0, rail.scrollLeft / max));
+      thumb.style.transform = 'translate3d(' + (p * span) + '%,0,0)';
+      nav.classList.toggle('at-end', p > 0.99);
+    };
+
+    /* Един запис на кадър: повече от това браузърът и без друго не рисува. */
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(draw);
+    };
+
+    rail.addEventListener('scroll', onScroll, { passive: true });
+    addEventListener('resize', measure, { passive: true });
+    /* Снимките се зареждат отложено и променят ширината на лентата след това. */
+    if (window.ResizeObserver) new ResizeObserver(measure).observe(rail);
+    measure();
   });
 }
