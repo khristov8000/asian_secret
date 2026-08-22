@@ -214,10 +214,27 @@ document.getElementById('clear').addEventListener('click', () => {
 const filtersEl = document.getElementById('filters');
 const ftBtn = document.getElementById('filtersToggle');
 const ftCount = document.getElementById('ftCount');
+
+/* На таблет и телефон панелът трябва да се разгъва ПОД бутона си. В разметката
+   `aside#filters` стои преди колоната с продуктите, тоест отворен изникваше НАД
+   лентата с бутона и той оставаше най-отдолу. Тук панелът се мести веднага след
+   лентата, а над 1080px се връща в лявата колона, където му е мястото. */
+const shopEl = document.querySelector('.shop');
+const shopbarEl = document.querySelector('.shopbar');
+const wide = matchMedia('(min-width:1081px)');
+function placeFilters() {
+  if (wide.matches) {
+    if (filtersEl.parentElement !== shopEl) shopEl.prepend(filtersEl);
+  } else if (filtersEl.previousElementSibling !== shopbarEl) {
+    shopbarEl.insertAdjacentElement('afterend', filtersEl);
+  }
+}
+placeFilters();
+wide.addEventListener('change', placeFilters);
+
 ftBtn.addEventListener('click', () => {
   const open = filtersEl.classList.toggle('open');
   ftBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
-  if (open) filtersEl.scrollIntoView({ block: 'nearest' });
 });
 function paintFilterCount() {
   const n = state.cats.length + state.concerns.length

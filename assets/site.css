@@ -5,7 +5,7 @@
 --font-display:"Playfair Display",Georgia,serif;--font-ui:"Manrope",-apple-system,Segoe UI,sans-serif;
 --r-s:3px;--r-m:6px;--r-l:10px;--r-pill:999px;
 --sh-1:0 1px 2px rgba(20,17,16,.03),0 14px 34px -18px rgba(20,17,16,.14);--sh-2:0 2px 6px rgba(20,17,16,.05),0 30px 60px -26px rgba(20,17,16,.22);
---max:1280px;--ease:cubic-bezier(.22,.61,.36,1);
+--max:1280px;--gutter:28px;--ease:cubic-bezier(.22,.61,.36,1);
 /* Крива за появяването: дълго, меко утаяване вместо рязък край. */
 --ease-settle:cubic-bezier(.17,.67,.24,1); /* @kind other */
 }
@@ -31,7 +31,7 @@ em,.it{font-style:italic;color:var(--rose)}
 p{margin:0}
 a{color:var(--ink);text-decoration:none;transition:color .22s var(--ease)}
 a:hover{color:var(--rose)}
-.wrap{max-width:var(--max);margin:0 auto;padding:0 28px}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--gutter)}
 .eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--rose-deep);font-weight:600}
 .eyebrow::before{content:"✦";font-size:12px;letter-spacing:0}
 .lead{font-size:clamp(15.5px,.1786vw + 14.86px,17px);color:var(--ink-70);max-width:58ch;text-wrap:pretty}
@@ -196,6 +196,11 @@ transition:transform .55s var(--ease)}
 .card h3{font-size:18px;line-height:1.24}
 /* Изравнява редовете: описанието е винаги 3 реда, за да съвпадат цените без рамка. */
 .card .benefit{font-size:13px;color:var(--ink-70);line-height:1.5;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;min-height:calc(3 * 1.5em)}
+/* В каталога описанието е с два реда: три правеха картите високи и
+   изместваха цената и бутона надолу. Клампът и min-height вървят заедно -
+   иначе редовете се режат, но запазеното място остава. `#grid` е самата
+   решетка на каталога, затова се пише направо, без `.products` пред него. */
+#grid .benefit{-webkit-line-clamp:2;min-height:calc(2 * 1.5em)}
 .card h3{min-height:2.48em}
 .card .foot{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:12px;border-top:1px solid var(--line)}
 .card .chip{background:transparent}
@@ -749,7 +754,10 @@ main.cartgrid{padding-top:36px;padding-bottom:72px}
 /* ── Ниво C+D - лаптоп и таблет ──────────────────────────────── */
 @media(max-width:1080px){
 .story-grid{grid-template-columns:1fr;gap:44px}
-.story-art{max-width:460px;margin-inline:auto;width:100%}
+/* Снимките идват СЛЕД текста: в една колона разказът трябва да се прочете
+   пръв, а кадърът да го илюстрира отдолу. */
+.story-art{max-width:460px;margin-inline:auto;width:100%;order:2}
+.story-copy{order:1}
 }
 
 @media(max-width:1080px){
@@ -878,8 +886,9 @@ display:grid;place-items:center;letter-spacing:0}
 }
 
 @media(max-width:760px){
-.vet-art{padding-bottom:0;padding-left:0}
-.vet-sub{position:static;width:58%;margin-top:-46px;margin-left:auto;margin-right:0}
+/* Кадрите бяха почти колкото екрана и изтикваха текста надолу. */
+.vet-art{padding-bottom:0;padding-left:0;max-width:300px;margin-inline:auto}
+.vet-sub{position:static;width:52%;margin-top:-38px;margin-left:auto;margin-right:0}
 .vet-list{grid-template-columns:1fr;gap:14px}
 }
 
@@ -897,12 +906,32 @@ display:flex;flex-direction:column;gap:16px}
 }
 
 @media(max-width:760px){
-.wrap{padding:0 18px}
+:root{--gutter:18px}
 section{padding:58px 0}
-nav.main{display:none}
+/* Менюто е панел точно под хедъра. `top:100%` го залепва за долния му ръб -
+   преди JS слагаше твърдо top:82px, а хедърът е висок 73px, откъдето идваше
+   процепът от 9px. Скрито е с visibility, за да не се фокусира затворено. */
+nav.main{display:flex;flex-direction:column;gap:0;margin:0;
+position:absolute;top:100%;left:0;right:0;z-index:39;
+background:var(--porcelain);border-bottom:1px solid var(--line);
+padding:4px var(--gutter) 14px;
+opacity:0;visibility:hidden;transform:translateY(-10px);
+transition:opacity .34s var(--ease-settle),transform .34s var(--ease-settle),visibility .34s}
+header.site.nav-open nav.main{opacity:1;visibility:visible;transform:none}
+nav.main a{padding:13px 0;border-bottom:1px solid var(--line)}
+nav.main a:last-child{border-bottom:0}
+/* подчертаването отдолу е за водоравното меню - в отвесното пречи */
+nav.main a::after{display:none}
 .burger{display:grid}
+/* Иконата се сменя (меню / хикс) и всяка нова се появява с леко завъртане. */
+.burger svg{animation:icon-swap .3s var(--ease-settle) both}
+@keyframes icon-swap{from{opacity:0;transform:rotate(-45deg) scale(.7)}
+to{opacity:1;transform:none}}
 /* На 390 px логото + 3 бутона не се събираха и бургерът излизаше извън екрана. */
 header.site .bar{gap:12px;min-height:72px}
+/* Логото остава вляво, а бургерът е първият бутон в групата вдясно - преди
+   стоеше последен, най-вдясно, и не се разпознаваше като бутон за меню. */
+.actions .burger{order:-1}
 .brand img{width:40px}
 .brand .wordmark b{font-size:15.5px;letter-spacing:.13em}
 .brand .wordmark span{font-size:7.5px;letter-spacing:.24em;margin-top:5px}
@@ -916,13 +945,25 @@ header.site .bar{gap:12px;min-height:72px}
 .specs{grid-template-columns:1fr}
 .citem{grid-template-columns:76px 1fr;gap:14px}
 .citem img{width:76px;height:76px}
-/* На телефон снимката е отделна лента отгоре, а текстът под нея — иначе
-   продуктите вляво остават под текста и нищо не се чете. */
-.hero{min-height:0;display:block}
-.hero-photo{position:static;width:100%;height:auto;aspect-ratio:16/10;object-position:center}
-.hero::after{display:none}
-.hero .wrap{padding-top:30px;padding-bottom:52px}
-.hero-copy{max-width:none;margin-left:0}
+/* На телефон снимката и текстът стоят в един кадър, а не един над друг:
+   кадрирането се мести надясно, за да се виждат продуктите горе, а отдолу
+   лежи светъл воал, върху който текстът се чете.
+   Огледалният герой на „За нас" е изрично изключен: там снимката остава
+   лента над текста (`position:static`), а `display:flex` тук я слагаше до
+   него - двете заедно преливаха на 582px в екран от 360px. */
+.hero:not(.hero-right){min-height:min(88vh,680px);display:flex;align-items:flex-end}
+.hero:not(.hero-right) .hero-photo{position:absolute;inset:0;width:100%;height:100%;
+object-fit:cover;object-position:74% 22%}
+/* Воалът се сгъстява по-рано и по-плътно: при .86 продуктите прозираха
+   точно през заглавието и то се четеше трудно. Горната третина остава чиста,
+   за да се вижда снимката. */
+.hero:not(.hero-right)::after{display:block;background:linear-gradient(180deg,
+rgba(252,244,242,0) 16%,rgba(252,244,242,.55) 32%,rgba(252,244,242,.9) 44%,
+rgba(252,244,242,.985) 56%,rgb(252,244,242) 68%)}
+.hero:not(.hero-right) .wrap{padding-top:30px;padding-bottom:44px;align-content:end}
+.hero:not(.hero-right) .hero-copy{max-width:none;margin-left:0;grid-row:1}
+.hero:not(.hero-right) h1{max-width:none}
+.hero:not(.hero-right) .hero-copy>*+*{margin-top:14px}
 .card h3{font-size:16px}
 }
 
@@ -967,7 +1008,16 @@ nav.main a{min-height:44px;display:flex;align-items:center}
       решетката остава, защото се преглежда цялата наведнъж. */
 .products.rail{display:flex;grid-template-columns:none;overflow-x:auto;
 scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
-gap:14px;margin-inline:-18px;padding:0 18px 6px;
+/* Изнасянето и отстъпът се водят по --gutter, а не по твърдо 18px:
+   при 14px отстъп на малък телефон първата карта излизаше на x=-4,
+   тоест извън екрана, и не съвпадаше със заглавието над нея. */
+gap:14px;margin-inline:calc(var(--gutter) * -1);
+padding-inline:var(--gutter);padding-bottom:6px;
+/* `scroll-padding` е задължително заедно с `scroll-snap-type:mandatory`:
+   без него прилепването подравнява първата карта към ръба на скролпорта и
+   изяжда отстъпа - лентата тръгваше със scrollLeft, равен на отстъпа, и
+   картата опираше в ръба на екрана вместо да е под заглавието. */
+scroll-padding-inline:var(--gutter);
 scrollbar-width:none}
 .products.rail::-webkit-scrollbar{display:none}
 .products.rail>*{flex:0 0 62%;scroll-snap-align:start}
@@ -1022,7 +1072,7 @@ select.sortsel{flex:0 0 auto;max-width:47%;text-overflow:ellipsis}
 @media(max-width:390px){
 /* На 360px логото и трите бутона се събираха на 361px — бургерът опираше
    в ръба. Марката отстъпва, за да остане ръб от порядъка на 12px. */
-.wrap{padding:0 14px}
+:root{--gutter:14px}
 .brand{gap:8px}
 .brand img{width:34px}
 .brand .wordmark b{font-size:13.5px;letter-spacing:.1em}
@@ -1036,3 +1086,22 @@ header.site .bar{gap:8px}
 @media(hover:none){
 .vals .val-copy{opacity:1;transform:none}
 }
+
+/* ── Указател за плъзгане под продуктовите ленти ──────────────────────────
+   Показва се само там, където има какво да се превърти, и само на телефон -
+   на широк екран лентата е решетка и няма скрол. */
+.rail-nav{display:none}
+@media(max-width:760px){
+.rail-nav{display:flex;align-items:center;gap:12px;margin-top:14px}
+.rail-nav[hidden]{display:none}
+.rail-hint{font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+color:var(--ink-45);white-space:nowrap;transition:opacity .4s var(--ease)}
+/* Подсказката се смълчава, щом човекът стигне до края - вече е разбрал. */
+.rail-nav.at-end .rail-hint{opacity:0}
+.rail-bar{position:relative;flex:1 1 auto;height:2px;border-radius:var(--r-pill);
+background:var(--line);overflow:hidden}
+.rail-bar>span{position:absolute;inset:0 auto 0 0;height:100%;width:30%;
+border-radius:var(--r-pill);background:var(--rose);
+transition:transform .18s linear}
+}
+@media(prefers-reduced-motion:reduce){.rail-bar>span,.rail-hint{transition:none}}

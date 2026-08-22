@@ -76,6 +76,7 @@ function renderProducts(el, list) {
   el.innerHTML = list.map(cardHTML).join('');
   if (window.lucide) lucide.createIcons();
   initReveal(el);
+  if (typeof initRails === 'function') initRails();
 }
 
 /* Плавно появяване при скрол.
@@ -157,14 +158,64 @@ document.addEventListener('DOMContentLoaded', () => {
   if (window.lucide) lucide.createIcons();
   paintCount();
   initReveal();
-  const burger = document.querySelector('.burger');
-  if (burger) burger.addEventListener('click', () => {
-    const nav = document.querySelector('nav.main');
-    if (!nav) return;
-    const open = nav.style.display === 'flex';
-    nav.style.display = open ? '' : 'flex';
-    /* състоянието се съобщава и на екранните четци, не само визуално */
-    burger.setAttribute('aria-expanded', open ? 'false' : 'true');
-    if (!open) { nav.style.position = 'absolute'; nav.style.top = '82px'; nav.style.left = '0'; nav.style.right = '0'; nav.style.flexDirection = 'column'; nav.style.background = '#fff'; nav.style.padding = '18px 22px'; nav.style.borderBottom = '1px solid rgba(10,9,8,.12)'; nav.style.margin = '0'; }
-  });
+  initMenu();
+  initRails();
 });
+
+/* ── Мобилно меню ──────────────────────────────────────────────────────────
+   Състоянието е един клас върху хедъра, а разположението и преходът са в CSS.
+   Преди тук се редяха инлайн стилове с твърдо `top:82px` - хедърът е висок
+   73px, откъдето идваше процепът под него. */
+function initMenu() {
+  const burger = document.querySelector('.burger');
+  const header = document.querySelector('header.site');
+  const nav = document.querySelector('nav.main');
+  if (!burger || !header || !nav) return;
+
+  const setIcon = open => {
+    burger.innerHTML = '<i data-lucide="' + (open ? 'x' : 'menu') + '"></i>';
+    if (window.lucide) lucide.createIcons();
+  };
+  const setOpen = open => {
+    header.classList.toggle('nav-open', open);
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    burger.setAttribute('aria-label', open ? 'Затвори менюто' : 'Меню');
+    setIcon(open);
+  };
+
+  burger.addEventListener('click', () => setOpen(!header.classList.contains('nav-open')));
+  /* Затваря се при избор на връзка, с Escape и щом екранът стане настолен -
+     иначе панелът увисва отворен над съдържанието. */
+  nav.addEventListener('click', e => { if (e.target.closest('a')) setOpen(false); });
+  addEventListener('keydown', e => { if (e.key === 'Escape') setOpen(false); });
+  matchMedia('(min-width:761px)').addEventListener('change', e => { if (e.matches) setOpen(false); });
+}
+
+/* ── Лентите с продукти: указател докъде се е стигнало ─────────────────────
+   Картите се плъзгат встрани, но на телефон нищо не подсказваше, че има още.
+   Тънка отсечка под лентата показва дела на видимото и се мести със скрола. */
+function initRails() {
+  document.querySelectorAll('.products.rail').forEach(rail => {
+    if (rail.nextElementSibling && rail.nextElementSibling.classList.contains('rail-nav')) return;
+    const nav = document.createElement('div');
+    nav.className = 'rail-nav';
+    nav.innerHTML = '<span class="rail-hint">Плъзнете за още</span>' +
+      '<span class="rail-bar"><span></span></span>';
+    rail.insertAdjacentElement('afterend', nav);
+    const thumb = nav.querySelector('.rail-bar > span');
+
+    const paint = () => {
+      const max = rail.scrollWidth - rail.clientWidth;
+      /* Няма преливане - няма какво да се подсказва. */
+      nav.hidden = max < 8;
+      if (nav.hidden) return;
+      const frac = Math.max(0.18, rail.clientWidth / rail.scrollWidth);
+      thumb.style.width = (frac * 100) + '%';
+      thumb.style.transform = 'translateX(' + ((rail.scrollLeft / max) * (100 / frac - 100)) + '%)';
+      nav.classList.toggle('at-end', rail.scrollLeft >= max - 2);
+    };
+    rail.addEventListener('scroll', paint, { passive: true });
+    addEventListener('resize', paint, { passive: true });
+    paint();
+  });
+}
