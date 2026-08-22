@@ -80,9 +80,6 @@ function as_send(array $payload, string $key): array {
 /* ── заявката ─────────────────────────────────────────────────────────────── */
 if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') as_fail(405, 'method not allowed');
 
-$cfg = as_config();
-if (empty($cfg['RESEND_API_KEY'])) as_fail(500, 'missing RESEND_API_KEY');
-
 $raw = file_get_contents('php://input');
 if ($raw === false || strlen($raw) > 60000) as_fail(400, 'bad request');
 $body = json_decode($raw, true);
@@ -151,6 +148,14 @@ $order = [
   'note' => as_clean($body['note'] ?? '', 500),
   'items' => $items, 'totals' => $totals,
 ];
+
+/* Настройките се четат чак сега: първо се проверява самата заявка, за да не
+   се издава състоянието на сървъра на всеки, който прати празен POST. */
+$cfg = as_config();
+if (empty($cfg['RESEND_API_KEY'])) {
+  error_log('order: RESEND_API_KEY is not configured');
+  as_fail(503, 'email not configured');
+}
 
 $emailCfg = ['site' => AS_SITE, 'shop' => AS_SHOP];
 $from = $cfg['ORDER_FROM'] ?? 'Asian Secret <orders@asiansecret.bg>';
