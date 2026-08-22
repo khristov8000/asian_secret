@@ -127,10 +127,9 @@
 <script>document.querySelectorAll(".petal-host").forEach(s => spawnPetals(s, 3));</script>
 <script>
 const ORDER_EMAIL = 'zax12@abv.bg';
-/* Функцията живее във Vercel и приема заявки и от домейна в Hostinger. */
-const ORDER_API = location.hostname === 'localhost'
-  ? '/api/order'
-  : 'https://asiansecret-bg.vercel.app/api/order';
+/* Обработката е на самия домейн (PHP на хостинга) - същият произход, без CORS
+   и без зависимост от външна услуга. */
+const ORDER_API = '/api/order.php';
 const shipEl = document.getElementById('ship');
 
 function currentShip(sub) {
