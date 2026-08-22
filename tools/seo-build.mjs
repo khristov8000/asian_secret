@@ -73,6 +73,37 @@ const crumbLd = items => ldBlock({
   }))
 });
 
+/* ── версия на статичните файлове ────────────────────────────────────────────
+   Хостингът дава `Cache-Control: max-age=604800` на CSS и JS, без начин да се
+   каже "този файл се смени". Затова всяка промяна оставаше невидима за вече
+   посетил сайта до седмица. Към адреса се добавя кратък отпечатък от
+   съдържанието: смени ли се файлът, сменя се и адресът, и кешът отпада сам. */
+import crypto from 'crypto';
+
+const stamp = f => crypto.createHash('sha1')
+  .update(fs.readFileSync(path.join(root, f))).digest('hex').slice(0, 8);
+
+const ASSETS = ['assets/site.css', 'assets/data.js', 'assets/shop.js'];
+const VER = Object.fromEntries(ASSETS.map(f => [f, stamp(f)]));
+
+function versionAssets(html) {
+  /* Първо се махат старите печати, за да е повторяемо: инак при второ пускане
+     се получава "site.css?v=aaa?v=bbb". */
+  html = html.replace(/(assets\/[\w.-]+\.(?:css|js))\?v=[a-f0-9]+/g, '$1');
+  for (const f of ASSETS) {
+    html = html.split(f).join(f + '?v=' + VER[f]);
+  }
+  return html;
+}
+
+/* Изходните страници също се подпечатват - те се отдават направо. */
+for (const f of ['index.html', 'products.html', 'product.html', 'cart.html',
+                 'about.html', 'contact.html']) {
+  const before = read(f);
+  const after = versionAssets(before);
+  if (after !== before) fs.writeFileSync(path.join(root, f), after);
+}
+
 /* ── продуктови страници ─────────────────────────────────────────────────── */
 const tplProduct = read('product.html');
 let made = 0;
@@ -143,7 +174,7 @@ for (const p of PRODUCTS) {
     '</article>'
   ].filter(Boolean).join('\n');
 
-  let html = absolutize(tplProduct);
+  let html = versionAssets(absolutize(tplProduct));
   html = swapHead(html, headFor({
     title, desc, canonical: url, image, ogType: 'product', extraLd: ld
   }));
@@ -188,7 +219,7 @@ for (const c of CATS) {
     ])
   ];
 
-  let html = absolutize(tplCat);
+  let html = versionAssets(absolutize(tplCat));
   html = swapHead(html, headFor({
     title, desc, canonical: url, image, ogType: 'website', extraLd: ld
   }));
@@ -298,5 +329,6 @@ fs.writeFileSync(path.join(root, 'robots.txt'),
   'Disallow: /tools/\n\n' +
   'Sitemap: ' + SITE + '/sitemap.xml\n');
 
+console.log('asset versions: ' + ASSETS.map(f => f + '=' + VER[f]).join(', '));
 console.log('generated ' + made + ' product pages, ' + CATS.length +
   ' category pages, sitemap (' + urls.length + ' urls), robots.txt');
