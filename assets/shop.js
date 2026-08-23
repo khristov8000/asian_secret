@@ -1,4 +1,23 @@
 /* Кошница, рендиране на продукти и общи взаимодействия */
+
+/* Езиковите низове и локалните адреси идват от страницата - build-ът ги
+   вгражда точно преди този файл. Резервният вариант пази скрипта работещ,
+   ако някой отвори шаблона директно, без да е минал build. */
+const I18N = window.I18N || { lang: 'bg', T: {}, paths: { product: '/produkt/', category: '/kategoria/' } };
+/* Липсващ ключ се вижда като ⟨ключ⟩, а не като "undefined" пред клиента. */
+const T = new Proxy(I18N.T, { get: (o, k) => (k in o ? o[k] : '⟨' + String(k) + '⟩') });
+
+/* Множествено число: българският и английският имат две форми, руският - три
+   (1 продукт / 2-4 продукта / 5+ продуктов). Затова ключът пази масив. */
+function plural(key, n) {
+  const forms = I18N.T[key];
+  if (!Array.isArray(forms)) return forms || '⟨' + key + '⟩';
+  if (I18N.lang !== 'ru') return forms[n === 1 ? 0 : 1];
+  const m10 = n % 10, m100 = n % 100;
+  if (m10 === 1 && m100 !== 11) return forms[0];
+  if (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) return forms[1];
+  return forms[2];
+}
 const CART_KEY = 'as_cart_v1';
 const SHIPPING_FLAT = 3.90;
 const FREE_SHIPPING = 40;
@@ -17,7 +36,7 @@ function addToCart(sku, qty = 1) {
   if (found) found.qty += qty; else items.push({ slug: sku, qty });
   cartWrite(items);
   const r = bySku(sku);
-  if (r) toast('Добавено в количката: ' + r.product.brand + ' · ' + r.variant.size);
+  if (r) toast(T['toast.added'] + ': ' + r.product.brand + ' · ' + r.variant.size);
 }
 function setQty(sku, qty) {
   let items = cartRead();
@@ -53,19 +72,19 @@ function cardHTML(p) {
   /* При няколко опаковки показваме „от <най-ниската цена>" и размерите,
      а бутонът води към продуктовата страница, за да се избере опаковка. */
   const priceHTML = multi
-    ? `<span class="price"><small class="from">от</small>${money(from)}</span>`
+    ? `<span class="price"><small class="from">${T['shop.from']}</small>${money(from)}</span>`
     : `<span class="price">${money(p.price)}</span>`;
   const sizeChip = multi
     ? `<span class="chip chip-variants">${vs.map(v => v.size).join(' · ')}</span>`
     : `<span class="chip">${p.size}</span>`;
   const action = multi
-    ? `<a class="btn btn-primary btn-sm" href="/produkt/${p.slug}/"><i data-lucide="sliders-horizontal"></i>Избери</a>`
-    : `<button class="btn btn-primary btn-sm" data-add="${defaultVariant(p).sku}"><i data-lucide="shopping-bag"></i>Купи</button>`;
+    ? `<a class="btn btn-primary btn-sm" href="${I18N.paths.product}${p.slug}/"><i data-lucide="sliders-horizontal"></i>${T['shop.choose']}</a>`
+    : `<button class="btn btn-primary btn-sm" data-add="${defaultVariant(p).sku}"><i data-lucide="shopping-bag"></i>${T['shop.buy']}</button>`;
   return `<article class="card">
-<a class="shot" href="/produkt/${p.slug}/"><img src="${imgSrc(defaultVariant(p).sku)}" alt="${p.brand} ${p.name}" loading="lazy"><span class="tags">${tags}</span></a>
+<a class="shot" href="${I18N.paths.product}${p.slug}/"><img src="${imgSrc(defaultVariant(p).sku)}" alt="${p.brand} ${p.name}" loading="lazy"><span class="tags">${tags}</span></a>
 <div class="body">
 <span class="brandline">${p.brand}</span>
-<h3><a href="/produkt/${p.slug}/">${p.name}</a></h3>
+<h3><a href="${I18N.paths.product}${p.slug}/">${p.name}</a></h3>
 <p class="benefit">${p.short}</p>
 <div class="chips">${sizeChip}<span class="chip" style="border-color:${p.accent}66;color:${p.accent}">${p.specs.origin}</span></div>
 <div class="foot">${priceHTML}${action}</div>
@@ -179,7 +198,7 @@ function initMenu() {
   const setOpen = open => {
     header.classList.toggle('nav-open', open);
     burger.setAttribute('aria-expanded', open ? 'true' : 'false');
-    burger.setAttribute('aria-label', open ? 'Затвори менюто' : 'Меню');
+    burger.setAttribute('aria-label', open ? T['nav.closeMenu'] : T['nav.menu']);
     setIcon(open);
   };
 
@@ -199,7 +218,7 @@ function initRails() {
     if (rail.nextElementSibling && rail.nextElementSibling.classList.contains('rail-nav')) return;
     const nav = document.createElement('div');
     nav.className = 'rail-nav';
-    nav.innerHTML = '<span class="rail-hint">Плъзнете за още</span>' +
+    nav.innerHTML = '<span class="rail-hint">' + T['shop.swipe'] + '</span>' +
       '<span class="rail-bar"><span></span></span>';
     rail.insertAdjacentElement('afterend', nav);
     const thumb = nav.querySelector('.rail-bar > span');

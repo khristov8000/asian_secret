@@ -34,9 +34,10 @@ function absolutize(html) {
   );
 }
 
-/* Подменя главата от <title> до края на реда с twitter:image. */
+/* Подменя главата от <title> до края на реда с twitter:image.
+   Търси се "<title", не "<title>": етикетът вече носи data-t ключ. */
 function swapHead(html, parts) {
-  const start = html.indexOf('<title>');
+  const start = html.indexOf('<title');
   const i = html.indexOf('name="twitter:image"');
   const end = html.indexOf('>', i) + 1;
   if (start < 0 || i < 0) throw new Error('template head markers not found');

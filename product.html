@@ -83,7 +83,8 @@
 
 <script src="https://unpkg.com/lucide@0.454.0/dist/umd/lucide.js"></script>
 <script src="assets/data.js?v=ab14905f"></script>
-<script src="assets/shop.js?v=5ba7b084"></script>
+<script>window.I18N={"lang":"bg","T":{"cart.remove":"Премахни","checkout.addrAddress":"Адрес за доставка","checkout.addrHintAddress":"Напишете точния адрес, на който куриерът да достави пратката.","checkout.addrHintOffice":"Напишете кой офис на Спиди да получи пратката.","checkout.addrOffice":"Офис на Спиди","checkout.addrPhAddress":"Например: ул. Витоша 15, вх. Б, ет. 3, ап. 7","checkout.addrPhOffice":"Например: Спиди офис Витоша, ул. Витоша 15","contact.failed":"Изпращането не успя. {link} или ни се обадете на 0878 141 487.","contact.failedLink":"Изпратете съобщението по имейл","contact.ok":"Благодарим! Съобщението е изпратено.","contact.send":"Изпрати съобщението","contact.sending":"Изпращане…","done.fallback":"Ако не получите потвърждение, {link} или ни се обадете на 0878 141 487.","done.fallbackLink":"изпратете поръчката по имейл","done.orderNo":"Номер на поръчка:","home.countProducts":["продукт","продукта"],"ig.alt1":"Premium Resbro маски и памучни тампони на поднос","ig.alt2":"Ежедневен японски ритуал с тъканни маски","ig.alt3":"Растителни екстракти и натурален памук","ig.alt4":"Колекцията Asian Secret","ig.alt5":"Оригинални японски и корейски продукти на поднос","ig.onInstagram":"в Instagram","nav.closeMenu":"Затвори менюто","nav.menu":"Меню","pdp.add":"Добави в количката","pdp.cod":"Плащане при доставка","pdp.less":"По-малко","pdp.more":"Повече","pdp.pack":"Опаковка","pdp.shipDays":"Доставка 1-3 работни дни","pdp.specCount":"Количество","pdp.specOrigin":"Произход","pdp.specType":"Тип","pdp.toCart":"Към количката","shop.buy":"Купи","shop.choose":"Избери","shop.countProducts":["продукт","продукта"],"shop.from":"от","shop.swipe":"Плъзнете за още","sum.free":"Безплатна","sum.sending":"Изпращане…","toast.added":"Добавено в количката"},"paths":{"home":"/","products":"/products","cart":"/cart","about":"/about","contact":"/contact","product":"/produkt/","category":"/kategoria/"}};</script>
+<script src="assets/shop.js?v=f4cd813b"></script>
 <script>
 /* Параметърът може да е slug на продукт или sku на вариант (стари линкове). */
 /* Слъгът идва от data-product на новите /produkt/<slug>/ страници, а при
@@ -107,7 +108,7 @@ let qty = 1;
 
 const variantHTML = () => !hasVariants(p) ? '' : `
 <div class="vpick">
-<h3>Опаковка</h3>
+<h3>${T['pdp.pack']}</h3>
 <div class="vopts" id="vopts">
 ${VARIANTS.map(v => `<button class="vopt${v.sku === variant.sku ? ' on' : ''}" data-sku="${v.sku}">
 <b>${v.size}</b><span>${money(v.price)}</span></button>`).join('')}
@@ -124,18 +125,18 @@ document.getElementById('pdp').innerHTML = `
 <p class="lead">${p.short}</p>
 <div class="chips">${p.badges.map(b => `<span class="chip" style="border-color:${p.accent};color:${p.accent}">${b}</span>`).join('')}${p.concerns.map(c => `<span class="chip">${CONCERNS.find(x => x.id === c).name}</span>`).join('')}</div>
 <div class="specs">
-<div class="spec"><b>Тип</b><span>${p.specs.type}</span></div>
-<div class="spec"><b>Количество</b><span id="specCount">${variant.count}</span></div>
-<div class="spec"><b>Произход</b><span>${p.specs.origin}</span></div>
+<div class="spec"><b>${T['pdp.specType']}</b><span>${p.specs.type}</span></div>
+<div class="spec"><b>${T['pdp.specCount']}</b><span id="specCount">${variant.count}</span></div>
+<div class="spec"><b>${T['pdp.specOrigin']}</b><span>${p.specs.origin}</span></div>
 </div>
 ${variantHTML()}
 <div style="display:flex;align-items:baseline;gap:14px"><span class="price" id="price">${money(variant.price)}</span></div>
 <div class="buyrow">
-<span class="qty"><button id="minus" aria-label="По-малко">−</button><span id="q">1</span><button id="plus" aria-label="Повече">+</button></span>
-<button class="btn btn-primary" id="add"><i data-lucide="shopping-bag"></i>Добави в количката</button>
-<a class="btn btn-outline" href="/cart">Към количката</a>
+<span class="qty"><button id="minus" aria-label="${T['pdp.less']}">−</button><span id="q">1</span><button id="plus" aria-label="${T['pdp.more']}">+</button></span>
+<button class="btn btn-primary" id="add"><i data-lucide="shopping-bag"></i>${T['pdp.add']}</button>
+<a class="btn btn-outline" href="${I18N.paths.cart}">${T['pdp.toCart']}</a>
 </div>
-<div class="chips" style="gap:10px"><span class="chip"><i data-lucide="truck" style="width:14px;height:14px;vertical-align:-2px"></i> Доставка 1-3 работни дни</span><span class="chip">Плащане при доставка</span></div>
+<div class="chips" style="gap:10px"><span class="chip"><i data-lucide="truck" style="width:14px;height:14px;vertical-align:-2px"></i> ${T['pdp.shipDays']}</span><span class="chip">${T['pdp.cod']}</span></div>
 </div>`;
 
 /* Продуктовият лист е текст, не снимка: описанието и ползите се редят на две

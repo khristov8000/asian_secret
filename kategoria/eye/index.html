@@ -37,53 +37,53 @@
 </script>
 </head>
 <body data-category="eye">
-<div class="topbar"><div class="wrap"><span>Безплатна доставка над 40 €</span><span>·</span><span>Оригинални японски и корейски продукти</span><span>·</span><span>Изпращаме до 48 часа</span></div></div>
+<div class="topbar"><div class="wrap"><span data-t="top.free">Безплатна доставка над 40 €</span><span>·</span><span data-t="top.original">Оригинални японски и корейски продукти</span><span>·</span><span data-t="top.ship48">Изпращаме до 48 часа</span></div></div>
 <header class="site"><div class="wrap bar">
 <a class="brand" href="/"><img src="/assets/logo-as.png" alt="Asian Secret" width="640" height="551"><span class="wordmark"><b>ASIAN SECRET</b><span>BEAUTY FROM ASIA</span></span></a>
-<nav class="main" id="mainnav"><a href="/">Начало</a><a href="/products">Продукти</a><a href="/about">За нас</a><a href="/contact">Контакти</a></nav>
+<nav class="main" id="mainnav"><a href="/" data-t="nav.home">Начало</a><a href="/products" class="active" data-t="nav.products">Продукти</a><a href="/about" data-t="nav.about">За нас</a><a href="/contact" data-t="nav.contact">Контакти</a></nav>
 <div class="actions">
 <a class="icon-btn" href="https://www.instagram.com/asiansecret.bg/" target="_blank" rel="noopener" aria-label="Instagram"><i data-lucide="instagram"></i></a>
-<a class="icon-btn" href="/cart" aria-label="Количка"><i data-lucide="shopping-bag"></i><span class="cart-count" data-cart-count hidden>0</span></a>
-<button class="icon-btn burger" aria-label="Меню" aria-expanded="false" aria-controls="mainnav"><i data-lucide="menu"></i></button>
+<a class="icon-btn" href="/cart" data-t-aria-label="nav.cartAria" aria-label="Количка"><i data-lucide="shopping-bag"></i><span class="cart-count" data-cart-count hidden>0</span></a>
+<button class="icon-btn burger" data-t-aria-label="nav.menu" aria-label="Меню" aria-expanded="false" aria-controls="mainnav"><i data-lucide="menu"></i></button>
 </div>
 </div></header>
 
 <main id="content">
 <section class="page-intro petal-host" style="padding-bottom:34px"><img class="deco deco-pagetop" src="/assets/deco/branch.png" alt="" width="812" height="455"><div class="wrap">
-<span class="eyebrow">Каталог</span>
-<h1 style="margin-top:10px">Патчи за очи</h1>
-<p class="lead" style="margin-top:14px">Патчи за очи от Япония, Корея и Тайланд - 1 продукта, подбрани и проверени лично.</p>
+<span class="eyebrow" data-t="shop.eyebrow">Каталог</span>
+<h1 style="margin-top:10px" data-t="shop.title">Всички продукти</h1>
+<p class="lead" style="margin-top:14px" data-t="shop.lead">Патчи за очи от Япония, Корея и Тайланд - 1 продукта, подбрани и проверени лично.</p>
 </div></section>
 
 <section class="petal-host" style="padding-top:0"><div class="wrap shop">
 <aside class="filters" id="filters">
-<div class="fsearch"><i data-lucide="search"></i><input type="search" id="q" placeholder="Търси продукт" aria-label="Търси продукт"></div>
-<div class="fgroup"><h2>Цена</h2>
+<div class="fsearch"><i data-lucide="search"></i><input type="search" id="q" data-t-placeholder="shop.searchPh" data-t-aria-label="shop.searchPh" placeholder="Търси продукт" aria-label="Търси продукт"></div>
+<div class="fgroup"><h2 data-t="shop.price">Цена</h2>
 <div class="range-wrap">
 <span class="range-track"></span><span class="range-fill" id="rFill"></span>
-<input type="range" id="rMin" aria-label="Минимална цена">
-<input type="range" id="rMax" aria-label="Максимална цена">
+<input type="range" id="rMin" data-t-aria-label="shop.priceMin" aria-label="Минимална цена">
+<input type="range" id="rMax" data-t-aria-label="shop.priceMax" aria-label="Максимална цена">
 </div>
 <div class="range-vals"><span id="rMinVal"></span><span id="rMaxVal"></span></div>
 </div>
-<div class="fgroup"><h2>Категория</h2><div id="fCats"></div></div>
-<div class="fgroup"><h2>Нужда на кожата</h2><div id="fConcerns"></div></div>
-<button class="btn btn-ghost btn-sm" id="clear">Изчисти филтрите</button>
+<div class="fgroup"><h2 data-t="shop.category">Категория</h2><div id="fCats"></div></div>
+<div class="fgroup"><h2 data-t="shop.concern">Нужда на кожата</h2><div id="fConcerns"></div></div>
+<button class="btn btn-ghost btn-sm" id="clear" data-t="shop.clear">Изчисти филтрите</button>
 </aside>
 <div>
 <div class="shopbar">
 <span class="muted" id="count"></span>
-<button class="btn btn-ghost btn-sm filters-toggle" id="filtersToggle" type="button" aria-expanded="false" aria-controls="filters"><i data-lucide="sliders-horizontal"></i>Филтри<span class="ftcount" id="ftCount" hidden>0</span></button>
-<select class="sortsel" id="sort" aria-label="Подредба на продуктите">
-<option value="pop">Подредба: препоръчани</option>
-<option value="asc">Цена: ниска → висока</option>
-<option value="desc">Цена: висока → ниска</option>
-<option value="name">По име</option>
+<button class="btn btn-ghost btn-sm filters-toggle" id="filtersToggle" type="button" aria-expanded="false" aria-controls="filters"><i data-lucide="sliders-horizontal"></i><span data-t="shop.filters">Филтри</span><span class="ftcount" id="ftCount" hidden>0</span></button>
+<select class="sortsel" id="sort" data-t-aria-label="shop.sortAria" aria-label="Подредба на продуктите">
+<option value="pop" data-t="shop.sortPop">Подредба: препоръчани</option>
+<option value="asc" data-t="shop.sortAsc">Цена: ниска → висока</option>
+<option value="desc" data-t="shop.sortDesc">Цена: висока → ниска</option>
+<option value="name" data-t="shop.sortName">По име</option>
 </select>
 </div>
 <div class="active-filters" id="chips"></div>
 <div class="products" id="grid"></div>
-<div class="empty" id="empty" hidden><h3>Няма продукти с тези филтри</h3><p class="lead center" style="margin:10px auto 20px">Пробвайте с друга комбинация.</p><button class="btn btn-outline" onclick="document.getElementById('clear').click()">Изчисти филтрите</button></div>
+<div class="empty" id="empty" hidden><h3 data-t="shop.emptyTitle">Няма продукти с тези филтри</h3><p class="lead center" style="margin:10px auto 20px" data-t="shop.emptyLead">Пробвайте с друга комбинация.</p><button class="btn btn-outline" data-t="shop.clear" onclick="document.getElementById('clear').click()">Изчисти филтрите</button></div>
 </div>
 </div></section>
 
@@ -99,20 +99,21 @@
 </div>
 <div class="fsparkle"></div>
 <div class="frow">
-<div class="fcol"><h2>Магазин</h2><div class="flist"><a href="/products">Всички продукти</a><a href="/products?c=masks">Тъканни маски</a><a href="/products?c=eye">Патчи за очи</a><a href="/products?c=spf">Слънцезащита</a><a href="/products?c=hands">Грижа за ръце</a></div></div>
-<div class="fcol"><h2>Информация</h2><div class="flist"><a href="/about">За нас</a><a href="/contact#delivery">Доставка и плащане</a><a href="/contact#faq">Често задавани въпроси</a><a href="/cart">Количка</a></div></div>
-<div class="fcol"><h2>Доставка</h2><div class="flist"><span>До офис - 3,90 &euro;</span><span>До адрес - 3,90 &euro;</span><span>Безплатно над 40 &euro;</span><span>Изпращаме до 48 часа</span></div></div>
-<div class="fcol"><h2>Последвай ни</h2>
-<div class="social"><a href="https://www.instagram.com/asiansecret.bg/" target="_blank" rel="noopener" aria-label="Instagram"><i data-lucide="instagram"></i></a><a href="mailto:zax12@abv.bg" aria-label="Имейл"><i data-lucide="mail"></i></a><a href="tel:0878141487" aria-label="Телефон"><i data-lucide="phone"></i></a></div>
+<div class="fcol"><h2 data-t="foot.shop">Магазин</h2><div class="flist"><a href="/products" data-t="foot.all">Всички продукти</a><a href="/products?c=masks" data-t="foot.masks">Тъканни маски</a><a href="/products?c=eye" data-t="foot.eye">Патчи за очи</a><a href="/products?c=spf" data-t="foot.spf">Слънцезащита</a><a href="/products?c=hands" data-t="foot.hands">Грижа за ръце</a></div></div>
+<div class="fcol"><h2 data-t="foot.info">Информация</h2><div class="flist"><a href="/about" data-t="foot.about">За нас</a><a href="/contact#delivery" data-t="foot.shipPay">Доставка и плащане</a><a href="/contact#faq" data-t="foot.faq">Често задавани въпроси</a><a href="/cart" data-t="foot.cart">Количка</a></div></div>
+<div class="fcol"><h2 data-t="foot.delivery">Доставка</h2><div class="flist"><span data-t="foot.toOffice">До офис - 3,90 &euro;</span><span data-t="foot.toAddress">До адрес - 3,90 &euro;</span><span data-t="foot.freeOver">Безплатно над 40 &euro;</span><span data-t="foot.ship48">Изпращаме до 48 часа</span></div></div>
+<div class="fcol"><h2 data-t="foot.follow">Последвай ни</h2>
+<div class="social"><a href="https://www.instagram.com/asiansecret.bg/" target="_blank" rel="noopener" aria-label="Instagram"><i data-lucide="instagram"></i></a><a href="mailto:zax12@abv.bg" data-t-aria-label="foot.emailAria" aria-label="Имейл"><i data-lucide="mail"></i></a><a href="tel:0878141487" data-t-aria-label="foot.phoneAria" aria-label="Телефон"><i data-lucide="phone"></i></a></div>
 <div class="flist fcontact"><a href="tel:0878141487">0878 141 487</a><a href="mailto:zax12@abv.bg">zax12@abv.bg</a></div>
 </div>
 </div>
-<div class="fbot"><span>&copy; 2026 Asian Secret. Всички права запазени.</span><span>Оригинални продукти от Япония, Корея и Тайланд</span></div>
+<div class="fbot"><span data-t="foot.rights">&copy; 2026 Asian Secret. Всички права запазени.</span><span data-t="foot.originals">Оригинални продукти от Япония, Корея и Тайланд</span></div>
 </div></footer>
 
 <script src="https://unpkg.com/lucide@0.454.0/dist/umd/lucide.js"></script>
 <script src="/assets/data.js?v=ab14905f"></script>
-<script src="/assets/shop.js?v=5ba7b084"></script>
+<script>window.I18N={"lang":"bg","T":{"cart.remove":"Премахни","checkout.addrAddress":"Адрес за доставка","checkout.addrHintAddress":"Напишете точния адрес, на който куриерът да достави пратката.","checkout.addrHintOffice":"Напишете кой офис на Спиди да получи пратката.","checkout.addrOffice":"Офис на Спиди","checkout.addrPhAddress":"Например: ул. Витоша 15, вх. Б, ет. 3, ап. 7","checkout.addrPhOffice":"Например: Спиди офис Витоша, ул. Витоша 15","contact.failed":"Изпращането не успя. {link} или ни се обадете на 0878 141 487.","contact.failedLink":"Изпратете съобщението по имейл","contact.ok":"Благодарим! Съобщението е изпратено.","contact.send":"Изпрати съобщението","contact.sending":"Изпращане…","done.fallback":"Ако не получите потвърждение, {link} или ни се обадете на 0878 141 487.","done.fallbackLink":"изпратете поръчката по имейл","done.orderNo":"Номер на поръчка:","home.countProducts":["продукт","продукта"],"ig.alt1":"Premium Resbro маски и памучни тампони на поднос","ig.alt2":"Ежедневен японски ритуал с тъканни маски","ig.alt3":"Растителни екстракти и натурален памук","ig.alt4":"Колекцията Asian Secret","ig.alt5":"Оригинални японски и корейски продукти на поднос","ig.onInstagram":"в Instagram","nav.closeMenu":"Затвори менюто","nav.menu":"Меню","pdp.add":"Добави в количката","pdp.cod":"Плащане при доставка","pdp.less":"По-малко","pdp.more":"Повече","pdp.pack":"Опаковка","pdp.shipDays":"Доставка 1-3 работни дни","pdp.specCount":"Количество","pdp.specOrigin":"Произход","pdp.specType":"Тип","pdp.toCart":"Към количката","shop.buy":"Купи","shop.choose":"Избери","shop.countProducts":["продукт","продукта"],"shop.from":"от","shop.swipe":"Плъзнете за още","sum.free":"Безплатна","sum.sending":"Изпращане…","toast.added":"Добавено в количката"},"paths":{"home":"/","products":"/products","cart":"/cart","about":"/about","contact":"/contact","product":"/produkt/","category":"/kategoria/"}};</script>
+<script src="/assets/shop.js?v=f4cd813b"></script>
 <script>document.querySelectorAll(".petal-host").forEach(s => spawnPetals(s, 3));</script>
 <script>
 /* Границите и филтърът се водят по вариантите, не по базовата цена. */
@@ -175,7 +176,7 @@ function apply() {
   if (state.sort === 'asc') list = [...list].sort((a, b) => priceFrom(a) - priceFrom(b));
   if (state.sort === 'desc') list = [...list].sort((a, b) => priceTo(b) - priceTo(a));
   if (state.sort === 'name') list = [...list].sort((a, b) => (a.brand + a.name).localeCompare(b.brand + b.name, 'bg'));
-  document.getElementById('count').textContent = list.length + (list.length === 1 ? ' продукт' : ' продукта');
+  document.getElementById('count').textContent = list.length + ' ' + plural('shop.countProducts', list.length);
   document.getElementById('empty').hidden = list.length > 0;
   renderChips();
   renderProducts(document.getElementById('grid'), list);

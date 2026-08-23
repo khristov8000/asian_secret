@@ -140,13 +140,14 @@
 
 <script src="https://unpkg.com/lucide@0.454.0/dist/umd/lucide.js"></script>
 <script src="assets/data.js?v=ab14905f"></script>
-<script src="assets/shop.js?v=5ba7b084"></script>
+<script>window.I18N={"lang":"bg","T":{"cart.remove":"Премахни","checkout.addrAddress":"Адрес за доставка","checkout.addrHintAddress":"Напишете точния адрес, на който куриерът да достави пратката.","checkout.addrHintOffice":"Напишете кой офис на Спиди да получи пратката.","checkout.addrOffice":"Офис на Спиди","checkout.addrPhAddress":"Например: ул. Витоша 15, вх. Б, ет. 3, ап. 7","checkout.addrPhOffice":"Например: Спиди офис Витоша, ул. Витоша 15","contact.failed":"Изпращането не успя. {link} или ни се обадете на 0878 141 487.","contact.failedLink":"Изпратете съобщението по имейл","contact.ok":"Благодарим! Съобщението е изпратено.","contact.send":"Изпрати съобщението","contact.sending":"Изпращане…","done.fallback":"Ако не получите потвърждение, {link} или ни се обадете на 0878 141 487.","done.fallbackLink":"изпратете поръчката по имейл","done.orderNo":"Номер на поръчка:","home.countProducts":["продукт","продукта"],"ig.alt1":"Premium Resbro маски и памучни тампони на поднос","ig.alt2":"Ежедневен японски ритуал с тъканни маски","ig.alt3":"Растителни екстракти и натурален памук","ig.alt4":"Колекцията Asian Secret","ig.alt5":"Оригинални японски и корейски продукти на поднос","ig.onInstagram":"в Instagram","nav.closeMenu":"Затвори менюто","nav.menu":"Меню","pdp.add":"Добави в количката","pdp.cod":"Плащане при доставка","pdp.less":"По-малко","pdp.more":"Повече","pdp.pack":"Опаковка","pdp.shipDays":"Доставка 1-3 работни дни","pdp.specCount":"Количество","pdp.specOrigin":"Произход","pdp.specType":"Тип","pdp.toCart":"Към количката","shop.buy":"Купи","shop.choose":"Избери","shop.countProducts":["продукт","продукта"],"shop.from":"от","shop.swipe":"Плъзнете за още","sum.free":"Безплатна","sum.sending":"Изпращане…","toast.added":"Добавено в количката"},"paths":{"home":"/","products":"/products","cart":"/cart","about":"/about","contact":"/contact","product":"/produkt/","category":"/kategoria/"}};</script>
+<script src="assets/shop.js?v=f4cd813b"></script>
 <script>document.querySelectorAll(".petal-host").forEach(s => spawnPetals(s, 3));</script>
 <script>
 document.getElementById('contactForm').addEventListener('submit', async e => {
   e.preventDefault();
   const btn = document.getElementById('csubmit'), status = document.getElementById('cstatus');
-  btn.disabled = true; btn.textContent = 'Изпращане…';
+  btn.disabled = true; btn.textContent = T['contact.sending'];
   const data = {
     _subject: 'Ново съобщение от asiansecret.bg',
     'Име': cname.value, 'Телефон': cphone.value, 'Имейл': cemail.value, 'Съобщение': cmsg.value
@@ -156,11 +157,12 @@ document.getElementById('contactForm').addEventListener('submit', async e => {
     const res = await fetch('https://formsubmit.co/ajax/zax12@abv.bg', { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(data) });
     ok = res.ok;
   } catch (err) { ok = false; }
-  btn.disabled = false; btn.innerHTML = '<i data-lucide="send"></i>Изпрати съобщението';
-  if (ok) { e.target.reset(); status.textContent = 'Благодарим! Съобщението е изпратено.'; }
+  btn.disabled = false; btn.innerHTML = '<i data-lucide="send"></i>' + T['contact.send'];
+  if (ok) { e.target.reset(); status.textContent = T['contact.ok']; }
   else {
     const body = 'Име: ' + cname.value + '\nТелефон: ' + cphone.value + '\nИмейл: ' + cemail.value + '\n\n' + cmsg.value;
-    status.innerHTML = 'Изпращането не успя. <a href="mailto:zax12@abv.bg?subject=' + encodeURIComponent('Запитване от сайта') + '&body=' + encodeURIComponent(body) + '">Изпратете съобщението по имейл</a> или ни се обадете на 0878 141 487.';
+    const link = '<a href="mailto:zax12@abv.bg?subject=' + encodeURIComponent('Запитване от сайта') + '&body=' + encodeURIComponent(body) + '">' + T['contact.failedLink'] + '</a>';
+    status.innerHTML = T['contact.failed'].replace('{link}', link);
   }
   if (window.lucide) lucide.createIcons();
 });

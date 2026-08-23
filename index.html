@@ -171,11 +171,12 @@
 
 <script src="https://unpkg.com/lucide@0.454.0/dist/umd/lucide.js"></script>
 <script src="assets/data.js?v=ab14905f"></script>
-<script src="assets/shop.js?v=5ba7b084"></script>
+<script>window.I18N={"lang":"bg","T":{"cart.remove":"Премахни","checkout.addrAddress":"Адрес за доставка","checkout.addrHintAddress":"Напишете точния адрес, на който куриерът да достави пратката.","checkout.addrHintOffice":"Напишете кой офис на Спиди да получи пратката.","checkout.addrOffice":"Офис на Спиди","checkout.addrPhAddress":"Например: ул. Витоша 15, вх. Б, ет. 3, ап. 7","checkout.addrPhOffice":"Например: Спиди офис Витоша, ул. Витоша 15","contact.failed":"Изпращането не успя. {link} или ни се обадете на 0878 141 487.","contact.failedLink":"Изпратете съобщението по имейл","contact.ok":"Благодарим! Съобщението е изпратено.","contact.send":"Изпрати съобщението","contact.sending":"Изпращане…","done.fallback":"Ако не получите потвърждение, {link} или ни се обадете на 0878 141 487.","done.fallbackLink":"изпратете поръчката по имейл","done.orderNo":"Номер на поръчка:","home.countProducts":["продукт","продукта"],"ig.alt1":"Premium Resbro маски и памучни тампони на поднос","ig.alt2":"Ежедневен японски ритуал с тъканни маски","ig.alt3":"Растителни екстракти и натурален памук","ig.alt4":"Колекцията Asian Secret","ig.alt5":"Оригинални японски и корейски продукти на поднос","ig.onInstagram":"в Instagram","nav.closeMenu":"Затвори менюто","nav.menu":"Меню","pdp.add":"Добави в количката","pdp.cod":"Плащане при доставка","pdp.less":"По-малко","pdp.more":"Повече","pdp.pack":"Опаковка","pdp.shipDays":"Доставка 1-3 работни дни","pdp.specCount":"Количество","pdp.specOrigin":"Произход","pdp.specType":"Тип","pdp.toCart":"Към количката","shop.buy":"Купи","shop.choose":"Избери","shop.countProducts":["продукт","продукта"],"shop.from":"от","shop.swipe":"Плъзнете за още","sum.free":"Безплатна","sum.sending":"Изпращане…","toast.added":"Добавено в количката"},"paths":{"home":"/","products":"/products","cart":"/cart","about":"/about","contact":"/contact","product":"/produkt/","category":"/kategoria/"}};</script>
+<script src="assets/shop.js?v=f4cd813b"></script>
 <script>
 document.getElementById('cats').innerHTML = CATS.map(c => {
   const n = PRODUCTS.filter(p => p.cat === c.id).length;
-  return `<a class="cat" href="/products?c=${c.id}" style="background:${c.color}1f"><span class="cnt">${n === 1 ? 'продукт' : 'продукта'}</span><b>${c.name}</b><span>${c.desc}</span></a>`;
+  return `<a class="cat" href="/products?c=${c.id}" style="background:${c.color}1f"><span class="cnt">${plural('home.countProducts', n)}</span><b>${c.name}</b><span>${c.desc}</span></a>`;
 }).join('');
 /* Само маски и патчи - кремове/SPF стоят в каталога, не в „най-търсени". */
 const bestSlugs = ['resbro-ex','puru-puru-eye','temogey-propolis','tuneup-niacinamide','este-snail','temogey-bakuchiol','zen-no-shizuku','pullup-marshmallow'];
@@ -200,17 +201,17 @@ showConcern('hydration');
    `href` може да сочи към конкретен пост вместо към профила. */
 const IG_PROFILE = 'https://www.instagram.com/asiansecret.bg/';
 const IG_POSTS = [
-  { src: 'assets/instagram/s1.jpg', alt: 'Premium Resbro маски и памучни тампони на поднос', href: IG_PROFILE },
-  { src: 'assets/instagram/s2.jpg', alt: 'Ежедневен японски ритуал с тъканни маски', href: IG_PROFILE },
-  { src: 'assets/instagram/s6.jpg', alt: 'Растителни екстракти и натурален памук', href: IG_PROFILE },
-  { src: 'assets/instagram/s4.jpg', alt: 'Колекцията Asian Secret', href: IG_PROFILE },
-  { src: 'assets/instagram/s7.jpg', alt: 'Оригинални японски и корейски продукти на поднос', href: IG_PROFILE }
+  { src: 'assets/instagram/s1.jpg', alt: T['ig.alt1'], href: IG_PROFILE },
+  { src: 'assets/instagram/s2.jpg', alt: T['ig.alt2'], href: IG_PROFILE },
+  { src: 'assets/instagram/s6.jpg', alt: T['ig.alt3'], href: IG_PROFILE },
+  { src: 'assets/instagram/s4.jpg', alt: T['ig.alt4'], href: IG_PROFILE },
+  { src: 'assets/instagram/s7.jpg', alt: T['ig.alt5'], href: IG_PROFILE }
 ];
 
 const igSection = document.getElementById('ig');
 function renderIg() {
   document.getElementById('igGrid').innerHTML = IG_POSTS.map((p, i) =>
-    `<a class="ig-tile t${i + 1}" href="${p.href}" target="_blank" rel="noopener" aria-label="${p.alt} в Instagram">` +
+    `<a class="ig-tile t${i + 1}" href="${p.href}" target="_blank" rel="noopener" aria-label="${p.alt} ${T['ig.onInstagram']}">` +
     `<img src="${p.src}" alt="${p.alt}" loading="lazy">` +
     `<span class="ig-ov"><i data-lucide="instagram"></i></span></a>`).join('');
   if (window.lucide) lucide.createIcons();

@@ -123,7 +123,8 @@
 
 <script src="https://unpkg.com/lucide@0.454.0/dist/umd/lucide.js"></script>
 <script src="assets/data.js?v=ab14905f"></script>
-<script src="assets/shop.js?v=5ba7b084"></script>
+<script>window.I18N={"lang":"bg","T":{"cart.remove":"Премахни","checkout.addrAddress":"Адрес за доставка","checkout.addrHintAddress":"Напишете точния адрес, на който куриерът да достави пратката.","checkout.addrHintOffice":"Напишете кой офис на Спиди да получи пратката.","checkout.addrOffice":"Офис на Спиди","checkout.addrPhAddress":"Например: ул. Витоша 15, вх. Б, ет. 3, ап. 7","checkout.addrPhOffice":"Например: Спиди офис Витоша, ул. Витоша 15","contact.failed":"Изпращането не успя. {link} или ни се обадете на 0878 141 487.","contact.failedLink":"Изпратете съобщението по имейл","contact.ok":"Благодарим! Съобщението е изпратено.","contact.send":"Изпрати съобщението","contact.sending":"Изпращане…","done.fallback":"Ако не получите потвърждение, {link} или ни се обадете на 0878 141 487.","done.fallbackLink":"изпратете поръчката по имейл","done.orderNo":"Номер на поръчка:","home.countProducts":["продукт","продукта"],"ig.alt1":"Premium Resbro маски и памучни тампони на поднос","ig.alt2":"Ежедневен японски ритуал с тъканни маски","ig.alt3":"Растителни екстракти и натурален памук","ig.alt4":"Колекцията Asian Secret","ig.alt5":"Оригинални японски и корейски продукти на поднос","ig.onInstagram":"в Instagram","nav.closeMenu":"Затвори менюто","nav.menu":"Меню","pdp.add":"Добави в количката","pdp.cod":"Плащане при доставка","pdp.less":"По-малко","pdp.more":"Повече","pdp.pack":"Опаковка","pdp.shipDays":"Доставка 1-3 работни дни","pdp.specCount":"Количество","pdp.specOrigin":"Произход","pdp.specType":"Тип","pdp.toCart":"Към количката","shop.buy":"Купи","shop.choose":"Избери","shop.countProducts":["продукт","продукта"],"shop.from":"от","shop.swipe":"Плъзнете за още","sum.free":"Безплатна","sum.sending":"Изпращане…","toast.added":"Добавено в количката"},"paths":{"home":"/","products":"/products","cart":"/cart","about":"/about","contact":"/contact","product":"/produkt/","category":"/kategoria/"}};</script>
+<script src="assets/shop.js?v=f4cd813b"></script>
 <script>document.querySelectorAll(".petal-host").forEach(s => spawnPetals(s, 3));</script>
 <script>
 const ORDER_EMAIL = 'zax12@abv.bg';
@@ -152,7 +153,7 @@ function paint() {
 <div><span class="brandline" style="font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-45)">${p.brand}</span>
 <h4>${p.name}</h4>
 <p class="muted" style="font-size:13px">${v.size} · ${p.specs.origin}</p>
-<button class="rm" data-rm="${v.sku}">Премахни</button></div>
+<button class="rm" data-rm="${v.sku}">${T['cart.remove']}</button></div>
 <div style="text-align:right;display:flex;flex-direction:column;gap:10px;align-items:flex-end">
 <span class="price" style="font-size:18px">${money(v.price * i.qty)}</span>
 <span class="qty"><button data-q="${v.sku}" data-d="-1">−</button><span>${i.qty}</span><button data-q="${v.sku}" data-d="1">+</button></span>
@@ -164,7 +165,7 @@ function paint() {
   }).join('');
   const sub = cartSubtotal(), ship = currentShip(sub);
   document.getElementById('sub').textContent = money(sub);
-  shipEl.textContent = ship === 0 ? 'Безплатна' : money(ship);
+  shipEl.textContent = ship === 0 ? T['sum.free'] : money(ship);
   document.getElementById('total').textContent = money(sub + ship);
   if (window.lucide) lucide.createIcons();
 }
@@ -182,8 +183,8 @@ const addrLabel = document.getElementById('addrLabel');
 const addrInput = document.getElementById('addr');
 const addrHint = document.getElementById('addrHint');
 const ADDR_COPY = {
-  office: { label: 'Офис на Спиди', ph: 'Например: Спиди офис Витоша, ул. Витоша 15', hint: 'Напишете кой офис на Спиди да получи пратката.' },
-  address: { label: 'Адрес за доставка', ph: 'Например: ул. Витоша 15, вх. Б, ет. 3, ап. 7', hint: 'Напишете точния адрес, на който куриерът да достави пратката.' }
+  office: { label: T['checkout.addrOffice'], ph: T['checkout.addrPhOffice'], hint: T['checkout.addrHintOffice'] },
+  address: { label: T['checkout.addrAddress'], ph: T['checkout.addrPhAddress'], hint: T['checkout.addrHintAddress'] }
 };
 
 function paintAddr() {
@@ -200,7 +201,7 @@ document.getElementById('checkout').addEventListener('submit', async e => {
   e.preventDefault();
   const f = e.target;
   const btn = document.getElementById('submit');
-  btn.disabled = true; btn.textContent = 'Изпращане…';
+  btn.disabled = true; btn.textContent = T['sum.sending'];
   const items = cartRead().map(i => {
     const r = bySku(i.slug); if (!r) return '';
     return `${r.product.brand} - ${r.product.name} (${r.variant.size}) × ${i.qty} = ${money(r.variant.price * i.qty)}`;
@@ -262,12 +263,13 @@ document.getElementById('checkout').addEventListener('submit', async e => {
   document.querySelector('.steps').parentElement.parentElement.hidden = true;
   const thanks = document.getElementById('thanks');
   thanks.hidden = false;
-  document.getElementById('orderNo').textContent = 'Номер на поръчка: ' + no;
+  document.getElementById('orderNo').textContent = T['done.orderNo'] + ' ' + no;
   if (!sent) {
     const body = Object.entries(data).filter(([k]) => k !== '_subject').map(([k, v]) => k + ': ' + v).join('\n');
     const fb = document.getElementById('fallback');
     fb.hidden = false;
-    fb.innerHTML = 'Ако не получите потвърждение, <a href="mailto:' + ORDER_EMAIL + '?subject=' + encodeURIComponent('Поръчка ' + no) + '&body=' + encodeURIComponent(body) + '">изпратете поръчката по имейл</a> или ни се обадете на 0878 141 487.';
+    const link = '<a href="mailto:' + ORDER_EMAIL + '?subject=' + encodeURIComponent('Поръчка ' + no) + '&body=' + encodeURIComponent(body) + '">' + T['done.fallbackLink'] + '</a>';
+    fb.innerHTML = T['done.fallback'].replace('{link}', link);
   }
   localStorage.removeItem(CART_KEY);
   paintCount();

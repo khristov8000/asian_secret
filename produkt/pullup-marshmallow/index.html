@@ -30,18 +30,18 @@
 <link rel="stylesheet" href="/assets/site.css?v=e184c236">
 </head>
 <body data-product="pullup-marshmallow">
-<div class="topbar"><div class="wrap"><span>Безплатна доставка над 40 €</span><span>·</span><span>Оригинални японски и корейски продукти</span><span>·</span><span>Изпращаме до 48 часа</span></div></div>
+<div class="topbar"><div class="wrap"><span data-t="top.free">Безплатна доставка над 40 €</span><span>·</span><span data-t="top.original">Оригинални японски и корейски продукти</span><span>·</span><span data-t="top.ship48">Изпращаме до 48 часа</span></div></div>
 <header class="site"><div class="wrap bar">
 <a class="brand" href="/"><img src="/assets/logo-as.png" alt="Asian Secret" width="640" height="551"><span class="wordmark"><b>ASIAN SECRET</b><span>BEAUTY FROM ASIA</span></span></a>
-<nav class="main" id="mainnav"><a href="/">Начало</a><a href="/products" class="active">Продукти</a><a href="/about">За нас</a><a href="/contact">Контакти</a></nav>
+<nav class="main" id="mainnav"><a href="/" data-t="nav.home">Начало</a><a href="/products" class="active" data-t="nav.products">Продукти</a><a href="/about" data-t="nav.about">За нас</a><a href="/contact" data-t="nav.contact">Контакти</a></nav>
 <div class="actions">
 <a class="icon-btn" href="https://www.instagram.com/asiansecret.bg/" target="_blank" rel="noopener" aria-label="Instagram"><i data-lucide="instagram"></i></a>
-<a class="icon-btn" href="/cart" aria-label="Количка"><i data-lucide="shopping-bag"></i><span class="cart-count" data-cart-count hidden>0</span></a>
-<button class="icon-btn burger" aria-label="Меню" aria-expanded="false" aria-controls="mainnav"><i data-lucide="menu"></i></button>
+<a class="icon-btn" href="/cart" data-t-aria-label="nav.cartAria" aria-label="Количка"><i data-lucide="shopping-bag"></i><span class="cart-count" data-cart-count hidden>0</span></a>
+<button class="icon-btn burger" data-t-aria-label="nav.menu" aria-label="Меню" aria-expanded="false" aria-controls="mainnav"><i data-lucide="menu"></i></button>
 </div>
 </div></header>
 
-<div class="wrap pdp-crumb" style="padding-top:22px"><p class="muted" style="font-size:13px"><a href="/">Начало</a> / <a href="/products">Продукти</a> / <span id="crumb"></span></p></div>
+<div class="wrap pdp-crumb" style="padding-top:22px"><p class="muted" style="font-size:13px"><a href="/" data-t="crumb.home">Начало</a> / <a href="/products" data-t="crumb.products">Продукти</a> / <span id="crumb"></span></p></div>
 
 <main class="wrap pdp" id="pdp"><article>
 <img src="/assets/products/pullup-marshmallow.webp" alt="PulluP SRS Marshmallow Sheet Mask" width="640" height="640">
@@ -60,7 +60,7 @@
 </div>
 
 <section class="band" id="sheetBand"><div class="wrap">
-<div class="sec-head"><div><span class="eyebrow">Продуктов лист</span><h2>Съставът в <em>детайли</em></h2></div></div>
+<div class="sec-head"><div><span class="eyebrow" data-t="pdp.sheetEyebrow">Продуктов лист</span><h2 data-t="pdp.sheetTitle">Съставът в <em>детайли</em></h2></div></div>
 <div class="pstory" id="sheet"></div>
 </div></section>
 
@@ -70,7 +70,7 @@
 </div>
 
 <section><div class="wrap">
-<div class="sec-head"><div><span class="eyebrow">Може да ви хареса</span><h2>Подобни продукти</h2></div><a class="btn btn-ghost btn-sm" href="/products">Всички продукти<i data-lucide="arrow-right"></i></a></div>
+<div class="sec-head"><div><span class="eyebrow" data-t="pdp.relatedEyebrow">Може да ви хареса</span><h2 data-t="pdp.relatedTitle">Подобни продукти</h2></div><a class="btn btn-ghost btn-sm" href="/products"><span data-t="home.allProducts">Всички продукти</span><i data-lucide="arrow-right"></i></a></div>
 <div class="products rail" id="related"></div>
 </div></section>
 
@@ -84,20 +84,21 @@
 </div>
 <div class="fsparkle"></div>
 <div class="frow">
-<div class="fcol"><h2>Магазин</h2><div class="flist"><a href="/products">Всички продукти</a><a href="/products?c=masks">Тъканни маски</a><a href="/products?c=eye">Патчи за очи</a><a href="/products?c=spf">Слънцезащита</a><a href="/products?c=hands">Грижа за ръце</a></div></div>
-<div class="fcol"><h2>Информация</h2><div class="flist"><a href="/about">За нас</a><a href="/contact#delivery">Доставка и плащане</a><a href="/contact#faq">Често задавани въпроси</a><a href="/cart">Количка</a></div></div>
-<div class="fcol"><h2>Доставка</h2><div class="flist"><span>До офис - 3,90 &euro;</span><span>До адрес - 3,90 &euro;</span><span>Безплатно над 40 &euro;</span><span>Изпращаме до 48 часа</span></div></div>
-<div class="fcol"><h2>Последвай ни</h2>
-<div class="social"><a href="https://www.instagram.com/asiansecret.bg/" target="_blank" rel="noopener" aria-label="Instagram"><i data-lucide="instagram"></i></a><a href="mailto:zax12@abv.bg" aria-label="Имейл"><i data-lucide="mail"></i></a><a href="tel:0878141487" aria-label="Телефон"><i data-lucide="phone"></i></a></div>
+<div class="fcol"><h2 data-t="foot.shop">Магазин</h2><div class="flist"><a href="/products" data-t="foot.all">Всички продукти</a><a href="/products?c=masks" data-t="foot.masks">Тъканни маски</a><a href="/products?c=eye" data-t="foot.eye">Патчи за очи</a><a href="/products?c=spf" data-t="foot.spf">Слънцезащита</a><a href="/products?c=hands" data-t="foot.hands">Грижа за ръце</a></div></div>
+<div class="fcol"><h2 data-t="foot.info">Информация</h2><div class="flist"><a href="/about" data-t="foot.about">За нас</a><a href="/contact#delivery" data-t="foot.shipPay">Доставка и плащане</a><a href="/contact#faq" data-t="foot.faq">Често задавани въпроси</a><a href="/cart" data-t="foot.cart">Количка</a></div></div>
+<div class="fcol"><h2 data-t="foot.delivery">Доставка</h2><div class="flist"><span data-t="foot.toOffice">До офис - 3,90 &euro;</span><span data-t="foot.toAddress">До адрес - 3,90 &euro;</span><span data-t="foot.freeOver">Безплатно над 40 &euro;</span><span data-t="foot.ship48">Изпращаме до 48 часа</span></div></div>
+<div class="fcol"><h2 data-t="foot.follow">Последвай ни</h2>
+<div class="social"><a href="https://www.instagram.com/asiansecret.bg/" target="_blank" rel="noopener" aria-label="Instagram"><i data-lucide="instagram"></i></a><a href="mailto:zax12@abv.bg" data-t-aria-label="foot.emailAria" aria-label="Имейл"><i data-lucide="mail"></i></a><a href="tel:0878141487" data-t-aria-label="foot.phoneAria" aria-label="Телефон"><i data-lucide="phone"></i></a></div>
 <div class="flist fcontact"><a href="tel:0878141487">0878 141 487</a><a href="mailto:zax12@abv.bg">zax12@abv.bg</a></div>
 </div>
 </div>
-<div class="fbot"><span>&copy; 2026 Asian Secret. Всички права запазени.</span><span>Оригинални продукти от Япония, Корея и Тайланд</span></div>
+<div class="fbot"><span data-t="foot.rights">&copy; 2026 Asian Secret. Всички права запазени.</span><span data-t="foot.originals">Оригинални продукти от Япония, Корея и Тайланд</span></div>
 </div></footer>
 
 <script src="https://unpkg.com/lucide@0.454.0/dist/umd/lucide.js"></script>
 <script src="/assets/data.js?v=ab14905f"></script>
-<script src="/assets/shop.js?v=5ba7b084"></script>
+<script>window.I18N={"lang":"bg","T":{"cart.remove":"Премахни","checkout.addrAddress":"Адрес за доставка","checkout.addrHintAddress":"Напишете точния адрес, на който куриерът да достави пратката.","checkout.addrHintOffice":"Напишете кой офис на Спиди да получи пратката.","checkout.addrOffice":"Офис на Спиди","checkout.addrPhAddress":"Например: ул. Витоша 15, вх. Б, ет. 3, ап. 7","checkout.addrPhOffice":"Например: Спиди офис Витоша, ул. Витоша 15","contact.failed":"Изпращането не успя. {link} или ни се обадете на 0878 141 487.","contact.failedLink":"Изпратете съобщението по имейл","contact.ok":"Благодарим! Съобщението е изпратено.","contact.send":"Изпрати съобщението","contact.sending":"Изпращане…","done.fallback":"Ако не получите потвърждение, {link} или ни се обадете на 0878 141 487.","done.fallbackLink":"изпратете поръчката по имейл","done.orderNo":"Номер на поръчка:","home.countProducts":["продукт","продукта"],"ig.alt1":"Premium Resbro маски и памучни тампони на поднос","ig.alt2":"Ежедневен японски ритуал с тъканни маски","ig.alt3":"Растителни екстракти и натурален памук","ig.alt4":"Колекцията Asian Secret","ig.alt5":"Оригинални японски и корейски продукти на поднос","ig.onInstagram":"в Instagram","nav.closeMenu":"Затвори менюто","nav.menu":"Меню","pdp.add":"Добави в количката","pdp.cod":"Плащане при доставка","pdp.less":"По-малко","pdp.more":"Повече","pdp.pack":"Опаковка","pdp.shipDays":"Доставка 1-3 работни дни","pdp.specCount":"Количество","pdp.specOrigin":"Произход","pdp.specType":"Тип","pdp.toCart":"Към количката","shop.buy":"Купи","shop.choose":"Избери","shop.countProducts":["продукт","продукта"],"shop.from":"от","shop.swipe":"Плъзнете за още","sum.free":"Безплатна","sum.sending":"Изпращане…","toast.added":"Добавено в количката"},"paths":{"home":"/","products":"/products","cart":"/cart","about":"/about","contact":"/contact","product":"/produkt/","category":"/kategoria/"}};</script>
+<script src="/assets/shop.js?v=f4cd813b"></script>
 <script>
 /* Параметърът може да е slug на продукт или sku на вариант (стари линкове). */
 /* Слъгът идва от data-product на новите /produkt/<slug>/ страници, а при
@@ -121,7 +122,7 @@ let qty = 1;
 
 const variantHTML = () => !hasVariants(p) ? '' : `
 <div class="vpick">
-<h3>Опаковка</h3>
+<h3>${T['pdp.pack']}</h3>
 <div class="vopts" id="vopts">
 ${VARIANTS.map(v => `<button class="vopt${v.sku === variant.sku ? ' on' : ''}" data-sku="${v.sku}">
 <b>${v.size}</b><span>${money(v.price)}</span></button>`).join('')}
@@ -138,18 +139,18 @@ document.getElementById('pdp').innerHTML = `
 <p class="lead">${p.short}</p>
 <div class="chips">${p.badges.map(b => `<span class="chip" style="border-color:${p.accent};color:${p.accent}">${b}</span>`).join('')}${p.concerns.map(c => `<span class="chip">${CONCERNS.find(x => x.id === c).name}</span>`).join('')}</div>
 <div class="specs">
-<div class="spec"><b>Тип</b><span>${p.specs.type}</span></div>
-<div class="spec"><b>Количество</b><span id="specCount">${variant.count}</span></div>
-<div class="spec"><b>Произход</b><span>${p.specs.origin}</span></div>
+<div class="spec"><b>${T['pdp.specType']}</b><span>${p.specs.type}</span></div>
+<div class="spec"><b>${T['pdp.specCount']}</b><span id="specCount">${variant.count}</span></div>
+<div class="spec"><b>${T['pdp.specOrigin']}</b><span>${p.specs.origin}</span></div>
 </div>
 ${variantHTML()}
 <div style="display:flex;align-items:baseline;gap:14px"><span class="price" id="price">${money(variant.price)}</span></div>
 <div class="buyrow">
-<span class="qty"><button id="minus" aria-label="По-малко">−</button><span id="q">1</span><button id="plus" aria-label="Повече">+</button></span>
-<button class="btn btn-primary" id="add"><i data-lucide="shopping-bag"></i>Добави в количката</button>
-<a class="btn btn-outline" href="/cart">Към количката</a>
+<span class="qty"><button id="minus" aria-label="${T['pdp.less']}">−</button><span id="q">1</span><button id="plus" aria-label="${T['pdp.more']}">+</button></span>
+<button class="btn btn-primary" id="add"><i data-lucide="shopping-bag"></i>${T['pdp.add']}</button>
+<a class="btn btn-outline" href="${I18N.paths.cart}">${T['pdp.toCart']}</a>
 </div>
-<div class="chips" style="gap:10px"><span class="chip"><i data-lucide="truck" style="width:14px;height:14px;vertical-align:-2px"></i> Доставка 1-3 работни дни</span><span class="chip">Плащане при доставка</span></div>
+<div class="chips" style="gap:10px"><span class="chip"><i data-lucide="truck" style="width:14px;height:14px;vertical-align:-2px"></i> ${T['pdp.shipDays']}</span><span class="chip">${T['pdp.cod']}</span></div>
 </div>`;
 
 /* Продуктовият лист е текст, не снимка: описанието и ползите се редят на две
