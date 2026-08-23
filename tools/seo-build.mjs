@@ -144,18 +144,23 @@ function applyLocale(html, lang, file) {
     return v;
   };
 
-  /* Атрибутите първи: подмяната на текст мести отместванията в низа. */
-  html = html.replace(/<([a-z0-9]+)([^>]*?)\sdata-t-([\w-]+)="([^"]+)"([^>]*)>/gi,
-    (m, tag, pre, attr, key, post) => {
-      const v = look(key);
-      if (v === null) return m.replace(/\sdata-t-[\w-]+="[^"]+"/, '');
-      const whole = pre + post;
-      const re = new RegExp('\\s' + attr + '="[^"]*"');
-      const rebuilt = re.test(whole)
-        ? whole.replace(re, ' ' + attr + '="' + esc(v) + '"')
-        : whole + ' ' + attr + '="' + esc(v) + '"';
-      return '<' + tag + rebuilt + '>';
-    });
+  /* Атрибутите първи: подмяната на текст мести отместванията в низа.
+     Върти се, докато остане data-t-: един елемент може да носи няколко
+     ключа (полето за търсене има и placeholder, и aria-label), а всяко
+     минаване подменя по един на таг. */
+  for (let pass = 0; pass < 8 && /\sdata-t-[\w-]+="/.test(html); pass++) {
+    html = html.replace(/<([a-z0-9]+)([^>]*?)\sdata-t-([\w-]+)="([^"]+)"([^>]*)>/gi,
+      (m, tag, pre, attr, key, post) => {
+        const v = look(key);
+        if (v === null) return '<' + tag + pre + post + '>';
+        const whole = pre + post;
+        const re = new RegExp('\\s' + attr + '="[^"]*"');
+        const rebuilt = re.test(whole)
+          ? whole.replace(re, ' ' + attr + '="' + esc(v) + '"')
+          : whole + ' ' + attr + '="' + esc(v) + '"';
+        return '<' + tag + rebuilt + '>';
+      });
+  }
 
   /* После текстът. Стойността може да носи вътрешен маркъп (<em>, <br>) и се
      вгражда както е - преводните файлове са наши, не чужд вход.
@@ -203,7 +208,38 @@ function injectI18N(html, lang) {
     : { ...stripNulls(UI.bg), ...stripNulls(UI[lang]) };
   const block = '<script>window.I18N=' +
     JSON.stringify({ lang, T: dict, paths }) + ';</' + 'script>';
-  return html.replace(/<script>window\.I18N=[\s\S]*?<\/script>/, block);
+  html = html.replace(/<script>window\.I18N=[\s\S]*?<\/script>/, block);
+
+  /* Преводът на каталога влиза МЕЖДУ data.js и shop.js: shop.js го налага
+     върху данните, така че трябва вече да е зареден, когато той тръгне. */
+  html = html.replace(/\n?<script src="\/?assets\/catalog-\w+\.js[^"]*"><\/script>/, '');
+  if (CATALOG_FILE[lang]) {
+    html = html.replace(/(<script src="\/?assets\/data\.js[^"]*"><\/script>)/,
+      '$1\n<script src="/' + CATALOG_FILE[lang] + '"></' + 'script>');
+  }
+  return html;
+}
+
+/* ── преводът на каталога за браузъра ────────────────────────────────────────
+   Картите с продукти и филтрите се рисуват от assets/data.js в браузъра, а
+   той е само на български. Затова преводът излиза като отделен файл за език и
+   се зарежда между data.js и shop.js - shop.js го налага върху данните преди
+   първото рисуване. Отделен файл, а не вграден в страницата: 40+ KB на всяка
+   страница са излишни, а така се кешира веднъж за целия език. */
+const CATALOG_FILE = {};
+for (const lang of LANGS) {
+  if (lang === 'bg') continue;
+  const rel = 'assets/catalog-' + lang + '.js';
+  fs.writeFileSync(path.join(root, rel),
+    '/* Създава се от tools/seo-build.mjs по i18n/catalog.' + lang +
+    '.json - не се пипа на ръка. */\nwindow.I18N_CATALOG=' +
+    JSON.stringify(CATALOG[lang]) + ';\n');
+  CATALOG_FILE[lang] = rel;
+  /* Влиза в списъка с подпечатвани файлове, инак versionAssets му маха
+     отпечатъка (шаблонът съвпада) и не му слага нов - и седмичният кеш на
+     хостинга задържа стария превод. */
+  ASSETS.push(rel);
+  VER[rel] = stamp(rel);
 }
 
 /* Непреведените ключове отпадат, за да се падне на българската стойност.

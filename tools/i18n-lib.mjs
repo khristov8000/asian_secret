@@ -78,6 +78,16 @@ export function translateProduct(p, lang, dict) {
   }
   if (t.specs) out.specs = { ...p.specs, ...t.specs };
 
+  /* Вариантите носят свои size и count ("36 маски в кутия") и се четат както
+     на картата на продукта, така и в спецификациите - без това българският
+     изтичаше в английските страници. Ключът е sku, защото той не се превежда. */
+  if (t.variants && p.variants) {
+    out.variants = p.variants.map(v => {
+      const tv = t.variants[v.sku];
+      return tv ? { ...v, ...(tv.size ? { size: tv.size } : {}), ...(tv.count ? { count: tv.count } : {}) } : v;
+    });
+  }
+
   if (t.story && p.story) {
     out.story = { ...p.story };
     if (t.story.lead) out.story.lead = t.story.lead;

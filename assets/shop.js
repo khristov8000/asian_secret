@@ -7,6 +7,49 @@ const I18N = window.I18N || { lang: 'bg', T: {}, paths: { product: '/produkt/', 
 /* Липсващ ключ се вижда като ⟨ключ⟩, а не като "undefined" пред клиента. */
 const T = new Proxy(I18N.T, { get: (o, k) => (k in o ? o[k] : '⟨' + String(k) + '⟩') });
 
+/* ── преводът на каталога ────────────────────────────────────────────────────
+   Картите с продукти, филтрите и категориите се рисуват тук, в браузъра, от
+   данните в assets/data.js - а те са само на български. Преводът при build-а
+   стига само до статичния HTML, затова на /en и /ru кутиите оставаха с
+   български имена. Наслагването идва като отделен файл за езика и се прилага
+   ВЕДНЪЖ, преди първото рисуване.
+   Слъгове, sku, цени, цветове и имена на икони не се пипат. */
+(function applyCatalogTranslation() {
+  const dict = window.I18N_CATALOG;
+  if (!dict || typeof PRODUCTS === 'undefined') return;
+
+  for (const p of PRODUCTS) {
+    const t = dict[p.slug];
+    if (!t) continue;
+    for (const f of ['name', 'size', 'short', 'intro']) if (t[f]) p[f] = t[f];
+    if (t.badges) p.badges = t.badges;
+    if (t.benefits && p.benefits) p.benefits.forEach((b, i) => {
+      if (t.benefits[i * 2]) b.t = t.benefits[i * 2];
+      if (t.benefits[i * 2 + 1]) b.d = t.benefits[i * 2 + 1];
+    });
+    if (t.specs && p.specs) Object.assign(p.specs, t.specs);
+    if (t.story && p.story) {
+      if (t.story.lead) p.story.lead = t.story.lead;
+      if (t.story.caps && p.story.images)
+        p.story.images.forEach((im, i) => { if (t.story.caps[i]) im.cap = t.story.caps[i]; });
+    }
+    /* Вариантите се ключат по sku - той е един и същ на всички езици. */
+    if (t.variants && p.variants) for (const v of p.variants) {
+      const tv = t.variants[v.sku];
+      if (!tv) continue;
+      if (tv.size) v.size = tv.size;
+      if (tv.count) v.count = tv.count;
+    }
+  }
+
+  const list = (arr, d) => {
+    if (!d || typeof arr === 'undefined') return;
+    for (const x of arr) if (d[x.id]) Object.assign(x, d[x.id]);
+  };
+  list(typeof CATS !== 'undefined' ? CATS : undefined, dict._cats);
+  list(typeof CONCERNS !== 'undefined' ? CONCERNS : undefined, dict._concerns);
+})();
+
 /* Множествено число: българският и английският имат две форми, руският - три
    (1 продукт / 2-4 продукта / 5+ продуктов). Затова ключът пази масив. */
 function plural(key, n) {

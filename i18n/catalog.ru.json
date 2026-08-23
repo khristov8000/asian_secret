@@ -188,6 +188,16 @@
    "caps": [
     null
    ]
+  },
+  "variants": {
+   "tuneup-niacinamide-36": {
+    "size": null,
+    "count": null
+   },
+   "tuneup-niacinamide-7": {
+    "size": null,
+    "count": null
+   }
   }
  },
  "tuneup-dokudami": {
@@ -218,6 +228,16 @@
    "caps": [
     null
    ]
+  },
+  "variants": {
+   "tuneup-dokudami-36": {
+    "size": null,
+    "count": null
+   },
+   "tuneup-dokudami-7": {
+    "size": null,
+    "count": null
+   }
   }
  },
  "temogey-propolis": {
@@ -248,6 +268,16 @@
    "caps": [
     null
    ]
+  },
+  "variants": {
+   "temogey-propolis-30": {
+    "size": null,
+    "count": null
+   },
+   "temogey-propolis-7": {
+    "size": null,
+    "count": null
+   }
   }
  },
  "temogey-yomogi": {
@@ -276,6 +306,16 @@
    "caps": [
     null
    ]
+  },
+  "variants": {
+   "temogey-yomogi-30": {
+    "size": null,
+    "count": null
+   },
+   "temogey-yomogi-7": {
+    "size": null,
+    "count": null
+   }
   }
  },
  "temogey-bakuchiol": {
@@ -306,6 +346,16 @@
    "caps": [
     null
    ]
+  },
+  "variants": {
+   "temogey-bakuchiol-30": {
+    "size": null,
+    "count": null
+   },
+   "temogey-bakuchiol-7": {
+    "size": null,
+    "count": null
+   }
   }
  },
  "temogey-aomikan": {
@@ -334,6 +384,16 @@
    "caps": [
     null
    ]
+  },
+  "variants": {
+   "temogey-aomikan-30": {
+    "size": null,
+    "count": null
+   },
+   "temogey-aomikan-7": {
+    "size": null,
+    "count": null
+   }
   }
  },
  "este-snail": {
@@ -517,6 +577,16 @@
    "caps": [
     null
    ]
+  },
+  "variants": {
+   "earthful-verbena-30": {
+    "size": null,
+    "count": null
+   },
+   "earthful-verbena-10": {
+    "size": null,
+    "count": null
+   }
   }
  },
  "earthful-immortelle": {
