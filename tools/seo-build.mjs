@@ -112,8 +112,14 @@ const crumbLd = items => ldBlock({
    съдържанието: смени ли се файлът, сменя се и адресът, и кешът отпада сам. */
 import crypto from 'crypto';
 
+/* Краят на реда се нормализира ПРЕДИ хеширането. На Windows git вади файловете
+   с CRLF (core.autocrlf=true), а build-ът ги пише с LF - и един и същ по
+   съдържание файл даваше два различни отпечатъка. Резултатът беше обратен на
+   смисъла им: след всяко изтегляне адресът на CSS-а се сменяше без нито един
+   променен байт и седмичният кеш на всеки посетител падаше без причина. */
 const stamp = f => crypto.createHash('sha1')
-  .update(fs.readFileSync(path.join(root, f))).digest('hex').slice(0, 8);
+  .update(fs.readFileSync(path.join(root, f), 'utf8').replace(/\r\n/g, '\n'))
+  .digest('hex').slice(0, 8);
 
 const ASSETS = ['assets/site.css', 'assets/data.js', 'assets/shop.js'];
 const VER = Object.fromEntries(ASSETS.map(f => [f, stamp(f)]));
