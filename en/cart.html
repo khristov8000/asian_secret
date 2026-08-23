@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Количка | Asian Secret</title>
+<meta name="description" content="Вашата поръчка в Asian Secret.">
+<link rel="canonical" href="https://asiansecret.bg/en/cart">
+<link rel="alternate" hreflang="bg" href="https://asiansecret.bg/cart">
+<link rel="alternate" hreflang="en" href="https://asiansecret.bg/en/cart">
+<link rel="alternate" hreflang="ru" href="https://asiansecret.bg/ru/cart">
+<link rel="alternate" hreflang="x-default" href="https://asiansecret.bg/cart">
+<meta name="robots" content="noindex,follow">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Asian Secret">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="bg_BG">
+<meta property="og:locale:alternate" content="ru_RU">
+<meta property="og:title" content="Количка | Asian Secret">
+<meta property="og:description" content="Вашата поръчка в Asian Secret.">
+<meta property="og:url" content="https://asiansecret.bg/en/cart">
+<meta property="og:image" content="https://asiansecret.bg/assets/hero.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Количка | Asian Secret">
+<meta name="twitter:description" content="Вашата поръчка в Asian Secret.">
+<meta name="twitter:image" content="https://asiansecret.bg/assets/hero.jpg">
+<link rel="icon" href="/assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css?v=e184c236">
+<style>.steps{display:flex;gap:10px;align-items:center;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-45);margin-bottom:8px}.steps b{color:var(--ink)}.done{max-width:640px;margin:0 auto;text-align:center;background:var(--white);border:1px solid var(--line);border-radius:var(--r-l);padding:52px 40px;box-shadow:var(--sh-1)}.done .ring{width:64px;height:64px;border-radius:50%;border:1px solid var(--rose-line);color:var(--rose);display:grid;place-items:center;margin:0 auto 22px}.done .ring svg{width:26px;height:26px;stroke-width:1.3}.orderno{font-family:var(--font-display);font-size:22px;margin-top:6px}</style>
+</head>
+<body>
+<div class="topbar"><div class="wrap"><span>Безплатна доставка над 40 €</span><span>·</span><span>Оригинални японски и корейски продукти</span><span>·</span><span>Изпращаме до 48 часа</span></div></div>
+<header class="site"><div class="wrap bar">
+<a class="brand" href="/en/"><img src="/assets/logo-as.png" alt="Asian Secret" width="640" height="551"><span class="wordmark"><b>ASIAN SECRET</b><span>BEAUTY FROM ASIA</span></span></a>
+<nav class="main" id="mainnav"><a href="/en/">Начало</a><a href="/en/products">Продукти</a><a href="/en/about">За нас</a><a href="/en/contact">Контакти</a></nav>
+<div class="langsw" data-langsw><a href="/cart" hreflang="bg">BG</a><a href="/en/cart" class="on" aria-current="true" hreflang="en">EN</a><a href="/ru/cart" hreflang="ru">RU</a></div>
+<div class="actions">
+<a class="icon-btn" href="https://www.instagram.com/asiansecret.bg/" target="_blank" rel="noopener" aria-label="Instagram"><i data-lucide="instagram"></i></a>
+<a class="icon-btn" href="/en/cart" aria-label="Количка"><i data-lucide="shopping-bag"></i><span class="cart-count" data-cart-count hidden>0</span></a>
+<button class="icon-btn burger" aria-label="Меню" aria-expanded="false" aria-controls="mainnav"><i data-lucide="menu"></i></button>
+</div>
+</div></header>
+
+<section class="page-intro petal-host" style="padding-bottom:0"><img class="deco deco-pagetop" src="/assets/deco/branch.png" alt="" width="812" height="455"><div class="wrap">
+<div class="steps"><b>1. Количка</b><span>-</span><b>2. Данни за доставка</b><span>-</span><span>3. Готово</span></div>
+<h1>Вашата поръчка</h1>
+</div></section>
+
+<main class="wrap cartgrid petal-host" id="cartView">
+<div>
+<div id="items"></div>
+<div class="empty" id="empty" hidden>
+<h2>Количката е празна</h2>
+<p class="lead center" style="margin:12px auto 22px">Разгледайте маските и добавете любимите си продукти.</p>
+<a class="btn btn-primary" href="/en/products"><i data-lucide="shopping-bag"></i><span>Към продуктите</span></a>
+</div>
+
+<form id="checkout" style="margin-top:40px">
+<h2 style="font-size:26px;margin-bottom:20px">Данни за доставка</h2>
+<div class="two">
+<div class="field"><label for="name">Име и фамилия</label><input id="name" name="Име" required placeholder="Мария Иванова"></div>
+<div class="field"><label for="phone">Телефон</label><input id="phone" name="Телефон" required inputmode="tel" placeholder="0888 123 456"></div>
+</div>
+<div class="field"><label for="email">Имейл</label><input id="email" name="Имейл" type="email" required placeholder="maria@example.com"></div>
+<div class="two">
+<div class="field"><label for="city">Град / село</label><input id="city" name="Град" required placeholder="София"></div>
+<div class="field"><label for="zip">Пощенски код</label><input id="zip" name="Пощенски код" placeholder="1000"></div>
+</div>
+<h3 style="margin:28px 0 14px">Доставка</h3>
+<label class="radio-card"><input type="radio" name="Доставка" value="До офис на Спиди - 3,90 €" checked data-ship="3.90" data-mode="office"><span><b>До офис на Спиди</b><span>Спиди · 1-3 работни дни · 3,90 €</span></span></label>
+<label class="radio-card"><input type="radio" name="Доставка" value="До адрес със Спиди - 3,90 €" data-ship="3.90" data-mode="address"><span><b>До адрес</b><span>Куриер Спиди до врата · 1-3 работни дни · 3,90 €</span></span></label>
+<div class="field" style="margin-top:16px"><label for="addr" id="addrLabel">Офис на Спиди</label><input id="addr" name="Адрес" required placeholder="Например: Спиди офис Витоша, ул. Витоша 15"><span class="muted" style="font-size:12.5px;margin-top:6px;display:block" id="addrHint">Напишете кой офис на Спиди да получи пратката.</span></div>
+
+<h3 style="margin:28px 0 14px">Плащане</h3>
+<label class="radio-card"><input type="radio" name="Плащане" value="Наложен платеж" checked><span><b>Наложен платеж</b><span>Плащате при получаване на пратката</span></span></label>
+<label class="radio-card"><input type="radio" name="Плащане" value="Банков превод"><span><b>Банков превод</b><span>Ще получите данни за плащане по имейл</span></span></label>
+
+<div aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden"><label>Фирма<input name="company" id="company" tabindex="-1" autocomplete="off"></label></div>
+<div class="field" style="margin-top:22px"><label for="note">Бележка към поръчката</label><textarea id="note" name="Бележка" placeholder="Например: обадете се преди доставка"></textarea></div>
+<p class="muted" style="font-size:12.5px;margin-top:14px;margin-bottom:40px">С изпращането на поръчката се съгласявате да се свържем с вас за потвърждение.</p>
+</form>
+</div>
+
+<aside class="summary">
+<h3 style="margin-bottom:14px">Обобщение</h3>
+<div id="lines"></div>
+<div class="srow"><span>Междинна сума</span><span id="sub">0,00 €</span></div>
+<div class="srow"><span>Доставка</span><span id="ship">3,90 €</span></div>
+<div class="srow total"><span>Общо</span><span id="total">0,00 €</span></div>
+<button class="btn btn-primary btn-block" style="margin-top:18px" id="submit" form="checkout"><i data-lucide="check"></i><span>Завърши поръчката</span></button>
+<p class="muted" style="font-size:12px;margin-top:12px;text-align:center">Поръчката се изпраща на zax12@abv.bg</p>
+<p class="muted" style="font-size:12.5px;margin-top:16px;padding-top:16px;border-top:1px solid var(--line)">Безплатна доставка при поръчка над 40 €.</p>
+</aside>
+</main>
+
+<div class="wrap" id="thanks" hidden style="padding:64px 0 80px">
+<div class="done">
+<span class="ring"><i data-lucide="check"></i></span>
+<h2>Благодарим за поръчката!</h2>
+<p class="lead center" style="margin:14px auto 0">Изпратихме заявката ви към нашия екип. Ще се свържем с вас за потвърждение на посочения телефон.</p>
+<p class="orderno" id="orderNo"></p>
+<div class="hero-cta" style="justify-content:center;margin-top:26px"><a class="btn btn-primary" href="/en/products">Продължи пазаруването</a><a class="btn btn-outline" href="/en/contact">Контакти</a></div>
+<p class="muted" style="font-size:12.5px;margin-top:22px" id="fallback" hidden></p>
+</div>
+</div>
+
+<footer class="site f-mast"><div class="wrap">
+<div class="fmast">
+<a class="brand" href="/en/"><img src="/assets/logo-as.png" alt="Asian Secret" style="width:56px" width="640" height="551"><span class="wordmark"><b>ASIAN SECRET</b><span>BEAUTY FROM ASIA</span></span></a>
+<div class="fmast-lines">
+<a href="tel:0878141487"><i data-lucide="phone"></i>0878 141 487</a>
+<a href="mailto:zax12@abv.bg"><i data-lucide="mail"></i>zax12@abv.bg</a>
+</div>
+</div>
+<div class="fsparkle"></div>
+<div class="frow">
+<div class="fcol"><h2>Магазин</h2><div class="flist"><a href="/en/products">Всички продукти</a><a href="/en/products?c=masks">Тъканни маски</a><a href="/en/products?c=eye">Патчи за очи</a><a href="/en/products?c=spf">Слънцезащита</a><a href="/en/products?c=hands">Грижа за ръце</a></div></div>
+<div class="fcol"><h2>Информация</h2><div class="flist"><a href="/en/about">За нас</a><a href="/en/contact#delivery">Доставка и плащане</a><a href="/en/contact#faq">Често задавани въпроси</a><a href="/en/cart">Количка</a></div></div>
+<div class="fcol"><h2>Доставка</h2><div class="flist"><span>До офис - 3,90 &euro;</span><span>До адрес - 3,90 &euro;</span><span>Безплатно над 40 &euro;</span><span>Изпращаме до 48 часа</span></div></div>
+<div class="fcol"><h2>Последвай ни</h2>
+<div class="social"><a href="https://www.instagram.com/asiansecret.bg/" target="_blank" rel="noopener" aria-label="Instagram"><i data-lucide="instagram"></i></a><a href="mailto:zax12@abv.bg" aria-label="Имейл"><i data-lucide="mail"></i></a><a href="tel:0878141487" aria-label="Телефон"><i data-lucide="phone"></i></a></div>
+<div class="flist fcontact"><a href="tel:0878141487">0878 141 487</a><a href="mailto:zax12@abv.bg">zax12@abv.bg</a></div>
+</div>
+</div>
+<div class="fbot"><span>&copy; 2026 Asian Secret. Всички права запазени.</span><span>Оригинални продукти от Япония, Корея и Тайланд</span></div>
+</div></footer>
+
+<script src="https://unpkg.com/lucide@0.454.0/dist/umd/lucide.js"></script>
+<script src="/assets/data.js?v=ab14905f"></script>
+<script>window.I18N={"lang":"en","T":{"cart.remove":"Премахни","nav.home":"Начало","nav.products":"Продукти","shop.title":"Всички продукти","seo.catTitle":"{name} - японска и корейска козметика | Asian Secret","seo.catDesc":"{name} от Япония, Корея и Тайланд - {n} продукта в каталога. Доставка 3,90 € със Спиди, безплатно над 40 €.","seo.catLead":"{name} от Япония, Корея и Тайланд - {n} продукта, подбрани и проверени лично.","checkout.addrAddress":"Адрес за доставка","checkout.addrHintAddress":"Напишете точния адрес, на който куриерът да достави пратката.","checkout.addrHintOffice":"Напишете кой офис на Спиди да получи пратката.","checkout.addrOffice":"Офис на Спиди","checkout.addrPhAddress":"Например: ул. Витоша 15, вх. Б, ет. 3, ап. 7","checkout.addrPhOffice":"Например: Спиди офис Витоша, ул. Витоша 15","contact.failed":"Изпращането не успя. {link} или ни се обадете на 0878 141 487.","contact.failedLink":"Изпратете съобщението по имейл","contact.ok":"Благодарим! Съобщението е изпратено.","contact.send":"Изпрати съобщението","contact.sending":"Изпращане…","done.fallback":"Ако не получите потвърждение, {link} или ни се обадете на 0878 141 487.","done.fallbackLink":"изпратете поръчката по имейл","done.orderNo":"Номер на поръчка:","home.countProducts":["продукт","продукта"],"ig.alt1":"Premium Resbro маски и памучни тампони на поднос","ig.alt2":"Ежедневен японски ритуал с тъканни маски","ig.alt3":"Растителни екстракти и натурален памук","ig.alt4":"Колекцията Asian Secret","ig.alt5":"Оригинални японски и корейски продукти на поднос","ig.onInstagram":"в Instagram","nav.closeMenu":"Затвори менюто","nav.menu":"Меню","pdp.add":"Добави в количката","pdp.cod":"Плащане при доставка","pdp.less":"По-малко","pdp.more":"Повече","pdp.pack":"Опаковка","pdp.shipDays":"Доставка 1-3 работни дни","pdp.specCount":"Количество","pdp.specOrigin":"Произход","pdp.specType":"Тип","pdp.toCart":"Към количката","shop.buy":"Купи","shop.choose":"Избери","shop.countProducts":["продукт","продукта"],"shop.from":"от","shop.swipe":"Плъзнете за още","sum.free":"Безплатна","sum.sending":"Изпращане…","toast.added":"Добавено в количката"},"paths":{"home":"/en/","products":"/en/products","cart":"/en/cart","about":"/en/about","contact":"/en/contact","product":"/en/product/","category":"/en/category/"}};</script>
+<script src="/assets/shop.js?v=f4cd813b"></script>
+<script>document.querySelectorAll(".petal-host").forEach(s => spawnPetals(s, 3));</script>
+<script>
+const ORDER_EMAIL = 'zax12@abv.bg';
+/* Обработката е на самия домейн (PHP на хостинга) - същият произход, без CORS
+   и без зависимост от външна услуга. */
+const ORDER_API = '/api/order.php';
+const shipEl = document.getElementById('ship');
+
+function currentShip(sub) {
+  if (sub >= FREE_SHIPPING) return 0;
+  const r = document.querySelector('[data-ship]:checked');
+  return r ? parseFloat(r.dataset.ship) : SHIPPING_FLAT;
+}
+
+function paint() {
+  const items = cartRead();
+  const empty = items.length === 0;
+  document.getElementById('empty').hidden = !empty;
+  document.getElementById('checkout').hidden = empty;
+  document.querySelector('.summary').hidden = empty;
+  document.getElementById('items').innerHTML = items.map(i => {
+    const r = bySku(i.slug); if (!r) return '';
+    const { product: p, variant: v } = r;
+    return `<div class="citem">
+<img src="${imgSrc(v.sku)}" alt="${p.name}" style="background:${p.tint}">
+<div><span class="brandline" style="font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-45)">${p.brand}</span>
+<h4>${p.name}</h4>
+<p class="muted" style="font-size:13px">${v.size} · ${p.specs.origin}</p>
+<button class="rm" data-rm="${v.sku}">${T['cart.remove']}</button></div>
+<div style="text-align:right;display:flex;flex-direction:column;gap:10px;align-items:flex-end">
+<span class="price" style="font-size:18px">${money(v.price * i.qty)}</span>
+<span class="qty"><button data-q="${v.sku}" data-d="-1">−</button><span>${i.qty}</span><button data-q="${v.sku}" data-d="1">+</button></span>
+</div></div>`;
+  }).join('');
+  document.getElementById('lines').innerHTML = items.map(i => {
+    const r = bySku(i.slug); if (!r) return '';
+    return `<div class="srow"><span>${r.product.brand} · ${r.variant.size} × ${i.qty}</span><span>${money(r.variant.price * i.qty)}</span></div>`;
+  }).join('');
+  const sub = cartSubtotal(), ship = currentShip(sub);
+  document.getElementById('sub').textContent = money(sub);
+  shipEl.textContent = ship === 0 ? T['sum.free'] : money(ship);
+  document.getElementById('total').textContent = money(sub + ship);
+  if (window.lucide) lucide.createIcons();
+}
+
+document.getElementById('items').addEventListener('click', e => {
+  const rm = e.target.closest('[data-rm]'); if (rm) { setQty(rm.dataset.rm, 0); paint(); return; }
+  const q = e.target.closest('[data-q]');
+  if (q) {
+    const cur = cartRead().find(i => i.slug === q.dataset.q);
+    setQty(q.dataset.q, (cur ? cur.qty : 0) + parseInt(q.dataset.d, 10));
+    paint();
+  }
+});
+const addrLabel = document.getElementById('addrLabel');
+const addrInput = document.getElementById('addr');
+const addrHint = document.getElementById('addrHint');
+const ADDR_COPY = {
+  office: { label: T['checkout.addrOffice'], ph: T['checkout.addrPhOffice'], hint: T['checkout.addrHintOffice'] },
+  address: { label: T['checkout.addrAddress'], ph: T['checkout.addrPhAddress'], hint: T['checkout.addrHintAddress'] }
+};
+
+function paintAddr() {
+  const r = document.querySelector('[data-mode]:checked');
+  const c = ADDR_COPY[r ? r.dataset.mode : 'office'];
+  addrLabel.textContent = c.label;
+  addrInput.placeholder = c.ph;
+  addrHint.textContent = c.hint;
+}
+
+document.querySelectorAll('[data-ship]').forEach(r => r.addEventListener('change', () => { paint(); paintAddr(); }));
+
+document.getElementById('checkout').addEventListener('submit', async e => {
+  e.preventDefault();
+  const f = e.target;
+  const btn = document.getElementById('submit');
+  btn.disabled = true; btn.textContent = T['sum.sending'];
+  const items = cartRead().map(i => {
+    const r = bySku(i.slug); if (!r) return '';
+    return `${r.product.brand} - ${r.product.name} (${r.variant.size}) × ${i.qty} = ${money(r.variant.price * i.qty)}`;
+  }).filter(Boolean);
+  const sub = cartSubtotal(), ship = currentShip(sub);
+  const fallbackNo = 'AS-' + Date.now().toString().slice(-6);
+  const data = {
+    _subject: 'Нова поръчка ' + fallbackNo + ' от asiansecret.bg',
+    'Номер на поръчка': fallbackNo,
+    'Име': f.name.value, 'Телефон': f.phone.value, 'Имейл': f.email.value,
+    'Град': f.city.value, 'Пощенски код': f.zip.value,
+    'Адрес / офис': f.addr.value,
+    'Куриер': 'Спиди',
+    'Доставка': f.querySelector('[name="Доставка"]:checked').value,
+    'Плащане': f.querySelector('[name="Плащане"]:checked').value,
+    'Продукти': items.join('\n'),
+    'Междинна сума': money(sub), 'Цена доставка': ship === 0 ? 'Безплатна' : money(ship),
+    'Общо': money(sub + ship),
+    'Бележка': f.note.value
+  };
+  /* Поръчката минава през нашата функция: тя преизчислява сумите по каталога,
+     праща оформено писмо на клиента и на магазина. Ключът за пощата стои само
+     там - в браузъра не може да се пази тайна.
+     Ако функцията не отговори, се пробва старият релей, а най-накрая остава
+     връзката "изпрати по имейл" отдолу. Поръчка не бива да се губи мълчаливо. */
+  const payload = {
+    name: f.name.value, phone: f.phone.value, email: f.email.value,
+    city: f.city.value, zip: f.zip.value, address: f.addr.value,
+    deliveryMode: f.querySelector('[data-mode]:checked').dataset.mode,
+    payment: f.querySelector('[name="Плащане"]:checked').value,
+    note: f.note.value,
+    company: f.company ? f.company.value : '',
+    items: cartRead().map(i => ({ sku: i.slug, qty: i.qty }))
+  };
+
+  let sent = false, no = null;
+  try {
+    const res = await fetch(ORDER_API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    if (res.ok) { const j = await res.json(); sent = !!j.ok; no = j.number || null; }
+  } catch (err) { sent = false; }
+
+  if (!sent) {
+    try {
+      const res = await fetch('https://formsubmit.co/ajax/' + ORDER_EMAIL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      sent = res.ok;
+    } catch (err) { sent = false; }
+  }
+  if (!no) no = fallbackNo;
+
+  document.getElementById('cartView').hidden = true;
+  document.querySelector('.steps').parentElement.parentElement.hidden = true;
+  const thanks = document.getElementById('thanks');
+  thanks.hidden = false;
+  document.getElementById('orderNo').textContent = T['done.orderNo'] + ' ' + no;
+  if (!sent) {
+    const body = Object.entries(data).filter(([k]) => k !== '_subject').map(([k, v]) => k + ': ' + v).join('\n');
+    const fb = document.getElementById('fallback');
+    fb.hidden = false;
+    const link = '<a href="mailto:' + ORDER_EMAIL + '?subject=' + encodeURIComponent('Поръчка ' + no) + '&body=' + encodeURIComponent(body) + '">' + T['done.fallbackLink'] + '</a>';
+    fb.innerHTML = T['done.fallback'].replace('{link}', link);
+  }
+  localStorage.removeItem(CART_KEY);
+  paintCount();
+  if (window.lucide) lucide.createIcons();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+paint();
+paintAddr();
+</script>
+</body>
+</html>

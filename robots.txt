@@ -3,7 +3,11 @@ Allow: /
 
 # Служебни страници и работни папки - няма смисъл да се обхождат
 Disallow: /cart
+Disallow: /en/cart
+Disallow: /ru/cart
 Disallow: /product$
+Disallow: /en/product$
+Disallow: /ru/product$
 Disallow: /tmp/
 Disallow: /output/
 Disallow: /images/

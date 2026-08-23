@@ -16,8 +16,27 @@ export const TEMPLATES = ['index.html', 'products.html', 'product.html',
 /* Ключовете идват както от data-t, така и от data-t-<атрибут>. */
 const KEY_RE = /\sdata-t(?:-[\w-]+)?="([^"]+)"/g;
 
+/* Ключове, които не се срещат в шаблон: едните ги ползва JavaScript, другите
+   ги сглобява build-ът. Без този списък извличането би ги изхвърлило при
+   всяко пускане, защото ги няма в маркъпа. */
+const EXTRA_KEYS = [
+  /* сглобяват се в tools/seo-build.mjs */
+  'seo.catTitle', 'seo.catDesc', 'seo.catLead',
+  /* от JavaScript - вж. i18n/ui.bg.json */
+  'cart.remove', 'checkout.addrAddress', 'checkout.addrHintAddress',
+  'checkout.addrHintOffice', 'checkout.addrOffice', 'checkout.addrPhAddress',
+  'checkout.addrPhOffice', 'contact.failed', 'contact.failedLink',
+  'contact.ok', 'contact.sending', 'done.fallback', 'done.fallbackLink',
+  'done.orderNo', 'home.countProducts', 'ig.alt1', 'ig.alt2', 'ig.alt3',
+  'ig.alt4', 'ig.alt5', 'ig.onInstagram', 'nav.closeMenu', 'pdp.add',
+  'pdp.cod', 'pdp.less', 'pdp.more', 'pdp.pack', 'pdp.shipDays',
+  'pdp.specCount', 'pdp.specOrigin', 'pdp.specType', 'pdp.toCart',
+  'shop.buy', 'shop.choose', 'shop.countProducts', 'shop.from', 'shop.swipe',
+  'sum.free', 'sum.sending', 'toast.added'
+];
+
 export function keysFromTemplates() {
-  const keys = new Set();
+  const keys = new Set(EXTRA_KEYS);
   for (const f of TEMPLATES) {
     for (const m of fs.readFileSync(path.join(root, f), 'utf8').matchAll(KEY_RE))
       keys.add(m[1]);
