@@ -1,6 +1,7 @@
-# What I used — Python (you have it via Anaconda)
-python -m http.server 8000
+# Сайтът върви на чисти адреси (/products, /about, ...), затова локално трябва
+# сървър, който ги разбира. Този повтаря правилата от .htaccess:
 
-# Alternative — Node, no install needed
-npx serve .          # picks a port, usually 3000
-npx http-server -p 8000
+node tools/serve.mjs          # http://localhost:8000
+node tools/serve.mjs 3000     # друг порт
+
+# `python -m http.server` вече не става - той дава 404 на /products.

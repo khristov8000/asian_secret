@@ -1,0 +1,24 @@
+# Чисти адреси: /products вместо /products.html
+# Файловете на диска си остават .html - Apache ги намира вътрешно.
+
+Options -MultiViews
+RewriteEngine On
+
+# ── 301 от старите адреси, за да не се губи вече спечеленото в Google ──────
+# /index.html -> /   (важи и за /kategoria/eye/index.html)
+RewriteCond %{THE_REQUEST} \s/+(.*?)index\.html[\s?] [NC]
+RewriteRule ^ /%1 [R=301,L]
+
+# /products.html -> /products   (низът след ? се пренася сам)
+RewriteCond %{THE_REQUEST} \s/+([^\s?]+)\.html[\s?] [NC]
+RewriteRule ^ /%1 [R=301,L]
+
+# /products/ -> /products   (само когато няма такава папка)
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.+)/$ /$1 [R=301,L]
+
+# ── вътрешно: /products поднася products.html ─────────────────────────────
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.+)$ $1.html [L]

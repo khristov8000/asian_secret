@@ -179,7 +179,7 @@ function as_customer_email($o, $cfg) {
     . as_section('<div style="font-family:' . AS_SANS . ';font-size:14px;line-height:1.65;color:' . $c['ink70'] . ';padding-bottom:18px;">
 Имате въпрос по поръчката? Просто отговорете на това писмо
 или ни пишете в Instagram - отговаряме лично.</div>'
-      . as_button($site . '/products.html', 'Разгледай още продукти'), $c['blush'])
+      . as_button($site . '/products', 'Разгледай още продукти'), $c['blush'])
     . as_footer($site, $shop, 'Получавате това писмо, защото направихте поръчка в '
       . str_replace('https://', '', $site) . '.');
 

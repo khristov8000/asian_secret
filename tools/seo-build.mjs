@@ -144,7 +144,7 @@ for (const p of PRODUCTS) {
     }),
     crumbLd([
       { name: 'Начало', url: SITE + '/' },
-      { name: 'Продукти', url: SITE + '/products.html' },
+      { name: 'Продукти', url: SITE + '/products' },
       { name: cat.name, url: SITE + '/kategoria/' + cat.id + '/' },
       { name: p.name, url }
     ])
@@ -214,7 +214,7 @@ for (const c of CATS) {
     }),
     crumbLd([
       { name: 'Начало', url: SITE + '/' },
-      { name: 'Продукти', url: SITE + '/products.html' },
+      { name: 'Продукти', url: SITE + '/products' },
       { name: c.name, url }
     ])
   ];
@@ -235,7 +235,7 @@ for (const c of CATS) {
     esc(c.name) + ' от Япония, Корея и Тайланд - ' + list.length +
     ' продукта, подбрани и проверени лично.'
   );
-  html = html.replace('<a href="/products.html" class="active">', '<a href="/products.html">');
+  html = html.replace('<a href="/products" class="active">', '<a href="/products">');
 
   const dir = path.join(root, 'kategoria', c.id);
   fs.mkdirSync(dir, { recursive: true });
@@ -251,7 +251,7 @@ for (const c of CATS) {
     marker,
     ldBlock({
       '@context': 'https://schema.org', '@type': 'CollectionPage',
-      name: 'Всички продукти', url: SITE + '/products.html', inLanguage: 'bg-BG',
+      name: 'Всички продукти', url: SITE + '/products', inLanguage: 'bg-BG',
       mainEntity: {
         '@type': 'ItemList', numberOfItems: PRODUCTS.length,
         itemListElement: PRODUCTS.map((p, i) => ({
@@ -262,7 +262,7 @@ for (const c of CATS) {
     }),
     crumbLd([
       { name: 'Начало', url: SITE + '/' },
-      { name: 'Продукти', url: SITE + '/products.html' }
+      { name: 'Продукти', url: SITE + '/products' }
     ]),
     ''
   ].join('\n');
@@ -299,9 +299,9 @@ const today = new Date().toISOString().slice(0, 10);
 /* ── sitemap + robots ────────────────────────────────────────────────────── */
 const urls = [
   { loc: SITE + '/', pri: '1.0', freq: 'weekly' },
-  { loc: SITE + '/products.html', pri: '0.9', freq: 'weekly' },
-  { loc: SITE + '/about.html', pri: '0.5', freq: 'monthly' },
-  { loc: SITE + '/contact.html', pri: '0.6', freq: 'monthly' }
+  { loc: SITE + '/products', pri: '0.9', freq: 'weekly' },
+  { loc: SITE + '/about', pri: '0.5', freq: 'monthly' },
+  { loc: SITE + '/contact', pri: '0.6', freq: 'monthly' }
 ]
   .concat(CATS.map(c => ({ loc: SITE + '/kategoria/' + c.id + '/', pri: '0.8', freq: 'weekly' })))
   .concat(PRODUCTS.map(p => ({ loc: SITE + '/produkt/' + p.slug + '/', pri: '0.8', freq: 'weekly' })));
@@ -319,8 +319,9 @@ fs.writeFileSync(path.join(root, 'robots.txt'),
   'User-agent: *\n' +
   'Allow: /\n\n' +
   '# Служебни страници и работни папки - няма смисъл да се обхождат\n' +
-  'Disallow: /cart.html\n' +
-  'Disallow: /product.html\n' +
+  'Disallow: /cart\n' +
+  /* Котвата $ пази /products - без нея правилото за /product го покрива. */
+  'Disallow: /product$\n' +
   'Disallow: /tmp/\n' +
   'Disallow: /output/\n' +
   'Disallow: /images/\n' +

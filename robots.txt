@@ -2,8 +2,8 @@ User-agent: *
 Allow: /
 
 # Служебни страници и работни папки - няма смисъл да се обхождат
-Disallow: /cart.html
-Disallow: /product.html
+Disallow: /cart
+Disallow: /product$
 Disallow: /tmp/
 Disallow: /output/
 Disallow: /images/
