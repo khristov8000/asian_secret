@@ -22,6 +22,10 @@ export function urlFor(page, lang, param) {
     case 'about': return p + '/about';
     case 'contact': return p + '/contact';
     case 'cart': return p + '/cart';
+    /* Шаблонът product.html сам по себе си - noindex, зареждан по ?p= от
+       стари връзки. Различен е от конкретна продуктова страница и затова
+       има свой ключ: urlFor('product') без слъг даваше /product/undefined/. */
+    case 'productTpl': return p + '/product';
     case 'product': return p + '/' + SEG[lang].product + '/' + param + '/';
     case 'category': return p + '/' + SEG[lang].category + '/' + param + '/';
     default: throw new Error('unknown page: ' + page);

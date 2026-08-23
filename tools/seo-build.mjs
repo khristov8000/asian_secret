@@ -284,7 +284,7 @@ function buildPage(tpl, { page, lang, param, file }) {
 const TOP = [
   { page: 'home', tpl: 'index.html' },
   { page: 'products', tpl: 'products.html' },
-  { page: 'product', tpl: 'product.html' },
+  { page: 'productTpl', tpl: 'product.html' },
   { page: 'cart', tpl: 'cart.html' },
   { page: 'about', tpl: 'about.html' },
   { page: 'contact', tpl: 'contact.html' }
