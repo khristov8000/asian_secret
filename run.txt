@@ -5,3 +5,12 @@ node tools/serve.mjs          # http://localhost:8000
 node tools/serve.mjs 3000     # друг порт
 
 # `python -m http.server` вече не става - той дава 404 на /products.
+
+# ── след промяна в текстовете или каталога ──────────────────────────────────
+node tools/i18n-extract.mjs   # събира новите ключове в i18n/ui.<lang>.json
+node tools/seo-build.mjs      # пресъздава и трите дървета (99 страници)
+node tools/i18n-check.mjs     # hreflang, канонични адреси, празни ключове
+node tools/test-i18n.mjs      # тества картата на адресите
+
+# Одит кой видим български текст още стои без ключ:
+node tools/i18n-extract.mjs --audit
