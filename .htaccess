@@ -16,7 +16,10 @@ RewriteEngine On
 # директиви, толкова по-малък шансът някоя да не се хареса на сървъра - а
 # сгрешен .htaccess сваля ЦЕЛИЯ сайт с 500, не само този ред.
 # 404, а не 403: 403 казва "тук има нещо, но не за теб".
-RedirectMatch 404 ^/(product_images|images|tmp|output|docs)/|^/(support\.js|_ds_bundle\.js|_ds_manifest\.json|thumbnail\.html|_adherence\.oxlintrc\.json)$
+# thumbnail е с незадължително .html: правилото за чисти адреси по-долу маха
+# разширението ПРЕДИ това правило, тоест /thumbnail.html идва дотук вече като
+# /thumbnail и инак се измъкваше.
+RedirectMatch 404 ^/(product_images|images|tmp|output|docs)/|^/(support\.js|_ds_bundle\.js|_ds_manifest\.json|_adherence\.oxlintrc\.json)$|^/thumbnail(\.html)?$
 
 # ── страница при сгрешен адрес ─────────────────────────────────────────────
 # Пътят е абсолютен (/404.html), защото Apache поднася файла ВЪТРЕШНО, без да
