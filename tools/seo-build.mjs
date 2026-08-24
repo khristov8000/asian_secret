@@ -94,6 +94,30 @@ function headFor(o) {
   ].concat(o.extraLd).join('\n');
 }
 
+/* ── дължини за резултатите на Google ────────────────────────────────────────
+   Google реже заглавието около 60 знака. Името на сайта е най-маловажната
+   част и стои най-отзад, затова то отпада, когато мястото не стига - вместо
+   да се реже името на продукта, което е причината някой да кликне.
+   Отрязването не е наказание, а въпрос на показване: важното трябва да е
+   отпред и да се вижда цяло. */
+const SITE_SUFFIX = ' | Asian Secret';
+function seoTitle(core) {
+  const full = core + SITE_SUFFIX;
+  return full.length <= 60 ? full : core;
+}
+
+/* Описанието под ~70 знака оставя половината място празно и Google по-често
+   си го пренаписва сам. Късите се допълват с количество, произход и условията
+   за доставка - те и без това са първото, което купувачът пита. */
+function seoDesc(base, tail) {
+  let d = String(base || '').trim();
+  if (d.length < 120 && tail) d = (d + ' ' + tail).trim();
+  if (d.length <= 158) return d;
+  /* Реже се по дума, не насред нея. */
+  const cut = d.slice(0, 158);
+  return cut.slice(0, cut.lastIndexOf(' ')).replace(/[,;:.]$/, '') + '…';
+}
+
 const ldBlock = obj =>
   '<script type="application/ld+json">\n' + JSON.stringify(obj) + '\n</script>';
 
@@ -376,8 +400,13 @@ for (const src of PRODUCTS) {
   const file = fileFor('product', lang, p.slug);
   const url = SITE + urlFor('product', lang, p.slug);
   const image = SITE + '/assets/products/' + v.sku + '.webp';
-  const title = p.name + ' - ' + p.brand + ' | Asian Secret';
-  const desc = (p.short || p.intro || '').slice(0, 158);
+  const title = seoTitle(p.name + ' - ' + p.brand);
+  /* Опашката носи количество, произход и доставка - празното място под
+     описанието иначе просто стои неизползвано. */
+  const tail = t(lang, 'seo.prodDescTail', file)
+    .replace('{count}', (p.specs && p.specs.count) || v.count || '')
+    .replace('{origin}', (p.specs && p.specs.origin) || '');
+  const desc = seoDesc(p.short || p.intro, tail);
   const cat = CATS_L.find(c => c.id === p.cat) ||
     { id: '', name: t(lang, 'nav.products', file) };
 
@@ -469,7 +498,7 @@ for (const c of CATS_L) {
      категорията, затова са ключове с {name} и {n} вместо слепени низове. */
   const fill = (key, s) => t(lang, key, file)
     .replace('{name}', s.name).replace('{n}', String(list.length));
-  const title = fill('seo.catTitle', c);
+  const title = seoTitle(fill('seo.catTitle', c));
   const desc = fill('seo.catDesc', c);
   const image = list.length
     ? SITE + '/assets/products/' + defaultVariant(list[0]).sku + '.webp'

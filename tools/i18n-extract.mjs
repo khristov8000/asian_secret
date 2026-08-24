@@ -21,7 +21,7 @@ const KEY_RE = /\sdata-t(?:-[\w-]+)?="([^"]+)"/g;
    всяко пускане, защото ги няма в маркъпа. */
 const EXTRA_KEYS = [
   /* сглобяват се в tools/seo-build.mjs */
-  'seo.catTitle', 'seo.catDesc', 'seo.catLead',
+  'seo.catTitle', 'seo.catDesc', 'seo.catLead', 'seo.prodDescTail',
   /* от JavaScript - вж. i18n/ui.bg.json */
   'cart.remove', 'checkout.addrAddress', 'checkout.addrHintAddress',
   'checkout.addrHintOffice', 'checkout.addrOffice', 'checkout.addrPhAddress',
