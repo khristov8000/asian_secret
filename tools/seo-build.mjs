@@ -121,7 +121,7 @@ const stamp = f => crypto.createHash('sha1')
   .update(fs.readFileSync(path.join(root, f), 'utf8').replace(/\r\n/g, '\n'))
   .digest('hex').slice(0, 8);
 
-const ASSETS = ['assets/site.css', 'assets/data.js', 'assets/shop.js'];
+const ASSETS = ['assets/site.css', 'assets/data.js', 'assets/shop.js', 'assets/icons.js'];
 const VER = Object.fromEntries(ASSETS.map(f => [f, stamp(f)]));
 
 function versionAssets(html) {
@@ -337,6 +337,18 @@ const write = (rel, html) => {
   fs.mkdirSync(path.dirname(p), { recursive: true });
   fs.writeFileSync(p, html);
 };
+
+/* Страницата при сгрешен адрес не се превежда при build - тя сама избира езика
+   по поискания адрес. Но и тя носи site.css, а хостингът го кешира седмица,
+   затова минава през подпечатването като всички останали. */
+{
+  const f = '404.html';
+  if (fs.existsSync(path.join(root, f))) {
+    const before = read(f);
+    const after = versionAssets(before);
+    if (after !== before) fs.writeFileSync(path.join(root, f), after);
+  }
+}
 
 /* Шаблоните се прочитат ВЕДНЪЖ, преди първото писане: българските горни
    страници се презаписват на място и инак биха се върнали като вход. */

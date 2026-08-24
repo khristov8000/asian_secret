@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Страницата не е намерена | Asian Secret</title>
+<!-- Страницата се отдава със статус 404, но и това стои изрично: тя няма
+     какво да прави в индекса. -->
+<meta name="robots" content="noindex,follow">
+<!-- ВСИЧКИ пътища тук започват от корена и това е задължително. Apache отдава
+     този файл при чужд адрес, а лентата остава на изкования адрес: път без
+     начална наклонена черта от /en/kakvoto-i-da-e/ би се смятал спрямо него и
+     би сочил в нищото. -->
+<link rel="icon" href="/assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css?v=e69b51a7">
+<style>
+/* Страницата е една-единствена и стилът ѝ живее тук, а не в site.css:
+   няма смисъл всяка от 99-те страници да носи правила за нея. */
+/* Горното отстояние прави място на ветрилото: то стои НАД надписа 404, а не
+   върху него - иначе числото попада точно в гъстата му среда и се губи. */
+.nf{min-height:72vh;display:grid;grid-template-columns:minmax(0,1fr);place-items:center;text-align:center;padding:150px var(--gutter) 90px}
+.nf-in{max-width:560px;width:100%;position:relative}
+/* Стъпката Label от DESIGN.md: 11px/0.26em - стълбата на разредката иска
+   точно тази разредка при този размер. */
+.nf .code{font-family:var(--font-ui);font-size:11px;font-weight:600;letter-spacing:.26em;text-transform:uppercase;color:var(--rose-deep)}
+/* Стъпката Display: това е h1 на страница, а тя си е една за страницата. */
+/* Ограничено на 13ch, както е и в героя: така редът се пречупва там, където
+   трябва, а не оставя "я" сам в края. */
+.nf h1{font-family:var(--font-display);font-weight:500;font-size:clamp(42px,6vw,80px);line-height:1.08;letter-spacing:-.02em;margin:16px auto 0;max-width:min(13ch,100%)}
+.nf h1 em{font-style:italic;color:var(--rose)}
+.nf p{color:var(--ink-70);margin:16px auto 0;max-width:min(44ch,100%)}
+.nf-cta{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:32px}
+/* Ветрилото е от запазените мотиви и се ползва само тук - веднъж в целия
+   сайт, както е редът за assets/deco. Декоративно е, затова alt е празен и
+   не се чете от екранен четец. */
+.nf-fan{position:absolute;left:50%;top:-150px;width:330px;transform:translateX(-50%);opacity:.26;pointer-events:none;user-select:none}
+@media(max-width:560px){.nf-fan{width:230px;top:-96px}}
+/* Без арката 999px 999px 6px 6px - тя е запазена за плочките на категориите
+   и за снимката в продуктовата страница, а рядкостта ѝ е това, което я прави
+   знак. */
+</style>
+</head>
+<body>
+
+<header class="site"><div class="wrap bar">
+<a class="brand" href="/" id="brandLink"><img src="/assets/logo-as.png" alt="Asian Secret" width="640" height="551"><span class="wordmark"><b>ASIAN SECRET</b><span>BEAUTY FROM ASIA</span></span></a>
+</div></header>
+
+<main class="nf">
+<div class="nf-in">
+<img class="nf-fan" src="/assets/deco/fan.png" alt="" width="559" height="340">
+<span class="code">404</span>
+<h1 id="nfTitle">Тази страница <em>я&nbsp;няма</em></h1>
+<p id="nfLead">Може да е преместена или адресът да е сгрешен. Каталогът е на място - да продължим оттам.</p>
+<div class="nf-cta">
+<a class="btn btn-primary" href="/products" id="nfProducts">Всички продукти</a>
+<a class="btn btn-outline" href="/" id="nfHome">Начало</a>
+<a class="btn btn-ghost" href="/contact" id="nfContact">Контакти</a>
+</div>
+</div>
+</main>
+
+<script>
+/* Езикът се взима от АДРЕСА, който посетителят е поискал, не от браузъра му:
+   /en/нещо-сгрешено дава английска 404. Това не е разпознаване по език на
+   браузъра - правилото "началната винаги е на български" остава непокътнато,
+   защото / и всеки друг адрес без представка си остават български. */
+(function () {
+  var seg = location.pathname.split('/')[1];
+  var lang = (seg === 'en' || seg === 'ru') ? seg : 'bg';
+  var T = {
+    bg: { title: 'Тази страница <em>я&nbsp;няма</em>',
+          lead: 'Може да е преместена или адресът да е сгрешен. Каталогът е на място - да продължим оттам.',
+          products: 'Всички продукти', home: 'Начало', contact: 'Контакти' },
+    en: { title: 'This page <em>is&nbsp;not&nbsp;here</em>',
+          lead: 'It may have moved, or the address may be wrong. The catalogue is where it always was - let us carry on from there.',
+          products: 'All products', home: 'Home', contact: 'Contact' },
+    ru: { title: 'Этой страницы <em>здесь&nbsp;нет</em>',
+          lead: 'Возможно, она переехала или адрес набран с ошибкой. Каталог на месте - продолжим оттуда.',
+          products: 'Все товары', home: 'Главная', contact: 'Контакты' }
+  }[lang];
+
+  var p = lang === 'bg' ? '' : '/' + lang;
+  document.documentElement.lang = lang;
+  document.getElementById('nfTitle').innerHTML = T.title;
+  document.getElementById('nfLead').textContent = T.lead;
+  var set = function (id, href, text) {
+    var el = document.getElementById(id);
+    el.href = href; el.textContent = text;
+  };
+  set('nfProducts', p + '/products', T.products);
+  set('nfHome', p + '/', T.home);
+  set('nfContact', p + '/contact', T.contact);
+  document.getElementById('brandLink').href = p + '/';
+})();
+</script>
+
+</body>
+</html>

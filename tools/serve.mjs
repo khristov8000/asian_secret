@@ -44,6 +44,14 @@ http.createServer((req, res) => {
   else if (!isFile(file) && isFile(file + '.html')) file += '.html';
 
   if (!isFile(file)) {
+    /* Същото като ErrorDocument 404 /404.html в .htaccess: страницата се
+       поднася СЪС статус 404 и без смяна на адреса, за да може локално да се
+       види точно каквото ще види и посетителят. */
+    const nf = path.join(root, '404.html');
+    if (isFile(nf)) {
+      res.writeHead(404, { 'Content-Type': 'text/html; charset=utf-8' });
+      return res.end(fs.readFileSync(nf));
+    }
     res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
     return res.end('404 - ' + pathname);
   }
