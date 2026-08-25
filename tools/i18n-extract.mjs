@@ -33,7 +33,7 @@ const EXTRA_KEYS = [
   'pdp.specCount', 'pdp.specOrigin', 'pdp.specType', 'pdp.toCart',
   'shop.buy', 'shop.choose', 'shop.countProducts', 'shop.from', 'shop.swipe',
   'sum.free', 'sum.sending', 'toast.added',
-  'pay.codNote2', 'pay.bankNote2'
+  'pay.codNote2', 'pay.bankNote2', 'pay.cardNote2'
 ];
 
 export function keysFromTemplates() {
