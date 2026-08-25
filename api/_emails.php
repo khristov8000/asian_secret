@@ -176,6 +176,24 @@ function as_customer_email($o, $cfg) {
         ['Плащане', $o['payment']],
         ['Срок', '1-3 работни дни'],
       ]))
+    /* При банков превод писмото носи и сметката, и срока. Клиентът няма
+       откъде другаде да ги вземе - на страницата ги е видял веднъж, преди
+       да поръча. */
+    . (($o['payment'] ?? '') === AS_PAY_BANK ? as_section(
+        as_h2('Как да платите')
+        . '<div style="font-family:' . AS_SANS . ';font-size:15px;line-height:1.65;color:' . $c['ink70'] . ';padding-bottom:14px;">
+Преведете <strong style="color:' . $c['ink'] . ';">' . as_esc(as_money($o['totals']['total'])) . '</strong>
+по сметката по-долу в срок до <strong style="color:' . $c['ink'] . ';">' . AS_BANK['days'] . ' работни дни</strong>.
+Сумата включва и доставката. Изпращаме пратката веднага щом преводът постъпи.</div>'
+        . as_detail_table([
+            ['Получател', AS_BANK['holder']],
+            ['IBAN', AS_BANK['iban']],
+            ['Сума', as_money($o['totals']['total'])],
+            ['Основание', 'Поръчка ' . $o['number']],
+          ])
+        . '<div style="font-family:' . AS_SANS . ';font-size:13.5px;line-height:1.6;color:' . $c['ink70'] . ';padding-top:14px;">
+Моля, впишете номера на поръчката като основание - така преводът се
+разпознава веднага.</div>', $c['ivory']) : '')
     . as_section('<div style="font-family:' . AS_SANS . ';font-size:14px;line-height:1.65;color:' . $c['ink70'] . ';padding-bottom:18px;">
 Имате въпрос по поръчката? Просто отговорете на това писмо
 или ни пишете в Instagram - отговаряме лично.</div>'
@@ -250,6 +268,16 @@ function as_customer_text($o, $cfg) {
     . ($o['delivery']['isOffice'] ? 'Офис на Спиди' : 'Адрес') . ': ' . $o['delivery']['address'] . "\n"
     . 'Град: ' . $o['customer']['city'] . ($o['customer']['zip'] ? ', ' . $o['customer']['zip'] : '') . "\n"
     . 'Плащане: ' . $o['payment'] . "\n\n"
+    /* Същото като в оформеното писмо - част от клиентите четат само текста. */
+    . (($o['payment'] ?? '') === AS_PAY_BANK
+        ? "КАК ДА ПЛАТИТЕ\n"
+          . 'Преведете ' . as_money($o['totals']['total']) . ' в срок до '
+          . AS_BANK['days'] . " работни дни. Сумата включва и доставката.\n"
+          . 'Получател: ' . AS_BANK['holder'] . "\n"
+          . 'IBAN: ' . AS_BANK['iban'] . "\n"
+          . 'Основание: Поръчка ' . $o['number'] . "\n"
+          . "Изпращаме пратката веднага щом преводът постъпи.\n\n"
+        : '')
     . 'Asian Secret - ' . $cfg['shop']['phone'] . ' - ' . $cfg['site'];
 }
 

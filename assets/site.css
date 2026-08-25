@@ -107,6 +107,18 @@ nav.main .langsw a.on{color:var(--rose-deep)}
 nav.main .langsw a+a{border-left:1px solid var(--line)}
 nav.main .langsw a::after{display:none}
 
+/* Пояснение под избора на плащане: какво точно ще плати клиентът и кога.
+   Ивори фон и тънка рамка, както при .radio-card - това е продължение на
+   избора, не отделен компонент. */
+.paynote{margin:14px 0 2px;padding:16px 18px;background:var(--ivory);border:1px solid var(--line);border-radius:var(--r-m)}
+.paynote p{margin:0;font-size:14px;line-height:1.6;color:var(--ink-70)}
+.paynote .bankrow{display:flex;justify-content:space-between;gap:16px;margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
+.paynote .bankrow:first-of-type{margin-top:14px}
+.paynote .bankrow span{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--rose-deep);white-space:nowrap;padding-top:3px}
+/* IBAN-ът се чете и се преписва - Playfair е за имена, не за данни, затова
+   тук е моноширинен: цифрите се подравняват и групите се различават. */
+.paynote .bankrow b{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13.5px;font-weight:600;color:var(--ink);text-align:right;word-break:break-all}
+
 .actions{display:flex;align-items:center;gap:12px}
 .icon-btn{display:grid;place-items:center;width:42px;height:42px;border-radius:var(--r-pill);border:1px solid var(--line);background:transparent;cursor:pointer;position:relative;color:var(--ink);transition:.22s var(--ease)}
 .icon-btn:hover{background:var(--white);border-color:var(--rose-line);color:var(--rose)}

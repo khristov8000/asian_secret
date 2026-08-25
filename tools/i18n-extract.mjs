@@ -32,7 +32,8 @@ const EXTRA_KEYS = [
   'pdp.cod', 'pdp.less', 'pdp.more', 'pdp.pack', 'pdp.shipDays',
   'pdp.specCount', 'pdp.specOrigin', 'pdp.specType', 'pdp.toCart',
   'shop.buy', 'shop.choose', 'shop.countProducts', 'shop.from', 'shop.swipe',
-  'sum.free', 'sum.sending', 'toast.added'
+  'sum.free', 'sum.sending', 'toast.added',
+  'pay.codNote2', 'pay.bankNote2'
 ];
 
 export function keysFromTemplates() {
