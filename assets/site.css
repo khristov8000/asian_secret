@@ -383,6 +383,14 @@ border-radius:var(--r-l);box-shadow:var(--sh-2)}   /* снимка = физич�
 .field label{font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-45)}
 .field input,.field textarea,.field select{min-width:0;width:100%;font-family:var(--font-ui);font-size:15px;padding:14px 16px;border:1px solid var(--line);border-radius:var(--r-m);background:var(--white);color:var(--ink);transition:border-color .22s var(--ease),box-shadow .22s var(--ease)}
 .field input:focus,.field textarea:focus,.field select:focus{outline:0;border-color:var(--rose);box-shadow:0 0 0 3px rgba(212,102,111,.13)}
+/* Подсказката в празно поле трябва да личи, че е подсказка, а не въведен
+   текст: написаното е плътно мастило (около 17:1 спрямо белия фон), а тук
+   прозрачността сваля контраста до 3:1. По-бледо не се слиза - в тези
+   подсказки стоят примерни адреси, по които хората преписват формата, а под
+   3:1 те стават нечетливи за част от четящите.
+   Правилото е общо, не само за .field: полето за търсене в каталога също е
+   подсказка и трябва да изглежда еднакво. */
+input::placeholder,textarea::placeholder{color:rgba(20,17,16,.45);opacity:1}
 .field textarea{min-height:92px;resize:vertical}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}
 .radio-card{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--line);border-radius:var(--r-m);padding:15px 17px;cursor:pointer;background:var(--white);margin-bottom:10px;transition:border-color .22s var(--ease),background .22s var(--ease)}
