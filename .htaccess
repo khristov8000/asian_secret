@@ -12,6 +12,8 @@ RewriteEngine On
 # robots.txt само моли да не се обхождат; това тук наистина ги затваря.
 # Нито един от тези пътища не се ползва от сайта - проверено с търсене на
 # src=/href=/url() по целия построен сайт, включително /en и /ru.
+# /api/_ покрива и _pending (лични данни на чакащи поръчки), и вътрешните
+# _shared/_viva/_emails - те се извикват от PHP, не се отдават на браузър.
 # Едно правило, а не <FilesMatch> с Require: колкото по-малко различни
 # директиви, толкова по-малък шансът някоя да не се хареса на сървъра - а
 # сгрешен .htaccess сваля ЦЕЛИЯ сайт с 500, не само този ред.
@@ -19,7 +21,7 @@ RewriteEngine On
 # thumbnail е с незадължително .html: правилото за чисти адреси по-долу маха
 # разширението ПРЕДИ това правило, тоест /thumbnail.html идва дотук вече като
 # /thumbnail и инак се измъкваше.
-RedirectMatch 404 ^/(product_images|images|tmp|output|docs)/|^/(support\.js|_ds_bundle\.js|_ds_manifest\.json|_adherence\.oxlintrc\.json)$|^/thumbnail(\.html)?$
+RedirectMatch 404 ^/(product_images|images|tmp|output|docs)/|^/api/_|^/(support\.js|_ds_bundle\.js|_ds_manifest\.json|_adherence\.oxlintrc\.json)$|^/thumbnail(\.html)?$
 
 # ── страница при сгрешен адрес ─────────────────────────────────────────────
 # Пътят е абсолютен (/404.html), защото Apache поднася файла ВЪТРЕШНО, без да

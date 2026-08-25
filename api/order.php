@@ -12,17 +12,10 @@
 
 declare(strict_types=1);
 
-const AS_SITE = 'https://asiansecret.bg';
-const AS_SHIPPING_FLAT = 3.90;
-const AS_FREE_SHIPPING = 40.0;
-
-const AS_SHOP = [
-  'phone' => '0878 141 487',
-  'replyTo' => 'zax12@abv.bg',
-  'instagram' => 'https://www.instagram.com/asiansecret.bg/',
-];
-
+require __DIR__ . '/_shared.php';
 require __DIR__ . '/_emails.php';
+require __DIR__ . '/_viva.php';
+require __DIR__ . '/_pending.php';
 
 header('Content-Type: application/json; charset=utf-8');
 header('X-Content-Type-Options: nosniff');
@@ -31,50 +24,6 @@ function as_fail(int $code, string $msg): never {
   http_response_code($code);
   echo json_encode(['error' => $msg], JSON_UNESCAPED_UNICODE);
   exit;
-}
-
-function as_config(): array {
-  $cfg = [];
-  $file = __DIR__ . '/config.local.php';
-  if (is_readable($file)) {
-    $loaded = require $file;
-    if (is_array($loaded)) $cfg = $loaded;
-  }
-  /* Стойност от средата бие файла - удобно при местене на друг хостинг. */
-  foreach (['RESEND_API_KEY', 'ORDER_TO', 'ORDER_FROM'] as $k) {
-    $v = getenv($k);
-    if ($v !== false && $v !== '') $cfg[$k] = $v;
-  }
-  return $cfg;
-}
-
-function as_clean($v, int $max): string {
-  $s = is_scalar($v) ? (string)$v : '';
-  $s = preg_replace('/[\r\n\t]+/u', ' ', $s);
-  $s = trim($s);
-  return mb_substr($s, 0, $max, 'UTF-8');
-}
-
-/* Праща едно писмо през Resend. Връща [ok, съобщение за дневника]. */
-function as_send(array $payload, string $key): array {
-  $ch = curl_init('https://api.resend.com/emails');
-  curl_setopt_array($ch, [
-    CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_POST => true,
-    CURLOPT_TIMEOUT => 20,
-    CURLOPT_HTTPHEADER => [
-      'Authorization: Bearer ' . $key,
-      'Content-Type: application/json',
-    ],
-    CURLOPT_POSTFIELDS => json_encode($payload, JSON_UNESCAPED_UNICODE),
-  ]);
-  $body = curl_exec($ch);
-  $code = curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
-  $err = curl_error($ch);
-  curl_close($ch);
-  if ($body === false) return [false, 'curl: ' . $err];
-  if ($code < 200 || $code >= 300) return [false, "resend $code: " . mb_substr((string)$body, 0, 300)];
-  return [true, ''];
 }
 
 /* ── заявката ─────────────────────────────────────────────────────────────── */
@@ -152,6 +101,39 @@ $order = [
 /* Настройките се четат чак сега: първо се проверява самата заявка, за да не
    се издава състоянието на сървъра на всеки, който прати празен POST. */
 $cfg = as_config();
+
+/* ── плащане с карта ──────────────────────────────────────────────────────────
+   При карта поръчката НЕ се праща по пощата тук. Парите още не са минали, а
+   писмо "имате поръчка" за изоставено плащане е по-лошо от никакво писмо.
+   Вместо това поръчката се оставя да чака, клиентът отива при Viva, и чак
+   когато тя потвърди, viva-webhook.php пуска двете писма.
+
+   Сумата се смята от каталога, не от браузъра - същото правило както при
+   останалите начини на плащане. */
+if (($body['payMethod'] ?? '') === 'card') {
+  $lang = in_array(($body['lang'] ?? 'bg'), ['bg', 'en', 'ru'], true) ? $body['lang'] : 'bg';
+
+  if (empty($cfg['VIVA_CLIENT_ID']) || empty($cfg['VIVA_CLIENT_SECRET']) || empty($cfg['VIVA_SOURCE_CODE'])) {
+    error_log('order: Viva не е настроена (client id / secret / source code)');
+    as_fail(503, 'card payment unavailable');
+  }
+
+  $orderCode = viva_create_order($cfg, $order, $lang);
+  if ($orderCode === null) as_fail(502, 'payment order failed');
+
+  /* Първо се запазва, после се пренасочва: ако запазването се провали,
+     клиентът не бива да стига до плащане, което после няма да можем да
+     свържем с поръчка. */
+  if (!as_pending_save($orderCode, $order, $lang)) as_fail(500, 'could not store order');
+  as_pending_sweep();
+
+  echo json_encode([
+    'ok' => true,
+    'redirect' => viva_checkout_url($cfg, $orderCode),
+    'number' => $order['number'],
+  ], JSON_UNESCAPED_UNICODE);
+  exit;
+}
 if (empty($cfg['RESEND_API_KEY'])) {
   error_log('order: RESEND_API_KEY is not configured');
   as_fail(503, 'email not configured');
