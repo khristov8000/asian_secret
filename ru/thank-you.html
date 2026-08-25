@@ -82,18 +82,23 @@
   set('pyProducts', p + '/products', T.products);
   set('pyContact', p + '/contact', T.contact);
 
-  /* Viva връща s = кода на поръчката. Показва се като НИЗ - 16 цифри
-     надхвърлят точните числа в JavaScript и през Number() биха се повредили. */
-  var s = new URLSearchParams(location.search).get('s');
-  if (s && /^[0-9]{6,20}$/.test(s)) {
+  /* Показва се НАШИЯТ номер (AS-xxxxxx), запомнен преди излизането към Viva.
+     Параметърът s в адреса е вътрешният код на Viva - друго число, което не
+     стои никъде в писмото на клиента и само би го объркало. */
+  var no = null;
+  try { no = localStorage.getItem('as_pay_no'); } catch (e) {}
+  if (no && /^AS-[0-9]{4,10}$/.test(no)) {
     var el = document.getElementById('pyNo');
-    el.textContent = T.no + ' ' + s;
+    el.textContent = T.no + ' ' + no;
     el.hidden = false;
   }
 
   /* Количката се изчиства чак тук - тоест едва след като плащането е минало.
      Откаже ли се клиентът на страницата на Viva, продуктите му го чакат. */
-  try { localStorage.removeItem('as_cart_v1'); } catch (e) {}
+  try {
+    localStorage.removeItem('as_cart_v1');
+    localStorage.removeItem('as_pay_no');
+  } catch (e) {}
 })();
 </script>
 

@@ -297,7 +297,10 @@ document.getElementById('checkout').addEventListener('submit', async e => {
     if (res.ok) {
       const j = await res.json();
       if (j.ok && j.redirect) {
-        try { localStorage.setItem('as_pay_lang', payload.lang); } catch (e) {}
+        try {
+          localStorage.setItem('as_pay_lang', payload.lang);
+          if (j.number) localStorage.setItem('as_pay_no', j.number);
+        } catch (e) {}
         location.href = j.redirect;
         return;
       }
