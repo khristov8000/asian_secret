@@ -110,11 +110,11 @@ nav.main .langsw a::after{display:none}
 /* Пояснение под избора на плащане: какво точно ще плати клиентът и кога.
    Ивори фон и тънка рамка, както при .radio-card - това е продължение на
    избора, не отделен компонент. */
-/* Блокът стои ПОД картончето, което го е извикало, и е леко хлътнал навътре -
-   така се чете като продължение на избора, а не като поредна възможност.
-   Отрицателният горен отстъп изяжда margin-bottom:10px на картончето, за да
-   се допират. */
-.paynote{margin:-6px 0 12px 20px;padding:14px 16px;background:var(--ivory);border:1px solid var(--line);border-top:0;border-radius:0 0 var(--r-m) var(--r-m)}
+/* Блокът стои ПОД картончето, което го е извикало, и е хлътнал навътре -
+   отстъпът отляво е това, което го прави подчинен на избора.
+   Отстъпът отгоре е ПОЛОЖИТЕЛЕН и рамката е цяла: с отрицателен отстъп горните
+   10px влизаха под картончето и кутията изглеждаше отрязана отгоре. */
+.paynote{margin:6px 0 12px 20px;padding:14px 16px;background:var(--ivory);border:1px solid var(--line);border-radius:var(--r-m)}
 .paynote p{margin:0;font-size:14px;line-height:1.6;color:var(--ink-70)}
 .paynote .bankrow{display:flex;justify-content:space-between;gap:16px;margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
 .paynote .bankrow:first-of-type{margin-top:14px}
@@ -128,7 +128,7 @@ nav.main .langsw a::after{display:none}
 
 /* Полето за адрес се мести под избрания начин на доставка и се подравнява с
    пояснението за плащане - двата блока играят една и съща роля. */
-#addrField{margin:-2px 0 14px 20px}
+#addrField{margin:6px 0 14px 20px}
 
 .actions{display:flex;align-items:center;gap:12px}
 .icon-btn{display:grid;place-items:center;width:42px;height:42px;border-radius:var(--r-pill);border:1px solid var(--line);background:transparent;cursor:pointer;position:relative;color:var(--ink);transition:.22s var(--ease)}
