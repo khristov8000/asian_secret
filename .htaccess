@@ -12,6 +12,10 @@ RewriteEngine On
 # robots.txt само моли да не се обхождат; това тук наистина ги затваря.
 # Нито един от тези пътища не се ползва от сайта - проверено с търсене на
 # src=/href=/url() по целия построен сайт, включително /en и /ru.
+# config.local.php днес връща нула байта, защото PHP го ИЗПЪЛНЯВА - това е
+# защита по случайност, не по замисъл. Спре ли PHP да обработва .php в тази
+# папка (смяна на хостинг, счупен .htaccess), суровият файл с ключа за
+# пощата и тайната на Viva би се отдал като текст. Затова е затворен изрично.
 # /api/_ покрива и _pending (лични данни на чакащи поръчки), и вътрешните
 # _shared/_viva/_emails - те се извикват от PHP, не се отдават на браузър.
 # Едно правило, а не <FilesMatch> с Require: колкото по-малко различни
@@ -21,7 +25,7 @@ RewriteEngine On
 # thumbnail е с незадължително .html: правилото за чисти адреси по-долу маха
 # разширението ПРЕДИ това правило, тоест /thumbnail.html идва дотук вече като
 # /thumbnail и инак се измъкваше.
-RedirectMatch 404 ^/(product_images|images|tmp|output|docs)/|^/api/_|^/(support\.js|_ds_bundle\.js|_ds_manifest\.json|_adherence\.oxlintrc\.json)$|^/thumbnail(\.html)?$
+RedirectMatch 404 ^/(product_images|images|tmp|output|docs)/|^/api/(_|config)|^/(support\.js|_ds_bundle\.js|_ds_manifest\.json|_adherence\.oxlintrc\.json)$|^/thumbnail(\.html)?$
 
 # ── спасяване на сбъркан адрес за връщане от Viva ──────────────────────────
 # В платежния източник има отделно поле за домейн и отделно за адрес при
