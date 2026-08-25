@@ -28,7 +28,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=c86d638f">
+<link rel="stylesheet" href="/assets/site.css?v=22820a1f">
 <style>.steps{display:flex;gap:10px;align-items:center;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-45);margin-bottom:8px}.steps b{color:var(--ink)}.done{max-width:640px;margin:0 auto;text-align:center;background:var(--white);border:1px solid var(--line);border-radius:var(--r-l);padding:52px 40px;box-shadow:var(--sh-1)}.done .ring{width:64px;height:64px;border-radius:50%;border:1px solid var(--rose-line);color:var(--rose);display:grid;place-items:center;margin:0 auto 22px}.done .ring svg{width:26px;height:26px;stroke-width:1.3}.orderno{font-family:var(--font-display);font-size:22px;margin-top:6px}</style>
 </head>
 <body>
@@ -71,7 +71,7 @@
 <h3 style="margin:28px 0 14px">Доставка</h3>
 <label class="radio-card"><input type="radio" name="Доставка" value="До офис на Спиди - 3,90 €" checked data-ship="3.90" data-mode="office"><span><b>В офис Спиди</b><span>Спиди · 1-3 рабочих дня · 3,90 €</span></span></label>
 <label class="radio-card"><input type="radio" name="Доставка" value="До адрес със Спиди - 3,90 €" data-ship="3.90" data-mode="address"><span><b>По адресу</b><span>Курьер Спиди до двери · 1-3 рабочих дня · 3,90 €</span></span></label>
-<div class="field" style="margin-top:16px"><label for="addr" id="addrLabel">Офис Спиди</label><input id="addr" name="Адрес" required placeholder="Например: офис Спиди Витоша, ул. Витоша 15"><span class="muted" style="font-size:12.5px;margin-top:6px;display:block" id="addrHint">Напишите, в какой офис Спиди доставить посылку.</span></div>
+<div class="field" id="addrField" style="margin-top:16px"><label for="addr" id="addrLabel">Офис Спиди</label><input id="addr" name="Адрес" required placeholder="Например: офис Спиди Витоша, ул. Витоша 15"><span class="muted" style="font-size:12.5px;margin-top:6px;display:block" id="addrHint">Напишите, в какой офис Спиди доставить посылку.</span></div>
 
 <h3 style="margin:28px 0 14px">Оплата</h3>
 <label class="radio-card"><input type="radio" name="Плащане" value="Карта" checked data-pay="card"><span><b>Оплата картой</b><span>Visa, Mastercard, Apple Pay, Google Pay - безопасно, через Viva</span></span></label>
@@ -203,12 +203,21 @@ const ADDR_COPY = {
   address: { label: T['checkout.addrAddress'], ph: T['checkout.addrPhAddress'], hint: T['checkout.addrHintAddress'] }
 };
 
+const addrField = document.getElementById('addrField');
+
+/* Мести блок точно под картончето на избрания радиобутон. */
+function moveUnder(block, radio) {
+  const card = radio && radio.closest('.radio-card');
+  if (card && block && card.nextElementSibling !== block) card.insertAdjacentElement('afterend', block);
+}
+
 function paintAddr() {
   const r = document.querySelector('[data-mode]:checked');
   const c = ADDR_COPY[r ? r.dataset.mode : 'office'];
   addrLabel.textContent = c.label;
   addrInput.placeholder = c.ph;
   addrHint.textContent = c.hint;
+  moveUnder(addrField, r);
 }
 
 document.querySelectorAll('[data-ship]').forEach(r => r.addEventListener('change', () => { paint(); paintAddr(); }));
@@ -231,6 +240,7 @@ function paintPayNote() {
   else if (isCod) payNoteText.textContent = T['pay.codNote2'];
   else if (isCard) payNoteText.textContent = T['pay.cardNote2'];
   else payNote.hidden = true;
+  moveUnder(payNote, r);
 }
 
 document.querySelectorAll('[name="Плащане"]').forEach(r =>

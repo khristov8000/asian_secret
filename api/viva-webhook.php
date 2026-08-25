@@ -121,7 +121,7 @@ $order['payment'] = 'Карта (платена през Viva)';
 $order['paidAt'] = (new DateTime('now', new DateTimeZone('Europe/Sofia')))->format('d.m.Y H:i');
 $emailCfg = ['site' => AS_SITE, 'shop' => AS_SHOP];
 $from = $cfg['ORDER_FROM'] ?? 'Asian Secret <orders@asiansecret.bg>';
-$to   = $cfg['ORDER_TO'] ?? 'kaloian8000@gmail.com';
+$to   = $cfg['ORDER_TO'] ?? 'zax12@abv.bg';
 
 $forOwner = as_owner_email($order, $emailCfg);
 [$ok, $err] = as_send([

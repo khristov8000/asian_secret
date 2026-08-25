@@ -7,7 +7,7 @@
 return [
   /* ── поща ──────────────────────────────────────────────────────────────── */
   'RESEND_API_KEY' => 're_xxxxxxxxxxxxxxxxxxxxxxxx',
-  'ORDER_TO'       => 'kaloian8000@gmail.com',
+  'ORDER_TO'       => 'zax12@abv.bg',
   'ORDER_FROM'     => 'Asian Secret <orders@asiansecret.bg>',
 
   /* ── плащане с карта през Viva ──────────────────────────────────────────

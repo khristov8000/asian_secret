@@ -110,7 +110,11 @@ nav.main .langsw a::after{display:none}
 /* Пояснение под избора на плащане: какво точно ще плати клиентът и кога.
    Ивори фон и тънка рамка, както при .radio-card - това е продължение на
    избора, не отделен компонент. */
-.paynote{margin:14px 0 2px;padding:16px 18px;background:var(--ivory);border:1px solid var(--line);border-radius:var(--r-m)}
+/* Блокът стои ПОД картончето, което го е извикало, и е леко хлътнал навътре -
+   така се чете като продължение на избора, а не като поредна възможност.
+   Отрицателният горен отстъп изяжда margin-bottom:10px на картончето, за да
+   се допират. */
+.paynote{margin:-6px 0 12px 20px;padding:14px 16px;background:var(--ivory);border:1px solid var(--line);border-top:0;border-radius:0 0 var(--r-m) var(--r-m)}
 .paynote p{margin:0;font-size:14px;line-height:1.6;color:var(--ink-70)}
 .paynote .bankrow{display:flex;justify-content:space-between;gap:16px;margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
 .paynote .bankrow:first-of-type{margin-top:14px}
@@ -121,6 +125,10 @@ nav.main .langsw a::after{display:none}
    упътва, и няма трети. Табличните цифри са с еднаква ширина, тоест групите
    се броят с око. */
 .paynote .bankrow b{font-family:var(--font-ui);font-variant-numeric:tabular-nums;font-size:13.5px;font-weight:600;letter-spacing:.04em;color:var(--ink);text-align:right;word-break:break-all}
+
+/* Полето за адрес се мести под избрания начин на доставка и се подравнява с
+   пояснението за плащане - двата блока играят една и съща роля. */
+#addrField{margin:-2px 0 14px 20px}
 
 .actions{display:flex;align-items:center;gap:12px}
 .icon-btn{display:grid;place-items:center;width:42px;height:42px;border-radius:var(--r-pill);border:1px solid var(--line);background:transparent;cursor:pointer;position:relative;color:var(--ink);transition:.22s var(--ease)}

@@ -141,7 +141,7 @@ if (empty($cfg['RESEND_API_KEY'])) {
 
 $emailCfg = ['site' => AS_SITE, 'shop' => AS_SHOP];
 $from = $cfg['ORDER_FROM'] ?? 'Asian Secret <orders@asiansecret.bg>';
-$to   = $cfg['ORDER_TO'] ?? 'kaloian8000@gmail.com';
+$to   = $cfg['ORDER_TO'] ?? 'zax12@abv.bg';
 
 $forOwner = as_owner_email($order, $emailCfg);
 $forCustomer = as_customer_email($order, $emailCfg);
