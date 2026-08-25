@@ -74,7 +74,8 @@
 <div class="field" style="margin-top:16px"><label for="addr" id="addrLabel" data-t="checkout.addrOffice">Офис на Спиди</label><input id="addr" name="Адрес" required data-t-placeholder="checkout.addrPhOffice" placeholder="Например: Спиди офис Витоша, ул. Витоша 15"><span class="muted" style="font-size:12.5px;margin-top:6px;display:block" id="addrHint" data-t="checkout.addrHintOffice">Напишете кой офис на Спиди да получи пратката.</span></div>
 
 <h3 style="margin:28px 0 14px" data-t="checkout.payment">Плащане</h3>
-<label class="radio-card"><input type="radio" name="Плащане" value="Наложен платеж" checked><span><b data-t="checkout.cod">Наложен платеж</b><span data-t="checkout.codNote">Плащате при получаване на пратката</span></span></label>
+<label class="radio-card"><input type="radio" name="Плащане" value="Карта" checked data-pay="card"><span><b data-t="checkout.card">Плащане с карта</b><span data-t="checkout.cardNote">Visa, Mastercard, Apple Pay, Google Pay - сигурно, през Viva</span></span></label>
+<label class="radio-card"><input type="radio" name="Плащане" value="Наложен платеж"><span><b data-t="checkout.cod">Наложен платеж</b><span data-t="checkout.codNote">Плащате при получаване на пратката</span></span></label>
 <label class="radio-card"><input type="radio" name="Плащане" value="Банков превод"><span><b data-t="checkout.bank">Банков превод</b><span data-t="checkout.bankNote">Ще получите данни за плащане по имейл</span></span></label>
 
 <div aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden"><label>Фирма<input name="company" id="company" tabindex="-1" autocomplete="off"></label></div>
@@ -238,6 +239,8 @@ document.getElementById('checkout').addEventListener('submit', async e => {
     city: f.city.value, zip: f.zip.value, address: f.addr.value,
     deliveryMode: f.querySelector('[data-mode]:checked').dataset.mode,
     payment: f.querySelector('[name="Плащане"]:checked').value,
+    payMethod: f.querySelector('[name="Плащане"]:checked').dataset.pay || 'cod',
+    lang: (window.I18N && I18N.lang) || 'bg',
     note: f.note.value,
     company: f.company ? f.company.value : '',
     items: cartRead().map(i => ({ sku: i.slug, qty: i.qty }))
@@ -250,8 +253,20 @@ document.getElementById('checkout').addEventListener('submit', async e => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
     });
-    if (res.ok) { const j = await res.json(); sent = !!j.ok; no = j.number || null; }
+    if (res.ok) {
+      const j = await res.json();
+      if (j.ok && j.redirect) {
+        try { localStorage.setItem('as_pay_lang', payload.lang); } catch (e) {}
+        location.href = j.redirect;
+        return;
+      }
+      sent = !!j.ok; no = j.number || null;
+    }
   } catch (err) { sent = false; }
+
+  /* Дотук се стига само когато плащането НЕ е с карта или когато поръчката
+     при Viva не се е получила. Във втория случай резервният път по имейл
+     отдолу е по-добър от мълчалива загуба. */
 
   if (!sent) {
     try {

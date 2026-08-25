@@ -73,6 +73,8 @@
  "checkout.addressNote": "Курьер Спиди до двери · 1-3 рабочих дня · 3,90 €",
  "checkout.bank": "Банковский перевод",
  "checkout.bankNote": "Реквизиты для оплаты пришлём на почту",
+ "checkout.card": "Оплата картой",
+ "checkout.cardNote": "Visa, Mastercard, Apple Pay, Google Pay - безопасно, через Viva",
  "checkout.city": "Город / село",
  "checkout.cityPh": "София",
  "checkout.cod": "Оплата при получении",

@@ -362,11 +362,10 @@ const write = (rel, html) => {
   fs.writeFileSync(p, html);
 };
 
-/* Страницата при сгрешен адрес не се превежда при build - тя сама избира езика
+/* Страниците, които не се превеждат при build - те сами избират езика
    по поискания адрес. Но и тя носи site.css, а хостингът го кешира седмица,
    затова минава през подпечатването като всички останали. */
-{
-  const f = '404.html';
+for (const f of ['404.html', 'thank-you.html', 'payment-failed.html']) {
   if (fs.existsSync(path.join(root, f))) {
     const before = read(f);
     const after = versionAssets(before);
