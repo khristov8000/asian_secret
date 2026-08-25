@@ -366,10 +366,20 @@ const write = (rel, html) => {
    по поискания адрес. Но и тя носи site.css, а хостингът го кешира седмица,
    затова минава през подпечатването като всички останали. */
 for (const f of ['404.html', 'thank-you.html', 'payment-failed.html']) {
-  if (fs.existsSync(path.join(root, f))) {
-    const before = read(f);
-    const after = versionAssets(before);
-    if (after !== before) fs.writeFileSync(path.join(root, f), after);
+  if (!fs.existsSync(path.join(root, f))) continue;
+  const stamped = versionAssets(read(f));
+  if (stamped !== read(f)) fs.writeFileSync(path.join(root, f), stamped);
+
+  /* Страниците след плащане се копират и в /en и /ru. Viva има само ЕДИН
+     адрес за връщане, но клиент може да дойде и по езиков път - от отметка,
+     от стар линк, или ако адресът в платежния източник някога се смени.
+     "Страницата я няма" веднага след платена поръчка е най-лошото, което
+     може да види човек, затова и трите пътя водят до нещо разумно.
+     Съдържанието е същото: страницата сама си избира езика. */
+  if (f === '404.html') continue;
+  for (const lang of LANGS) {
+    if (lang === 'bg') continue;
+    write(lang + '/' + f, stamped);
   }
 }
 

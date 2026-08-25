@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Плащането не мина | Asian Secret</title>
+<meta name="robots" content="noindex,follow">
+<link rel="icon" href="/assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css?v=068aee18">
+<style>
+.pay{min-height:66vh;display:grid;grid-template-columns:minmax(0,1fr);place-items:center;text-align:center;padding:96px var(--gutter) 80px}
+.pay-in{max-width:560px;width:100%}
+.pay .code{font-family:var(--font-ui);font-size:11px;font-weight:600;letter-spacing:.26em;text-transform:uppercase;color:var(--rose-deep)}
+.pay h1{font-family:var(--font-display);font-weight:500;font-size:clamp(42px,6vw,80px);line-height:1.08;letter-spacing:-.02em;margin:14px auto 0;max-width:min(14ch,100%)}
+.pay h1 em{font-style:italic;color:var(--rose)}
+.pay p{color:var(--ink-70);margin:16px auto 0;max-width:min(46ch,100%)}
+.pay .ring{display:grid;place-items:center;width:64px;height:64px;margin:0 auto 22px;border-radius:var(--r-pill);border:1px solid var(--line);color:var(--ink-45)}
+.pay .ring svg{width:26px;height:26px}
+.pay-cta{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:32px}
+</style>
+</head>
+<body>
+
+<header class="site"><div class="wrap bar">
+<a class="brand" href="/" id="brandLink"><img src="/assets/logo-as.png" alt="Asian Secret" width="640" height="551"><span class="wordmark"><b>ASIAN SECRET</b><span>BEAUTY FROM ASIA</span></span></a>
+</div></header>
+
+<main class="pay">
+<div class="pay-in">
+<span class="ring"><i data-lucide="wallet"></i></span>
+<span class="code" id="pfEyebrow">Плащането не мина</span>
+<h1 id="pfTitle">Нищо <em>не е загубено</em></h1>
+<p id="pfLead">Не сме взели пари от картата ви, а количката ви е непокътната. Можете да опитате пак или да изберете наложен платеж.</p>
+<div class="pay-cta">
+<a class="btn btn-primary" href="/cart" id="pfCart">Обратно към количката</a>
+<a class="btn btn-ghost" href="/contact" id="pfContact">Свържете се с нас</a>
+</div>
+</div>
+</main>
+
+<script src="/assets/icons.js?v=b3e52eb5"></script>
+<script>
+(function () {
+  /* Езикът идва от запомненото при излизането към Viva - нейният адрес за
+     връщане е един и същ за трите езика и не носи тази информация. Ако го
+     няма (друг браузър, изчистено хранилище), се пада на адреса. */
+  var seg = location.pathname.split('/')[1];
+  var lang = (seg === 'en' || seg === 'ru') ? seg : 'bg';
+  try {
+    var saved = localStorage.getItem('as_pay_lang');
+    if (saved === 'en' || saved === 'ru' || saved === 'bg') lang = saved;
+  } catch (e) {}
+  var T = {
+    bg: { eyebrow: 'Плащането не мина', title: 'Нищо <em>не е загубено</em>',
+          lead: 'Не сме взели пари от картата ви, а количката ви е непокътната. Можете да опитате пак или да изберете наложен платеж.',
+          cancel: 'Плащането е прекратено. Количката ви е непокътната - продължете, когато сте готови.',
+          cart: 'Обратно към количката', contact: 'Свържете се с нас' },
+    en: { eyebrow: 'Payment did not go through', title: 'Nothing <em>is lost</em>',
+          lead: 'No money was taken from your card, and your cart is exactly as you left it. You can try again or choose cash on delivery.',
+          cancel: 'The payment was cancelled. Your cart is untouched - carry on whenever you are ready.',
+          cart: 'Back to the cart', contact: 'Get in touch' },
+    ru: { eyebrow: 'Оплата не прошла', title: 'Ничего <em>не потеряно</em>',
+          lead: 'С вашей карты ничего не списано, а корзина осталась нетронутой. Можно попробовать снова или выбрать оплату при получении.',
+          cancel: 'Оплата отменена. Корзина осталась нетронутой - продолжайте, когда будете готовы.',
+          cart: 'Обратно в корзину', contact: 'Связаться с нами' }
+  }[lang];
+  var p = lang === 'bg' ? '' : '/' + lang;
+
+  document.documentElement.lang = lang;
+  document.getElementById('pfEyebrow').textContent = T.eyebrow;
+  document.getElementById('pfTitle').innerHTML = T.title;
+  document.getElementById('brandLink').href = p + '/';
+  var set = function (id, href, text) { var e = document.getElementById(id); e.href = href; e.textContent = text; };
+  set('pfCart', p + '/cart', T.cart);
+  set('pfContact', p + '/contact', T.contact);
+
+  /* Бутонът "Отказ" на страницата на Viva води тук с cancel в адреса.
+     Отказът не е провал и не бива да звучи като такъв. */
+  var q = new URLSearchParams(location.search);
+  document.getElementById('pfLead').textContent = q.has('cancel') ? T.cancel : T.lead;
+})();
+</script>
+
+</body>
+</html>

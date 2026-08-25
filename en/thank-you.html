@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Благодарим за поръчката | Asian Secret</title>
+<!-- Страница след плащане - няма какво да търси в резултатите на Google. -->
+<meta name="robots" content="noindex,follow">
+<link rel="icon" href="/assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css?v=068aee18">
+<style>
+/* Двете страници след плащане делят този облик; стои тук, а не в site.css,
+   защото го ползват само те. */
+.pay{min-height:66vh;display:grid;grid-template-columns:minmax(0,1fr);place-items:center;text-align:center;padding:96px var(--gutter) 80px}
+.pay-in{max-width:560px;width:100%}
+.pay .code{font-family:var(--font-ui);font-size:11px;font-weight:600;letter-spacing:.26em;text-transform:uppercase;color:var(--rose-deep)}
+.pay h1{font-family:var(--font-display);font-weight:500;font-size:clamp(42px,6vw,80px);line-height:1.08;letter-spacing:-.02em;margin:14px auto 0;max-width:min(14ch,100%)}
+.pay h1 em{font-style:italic;color:var(--rose)}
+.pay p{color:var(--ink-70);margin:16px auto 0;max-width:min(46ch,100%)}
+.pay .ring{display:grid;place-items:center;width:64px;height:64px;margin:0 auto 22px;border-radius:var(--r-pill);border:1px solid var(--rose-line);color:var(--rose)}
+.pay .ring svg{width:26px;height:26px}
+.pay-cta{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:32px}
+.orderno{font-family:var(--font-display);font-size:19px;margin-top:18px}
+</style>
+</head>
+<body>
+
+<header class="site"><div class="wrap bar">
+<a class="brand" href="/" id="brandLink"><img src="/assets/logo-as.png" alt="Asian Secret" width="640" height="551"><span class="wordmark"><b>ASIAN SECRET</b><span>BEAUTY FROM ASIA</span></span></a>
+</div></header>
+
+<main class="pay">
+<div class="pay-in">
+<span class="ring"><i data-lucide="check"></i></span>
+<span class="code" id="pyEyebrow">Плащането е прието</span>
+<h1 id="pyTitle">Благодарим за <em>поръчката</em></h1>
+<p id="pyLead">Получихме плащането ви. Изпращаме потвърждение по имейл и се свързваме с вас за доставката.</p>
+<p class="orderno" id="pyNo" hidden></p>
+<div class="pay-cta">
+<a class="btn btn-primary" href="/products" id="pyProducts">Продължи пазаруването</a>
+<a class="btn btn-outline" href="/contact" id="pyContact">Контакти</a>
+</div>
+</div>
+</main>
+
+<script src="/assets/icons.js?v=b3e52eb5"></script>
+<script>
+/* Правилото "началната винаги е на български" не се нарушава тук: тази
+   страница се появява само след плащане, никога като вход към сайта. */
+(function () {
+  /* Езикът идва от запомненото при излизането към Viva - нейният адрес за
+     връщане е един и същ за трите езика и не носи тази информация. Ако го
+     няма (друг браузър, изчистено хранилище), се пада на адреса. */
+  var seg = location.pathname.split('/')[1];
+  var lang = (seg === 'en' || seg === 'ru') ? seg : 'bg';
+  try {
+    var saved = localStorage.getItem('as_pay_lang');
+    if (saved === 'en' || saved === 'ru' || saved === 'bg') lang = saved;
+  } catch (e) {}
+  var T = {
+    bg: { eyebrow: 'Плащането е прието', title: 'Благодарим за <em>поръчката</em>',
+          lead: 'Получихме плащането ви. Изпращаме потвърждение по имейл и се свързваме с вас за доставката.',
+          no: 'Номер на поръчка:', products: 'Продължи пазаруването', contact: 'Контакти' },
+    en: { eyebrow: 'Payment received', title: 'Thank you for <em>your order</em>',
+          lead: 'We have received your payment. A confirmation is on its way by email, and we will be in touch about delivery.',
+          no: 'Order number:', products: 'Continue shopping', contact: 'Contact' },
+    ru: { eyebrow: 'Оплата получена', title: 'Спасибо за <em>заказ</em>',
+          lead: 'Мы получили вашу оплату. Подтверждение придёт на почту, а по доставке мы свяжемся с вами.',
+          no: 'Номер заказа:', products: 'Продолжить покупки', contact: 'Контакты' }
+  }[lang];
+  var p = lang === 'bg' ? '' : '/' + lang;
+
+  document.documentElement.lang = lang;
+  document.getElementById('pyEyebrow').textContent = T.eyebrow;
+  document.getElementById('pyTitle').innerHTML = T.title;
+  document.getElementById('pyLead').textContent = T.lead;
+  document.getElementById('brandLink').href = p + '/';
+  var set = function (id, href, text) { var e = document.getElementById(id); e.href = href; e.textContent = text; };
+  set('pyProducts', p + '/products', T.products);
+  set('pyContact', p + '/contact', T.contact);
+
+  /* Viva връща s = кода на поръчката. Показва се като НИЗ - 16 цифри
+     надхвърлят точните числа в JavaScript и през Number() биха се повредили. */
+  var s = new URLSearchParams(location.search).get('s');
+  if (s && /^[0-9]{6,20}$/.test(s)) {
+    var el = document.getElementById('pyNo');
+    el.textContent = T.no + ' ' + s;
+    el.hidden = false;
+  }
+
+  /* Количката се изчиства чак тук - тоест едва след като плащането е минало.
+     Откаже ли се клиентът на страницата на Viva, продуктите му го чакат. */
+  try { localStorage.removeItem('as_cart_v1'); } catch (e) {}
+})();
+</script>
+
+</body>
+</html>
