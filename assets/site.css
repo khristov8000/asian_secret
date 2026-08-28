@@ -1103,7 +1103,15 @@ scrollbar-width:none}
 .products.rail::-webkit-scrollbar{display:none}
 .products.rail>*{flex:0 0 62%;scroll-snap-align:start}
 
-/* Футър: телефонът и имейлът слизат от масткеда в колоната „Последвай ни",
+/* Футър: четирите колони сядат две по две. С flex-wrap се получаваше 2 + 1 + 1
+   - „Полезна информация" и „Последвай ни" заемаха цял ред всяка, защото
+   съдържанието им е по-широко, и подложката ставаше два екрана. Решетка с
+   два еднакви дяла ги подрежда в каре и дава на „Често задавани въпроси"
+   отстъп от десния ръб, в който да се пренесе. */
+.f-mast .frow{display:grid;grid-template-columns:1fr 1fr;gap:34px 22px}
+.f-mast .fcol{min-width:0}
+
+/* Телефонът и имейлът слизат от масткеда в колоната „Последвай ни",
    с размера на останалите връзки вместо 17px Playfair. */
 .f-mast .fmast-lines{display:none}
 .f-mast .fmast{justify-content:flex-start}
@@ -1286,6 +1294,12 @@ box-shadow:0 10px 30px -12px rgba(20,17,16,.55)}
    кутия. Дъгата 999px 999px 6px 6px НЕ се ползва тук - тя е запазена за
    категорийните плочки и снимката на продукта. */
 .legal-grid{display:grid;grid-template-columns:250px 1fr;gap:64px;align-items:start}
+/* Решетъчното дете е `min-width:auto` по подразбиране, тоест не се свива под
+   съдържанието си. Таблицата с бисквитките е по-широка от телефон и точно
+   тя разпъваше цялата страница - текстът излизаше извън десния ръб, а не
+   таблицата се плъзгаше. `min-width:0` връща свиването и .legal-tbl-scroll
+   отново поема плъзгането само върху себе си. */
+.legal-grid>*{min-width:0}
 .legal-toc{position:sticky;top:110px;font-size:13.5px}
 .legal-toc b{display:block;font-size:10px;letter-spacing:.2em;text-transform:uppercase;
 color:var(--ink-45);margin-bottom:14px}
@@ -1337,7 +1351,17 @@ padding:0 16px 10px 0;border-bottom:1px solid var(--rose-line)}
 .legal-tbl td{padding:12px 16px 12px 0;border-bottom:1px solid var(--line);
 color:var(--ink-70);vertical-align:top;line-height:1.6}
 .legal-tbl td:first-child{color:var(--ink)}
+/* Само имената на ключовете стоят на един ред - те са едно цяло и
+   „as_cart_v1" пренесено е по-лошо от плъзгане. На двуколонните таблици
+   същото правило държеше цяло изречение на един ред и изтикваше втората
+   колона извън екрана. */
+.legal-tbl-wide .legal-tbl td:first-child{white-space:nowrap}
 .legal-tbl-scroll{overflow-x:auto}
+/* `break-word`, а НЕ `anywhere`: anywhere чупеше български думи по средата
+   („Нео/бход/има", „приключв/ане") - таблицата се събираше в екрана с цената
+   на нечетима сричкова каша. break-word посяга само на дума, която сама по
+   себе си не се побира: IBAN, адрес, дълъг адрес на комисия. */
+.legal-body{overflow-wrap:break-word}
 
 /* Датата на последна редакция - тя е това, което човек търси, за да разбере
    коя версия чете. */
@@ -1361,6 +1385,17 @@ font-size:12.5px;color:var(--ink-45)}
 .legal-toc ol{display:grid;grid-template-columns:repeat(2,1fr);gap:0 26px}
 }
 @media(max-width:760px){
+/* Таблица с четири колони не се събира в 390px, без да стане нечетима.
+   Затова тя се плъзга настрани в своята кутия, а кутията излиза до самите
+   ръбове на екрана - същият похват като лентата с продукти на началната
+   страница, за да личи, че има още вдясно. */
+.legal-tbl-scroll{margin-inline:calc(var(--gutter) * -1);
+padding-inline:var(--gutter)}
+/* Само таблицата с четирите колони получава долна граница. Сложи ли се тя на
+   всички, двуколонните излизат 40px извън екрана: втората колона отпада
+   вдясно, а редовете стават високи и празни, защото текстът ѝ се пренася в
+   ивица, която не се вижда. Двуколонните се събират сами в 390px. */
+.legal-tbl-wide .legal-tbl{min-width:580px}
 .legal-toc ol{grid-template-columns:1fr}
 .legal-dl{grid-template-columns:1fr;gap:0}
 .legal-dl dt{padding-bottom:0;border-bottom:0}
@@ -1403,7 +1438,21 @@ text-decoration-color:var(--line);transition:color .22s var(--ease)}
 
 /* Панелът с категориите - разгъва се на място, над реда с бутоните. */
 .cc-cats{flex:1 1 100%;order:-1;display:none;padding-bottom:6px}
-.cc.open .cc-cats{display:block}
+/* Отворен, панелът с категориите беше по-висок от телефон: лентата е
+   закована долу, значи излишъкът излиза НАГОРЕ извън екрана и първата
+   категория ставаше недостижима - нямаше какво да се превърти.
+   Затова се плъзга самият списък, а надписът и бутоните остават на място.
+   `dvh`, а не `vh`: адресната лента на телефона се прибира и се показва, а
+   `vh` мери екрана без нея и пак изкарва долния бутон под ръба.
+   `overscroll-behavior` спира предаването на плъзгането към страницата. */
+.cc.open .cc-cats{display:block;max-height:min(340px,38dvh);overflow-y:auto;
+overscroll-behavior:contain;
+/* Отрязан по средата ред изглежда като счупен текст, не като „има още".
+   Маската избледнява последните 26px, а еднаквият отстъп отдолу пуска
+   последната категория да се изкачи над избледняването, щом се стигне краят. */
+padding-bottom:26px;
+-webkit-mask-image:linear-gradient(to bottom,#000 calc(100% - 26px),transparent);
+mask-image:linear-gradient(to bottom,#000 calc(100% - 26px),transparent)}
 .cc-cat{display:flex;gap:16px;align-items:flex-start;padding:16px 0;
 border-top:1px solid var(--line)}
 .cc-cat:first-child{border-top:0}
@@ -1430,9 +1479,23 @@ transition:transform .25s var(--ease)}
 @media(prefers-reduced-motion:reduce){.cc{transition:none}}
 @media(max-width:760px){
 .cc .wrap{gap:18px}
-.cc-acts{width:100%}
-.cc-acts .btn{flex:1 1 auto;justify-content:center}
+/* Един бутон на ред. С `flex:1 1 auto` се получаваше 1 + 2: „Само
+   необходимите" сам отгоре, а другите два сбити до него - три равностойни
+   действия изглеждаха като едно главно и две второстепенни. */
+.cc-acts{width:100%;flex-direction:column;gap:9px}
+.cc-acts .btn{width:100%;justify-content:center}
 .cc-more{width:100%;text-align:center;margin-top:2px}
+.cc-cat{padding:13px 0}
+
+/* На телефон лентата става истинска колона с таван, а не поток с пренасяне.
+   Така списъкът получава ТОЧНО остатъка от височината: надписът и трите
+   бутона са заковани, а категориите се плъзгат в това, което остане - на
+   всеки екран, без да се гадаят проценти. 92dvh оставя ивица от страницата
+   отгоре, за да личи, че лентата стои НАД нея, а не че я е заместила. */
+.cc .wrap{flex-direction:column;flex-wrap:nowrap;align-items:stretch;
+max-height:92dvh;padding-top:18px;padding-bottom:18px}
+.cc-copy,.cc-acts{flex:0 0 auto}
+.cc.open .cc-cats{flex:1 1 auto;min-height:0;max-height:none}
 }
 
 /* Бутон насред изречение в правния текст - чете се като връзка, защото

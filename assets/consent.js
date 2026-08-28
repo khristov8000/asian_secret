@@ -99,11 +99,19 @@
     bar.classList.toggle('open', !!openPanel);
     var more = bar.querySelector('[data-cc="toggle"]');
     if (more) more.setAttribute('aria-expanded', openPanel ? 'true' : 'false');
-    /* Класът се слага в следващия кадър: `hidden` току-що е паднал и без
-       това преходът няма от какво да тръгне - лентата би изникнала наведнъж. */
-    requestAnimationFrame(function () {
-      requestAnimationFrame(function () { bar.classList.add('in'); });
-    });
+    /* `hidden` току-що е паднал. Ако класът се сложи веднага, браузърът
+       обединява двете промени в едно пресмятане и преходът няма от какво да
+       тръгне - лентата изниква наведнъж. Затова между тях се вмъква изрично
+       пресмятане на разположението.
+
+       Тук стоеше двоен requestAnimationFrame. Изглеждаше по-чисто, но връзва
+       появата за кадър: в подгънат раздел кадри не се рисуват, `hidden` вече
+       е паднал, а класът така и не идва - лентата остава изместена извън
+       екрана, невидима и недостижима, и съгласие няма как да се даде.
+       Хванато при снимка през headless: hidden го нямаше, класа `in` - също.
+       Прочитането на offsetHeight е синхронно и не зависи от кадри. */
+    void bar.offsetHeight;
+    bar.classList.add('in');
   }
 
   function hide() {
