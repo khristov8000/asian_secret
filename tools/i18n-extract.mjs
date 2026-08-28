@@ -11,7 +11,8 @@ import path from 'path';
 
 const root = process.cwd();
 export const TEMPLATES = ['index.html', 'products.html', 'product.html',
-                          'cart.html', 'about.html', 'contact.html'];
+                          'cart.html', 'about.html', 'contact.html',
+                          'privacy.html', 'terms.html', 'returns.html'];
 
 /* Ключовете идват както от data-t, така и от data-t-<атрибут>. */
 const KEY_RE = /\sdata-t(?:-[\w-]+)?="([^"]+)"/g;

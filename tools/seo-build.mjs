@@ -145,7 +145,8 @@ const stamp = f => crypto.createHash('sha1')
   .update(fs.readFileSync(path.join(root, f), 'utf8').replace(/\r\n/g, '\n'))
   .digest('hex').slice(0, 8);
 
-const ASSETS = ['assets/site.css', 'assets/data.js', 'assets/shop.js', 'assets/icons.js'];
+const ASSETS = ['assets/site.css', 'assets/data.js', 'assets/shop.js', 'assets/icons.js',
+  'assets/consent.js'];
 const VER = Object.fromEntries(ASSETS.map(f => [f, stamp(f)]));
 
 function versionAssets(html) {
@@ -217,7 +218,7 @@ function relocalizeLinks(html, lang) {
   return html
     .replace(/href="\/produkt\/([^"]*)"/g, `href="${p}/${SEG[lang].product}/$1"`)
     .replace(/href="\/kategoria\/([^"]*)"/g, `href="${p}/${SEG[lang].category}/$1"`)
-    .replace(/href="\/(products|about|contact|cart)([""#?])/g, `href="${p}/$1$2`)
+    .replace(/href="\/(products|about|contact|cart|privacy|terms|returns)([""#?])/g, `href="${p}/$1$2`)
     .replace(/href="\/"/g, `href="${p}/"`);
 }
 
@@ -228,6 +229,8 @@ function injectI18N(html, lang) {
     home: urlFor('home', lang), products: urlFor('products', lang),
     cart: urlFor('cart', lang), about: urlFor('about', lang),
     contact: urlFor('contact', lang),
+    privacy: urlFor('privacy', lang), terms: urlFor('terms', lang),
+    returns: urlFor('returns', lang),
     product: pre + '/' + SEG[lang].product + '/',
     category: pre + '/' + SEG[lang].category + '/'
   };
@@ -353,7 +356,10 @@ const TOP = [
   { page: 'productTpl', tpl: 'product.html' },
   { page: 'cart', tpl: 'cart.html' },
   { page: 'about', tpl: 'about.html' },
-  { page: 'contact', tpl: 'contact.html' }
+  { page: 'contact', tpl: 'contact.html' },
+  { page: 'privacy', tpl: 'privacy.html' },
+  { page: 'terms', tpl: 'terms.html' },
+  { page: 'returns', tpl: 'returns.html' }
 ];
 
 const write = (rel, html) => {
@@ -613,13 +619,18 @@ const today = new Date().toISOString().slice(0, 10);
 }
 
 /* ── sitemap + robots ────────────────────────────────────────────────────── */
-/* 31 индексируеми адреса на език. Кошницата и шаблонът product остават вън,
+/* 34 индексируеми адреса на език. Кошницата и шаблонът product остават вън,
    както досега. */
 const PAGES = [
   { page: 'home', pri: '1.0', freq: 'weekly' },
   { page: 'products', pri: '0.9', freq: 'weekly' },
   { page: 'about', pri: '0.5', freq: 'monthly' },
-  { page: 'contact', pri: '0.6', freq: 'monthly' }
+  { page: 'contact', pri: '0.6', freq: 'monthly' },
+  /* Правните страници се индексират, но с нисък приоритет: Google иска да ги
+     вижда (сигнал за истински магазин), а не да ги качва пред продуктите. */
+  { page: 'privacy', pri: '0.3', freq: 'yearly' },
+  { page: 'terms', pri: '0.3', freq: 'yearly' },
+  { page: 'returns', pri: '0.4', freq: 'yearly' }
 ];
 
 const urls = [];

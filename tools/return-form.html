@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="utf-8">
+<title>Формуляр за връщане и замяна - Asian Secret</title>
+<!-- Източникът на assets/forms/formulyar-za-vrashtane.pdf.
+     Пресъздава се с: node tools/build-return-form.mjs
+
+     Шрифтовете се теглят от Google Fonts В МОМЕНТА НА ОТПЕЧАТВАНЕТО и Chrome
+     ги вгражда в PDF-а. Затова машината, която пуска build-а, трябва да е
+     онлайн - готовият файл после се отваря навсякъде, включително без мрежа.
+     Двойката е същата като на сайта: Playfair именува, Manrope упътва.
+
+     Цветовете са изрично от палитрата в DESIGN.md, а не приблизителни сиви
+     за печат: --ink, --ink-70, --ink-45, --rose, --rose-deep, --rose-line,
+     --blush. Прозрачните стойности Chrome сплесква върху бялото на листа. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+--ink:#141110;
+--ink-70:rgba(20,17,16,.68);
+--ink-45:rgba(20,17,16,.60);
+--line:rgba(20,17,16,.10);
+--rose:#D4666F;
+--rose-deep:#A94E58;
+--rose-line:rgba(212,102,111,.32);
+--blush:#FBEDEA;
+--font-display:"Playfair Display",Georgia,serif;
+--font-ui:"Manrope","Segoe UI",Arial,sans-serif;
+}
+@page{size:A4;margin:14mm 15mm}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:var(--font-ui);font-size:9.6pt;line-height:1.5;color:var(--ink);
+-webkit-print-color-adjust:exact;print-color-adjust:exact}
+
+/* Шапка: марката отляво, данните на фирмата отдясно - човекът, който получава
+   формуляра, трябва да вижда на кого го изпраща. */
+.head{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;
+padding-bottom:9px;border-bottom:1.4pt solid var(--rose)}
+.mark b{font-family:var(--font-display);font-size:15pt;font-weight:500;
+letter-spacing:.16em;display:block}
+.mark span{font-size:6.4pt;letter-spacing:.3em;color:var(--ink-45);display:block;
+margin-top:3px}
+.to{text-align:right;font-size:8pt;line-height:1.55;color:var(--ink-70)}
+.to b{color:var(--ink);font-size:8.6pt}
+
+h1{font-family:var(--font-display);font-size:15pt;font-weight:500;margin:11px 0 3px;
+letter-spacing:-.01em}
+.sub{font-size:8.3pt;color:var(--ink-70);margin:0 0 4px}
+.legal{font-size:7.6pt;color:var(--ink-45);margin:0}
+
+/* Номерирана лента над всеки блок - същият знак ✦, който дели секциите на сайта. */
+.sec{margin-top:9px}
+.sec-t{font-size:7.6pt;letter-spacing:.19em;text-transform:uppercase;font-weight:700;
+color:var(--rose-deep);border-bottom:.6pt solid var(--rose-line);padding-bottom:3px;
+margin-bottom:7px}
+.sec-t::before{content:"✦";margin-right:7px;letter-spacing:0}
+
+/* Полетата за писане на ръка: линия, не кутия - по-лесно се пише върху нея.
+   Линията е на --ink-45, а не на --line: 10% черно се губи при печат. */
+.row{display:flex;gap:14px;margin-bottom:8px}
+.f{flex:1;min-width:0}
+.f label{display:block;font-size:7.2pt;letter-spacing:.13em;text-transform:uppercase;
+color:var(--ink-45);margin-bottom:9px}
+.f .line{border-bottom:.7pt solid var(--ink-45);height:0}
+.f.tall .line{margin-top:11px}
+.hint{font-size:7pt;color:var(--ink-45);margin-top:4px;display:block;letter-spacing:0;
+text-transform:none}
+
+/* Таблицата с продуктите. Три празни реда: повече не се побират, а поръчка с
+   повече артикули се описва на втори лист. */
+table{width:100%;border-collapse:collapse;margin-top:2px}
+th{font-size:7.2pt;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-45);
+text-align:left;font-weight:600;padding:0 8px 6px 0;border-bottom:.7pt solid var(--ink-45)}
+td{height:21px;border-bottom:.7pt solid var(--line);padding:0 8px 0 0}
+th.n,td.n{width:34px;text-align:center;padding-right:0}
+th.q,td.q{width:56px}
+th.p,td.p{width:72px}
+
+/* Изборът какво иска клиентът - квадратчета за отмятане на ръка. */
+.opts{display:flex;gap:26px;flex-wrap:wrap;margin-top:2px}
+.opt{display:flex;align-items:flex-start;gap:8px;font-size:8.6pt}
+.box{width:11px;height:11px;border:.9pt solid var(--ink);flex:0 0 auto;margin-top:1.5px}
+.opt i{display:block;font-style:normal;font-size:7.2pt;color:var(--ink-45);margin-top:2px}
+
+/* Каре с уговорката по телефона - това е стъпката, която хората пропускат. */
+.callout{border:.7pt solid var(--rose-line);background:var(--blush);padding:7px 10px;
+margin-top:8px;font-size:8pt;line-height:1.5}
+.callout b{color:var(--rose-deep)}
+
+.sign{display:flex;gap:34px;margin-top:12px}
+.sign .f label{margin-bottom:18px}
+
+.note{margin-top:10px;font-size:7.2pt;color:var(--ink-45);line-height:1.5}
+.note b{color:var(--ink-70)}
+.note ol{margin:5px 0 0;padding-left:14px}
+.note li{margin-bottom:2px}
+
+.foot{margin-top:9px;padding-top:6px;border-top:.6pt solid var(--rose-line);
+display:flex;justify-content:space-between;font-size:7pt;color:var(--ink-45)}
+</style>
+</head>
+<body>
+
+<div class="head">
+<div class="mark"><b>ASIAN SECRET</b><span>BEAUTY FROM ASIA</span></div>
+<div class="to">
+<b>До: „ЛОТУС 9“ ЕООД</b><br>
+ЕИК 208461318 · гр. Бургас 8001<br>
+ж.к. „Лазур“, бл. 5, вх. 1, ет. 5, ап. 8<br>
+0878 141 487 · zax12@abv.bg · asiansecret.bg
+</div>
+</div>
+
+<h1>Формуляр за връщане и замяна</h1>
+<p class="sub">Попълнете, подпишете и приложете към пратката заедно с копие от документа за покупката.</p>
+<p class="legal">Стандартен формуляр за упражняване на правото на отказ по чл. 47, ал. 1, т. 8 и чл. 52, ал. 2 от Закона за защита на потребителите (Приложение № 6).</p>
+
+<div class="sec">
+<div class="sec-t">1 · Вашите данни</div>
+<div class="row">
+<div class="f"><label>Име и фамилия</label><div class="line"></div></div>
+<div class="f"><label>Телефон</label><div class="line"></div></div>
+</div>
+<div class="row">
+<div class="f"><label>Имейл</label><div class="line"></div></div>
+<div class="f"><label>Адрес</label><div class="line"></div></div>
+</div>
+</div>
+
+<div class="sec">
+<div class="sec-t">2 · Поръчката</div>
+<div class="row">
+<div class="f"><label>Номер на поръчката</label><div class="line"></div></div>
+<div class="f"><label>Дата на поръчката</label><div class="line"></div></div>
+<div class="f"><label>Дата на получаване</label><div class="line"></div></div>
+</div>
+</div>
+
+<div class="sec">
+<div class="sec-t">3 · Продукти, които връщате</div>
+<table>
+<tr><th class="n">№</th><th>Продукт</th><th class="q">Брой</th><th class="p">Цена</th></tr>
+<tr><td class="n">1</td><td></td><td class="q"></td><td class="p"></td></tr>
+<tr><td class="n">2</td><td></td><td class="q"></td><td class="p"></td></tr>
+<tr><td class="n">3</td><td></td><td class="q"></td><td class="p"></td></tr>
+</table>
+</div>
+
+<div class="sec">
+<div class="sec-t">4 · Какво искате</div>
+<div class="opts">
+<label class="opt"><span class="box"></span><span>Връщане на сумата<i>Отказ от договора в 14-дневен срок</i></span></label>
+<label class="opt"><span class="box"></span><span>Замяна с друг продукт<i>Впишете кой по-долу</i></span></label>
+<label class="opt"><span class="box"></span><span>Рекламация - дефект<i>Опишете проблема по-долу</i></span></label>
+</div>
+<div class="row" style="margin-top:9px">
+<div class="f tall"><label>Желан продукт за замяна / описание на дефекта</label><div class="line"></div></div>
+</div>
+<div class="row">
+<div class="f tall"><label>Причина за връщането <span class="hint">по желание - при отказ в 14-дневен срок не сте длъжни да я посочвате</span></label><div class="line"></div></div>
+</div>
+</div>
+
+<div class="sec">
+<div class="sec-t">5 · Къде изпращате пратката</div>
+<div class="callout">
+<b>Обадете се, преди да изпратите.</b> На 0878 141 487 уговаряме в кой офис на Спиди да пристигне пратката и чак тогава попълвате реда отдолу. Разходите за връщането са за сметка на клиента. Пратки с наложен платеж не се приемат.
+</div>
+<div class="row" style="margin-top:8px">
+<div class="f"><label>Уговорен офис на Спиди</label><div class="line"></div></div>
+<div class="f"><label>Товарителница №</label><div class="line"></div></div>
+</div>
+</div>
+
+<div class="sec">
+<div class="sec-t">6 · Къде да върнем сумата</div>
+<div class="row">
+<div class="f"><label>IBAN <span class="hint">не се попълва при плащане с карта - връщаме по същата карта</span></label><div class="line"></div></div>
+<div class="f"><label>Титуляр на сметката</label><div class="line"></div></div>
+</div>
+</div>
+
+<div class="sign">
+<div class="f"><label>Дата</label><div class="line"></div></div>
+<div class="f" style="flex:2"><label>Подпис</label><div class="line"></div></div>
+</div>
+
+<div class="note">
+<b>Преди да изпратите, проверете:</b>
+<ol>
+<li>Продуктът е неотворен, с ненарушена запечатка и цяла опаковка. Козметика с отворена опаковка не подлежи на връщане - чл. 57, т. 5 от ЗЗП. Това ограничение не важи при дефект.</li>
+<li>Уговорили сте офиса на Спиди по телефона и сте го вписали в раздел 5.</li>
+<li>Приложили сте копие от касовия бон или фактурата.</li>
+<li>Изпращате в 14-дневния срок от получаването на пратката. Сумата се възстановява до 14 дни, след като получим продукта обратно.</li>
+</ol>
+</div>
+
+<div class="foot">
+<span>„ЛОТУС 9“ ЕООД · ЕИК 208461318 · asiansecret.bg/returns</span>
+<span>0878 141 487 · zax12@abv.bg</span>
+</div>
+
+</body>
+</html>

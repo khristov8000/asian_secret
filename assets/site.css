@@ -1276,3 +1276,215 @@ box-shadow:0 10px 30px -12px rgba(20,17,16,.55)}
 .story-art .hero-cta .btn-ghost{background:var(--white);border-color:var(--white)}
 .story-art .hero-cta .btn-outline{background:var(--ink);color:#fff;border-color:var(--ink)}
 }
+
+
+/* ─── Правни страници ────────────────────────────────────────────────────────
+   Дълъг текст, който хората четат по конкретен въпрос, а не отгоре надолу.
+   Затова съдържанието стои в лепкав указател отляво, а самият текст държи
+   мярка от 72ch - над това окото губи реда при връщане.
+   Панелът е безрамков като продуктовите карти: разделя се с косъм, не с
+   кутия. Дъгата 999px 999px 6px 6px НЕ се ползва тук - тя е запазена за
+   категорийните плочки и снимката на продукта. */
+.legal-grid{display:grid;grid-template-columns:250px 1fr;gap:64px;align-items:start}
+.legal-toc{position:sticky;top:110px;font-size:13.5px}
+.legal-toc b{display:block;font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+color:var(--ink-45);margin-bottom:14px}
+.legal-toc ol{margin:0;padding:0;list-style:none;counter-reset:toc;
+display:flex;flex-direction:column;gap:1px}
+.legal-toc li{counter-increment:toc}
+.legal-toc a{display:block;padding:7px 0 7px 26px;position:relative;color:var(--ink-70);
+line-height:1.4}
+.legal-toc a::before{content:counter(toc);position:absolute;left:0;top:7px;
+font-variant-numeric:tabular-nums;font-size:11px;color:var(--rose);letter-spacing:0}
+.legal-toc a:hover{color:var(--rose)}
+
+.legal-body{max-width:72ch}
+/* Отместването пази заглавието изпод лепкавата шапка при скок по котва. */
+.legal-body section{scroll-margin-top:110px;padding:30px 0}
+.legal-body section+section{border-top:1px solid var(--line)}
+.legal-body h2{font-size:clamp(22px,.909vw + 15.09px,26px);margin-bottom:14px}
+.legal-body h2 .num{font-family:var(--font-ui);font-size:12px;font-weight:600;
+letter-spacing:.18em;color:var(--rose);display:block;margin-bottom:9px}
+.legal-body h3{font-size:16px;margin:22px 0 8px}
+.legal-body p,.legal-body li{font-size:14.5px;color:var(--ink-70);line-height:1.75}
+.legal-body p+p{margin-top:12px}
+.legal-body ul,.legal-body ol{margin:12px 0 0;padding-left:20px}
+.legal-body li+li{margin-top:7px}
+.legal-body li::marker{color:var(--rose)}
+.legal-body a{color:var(--rose-deep);text-decoration:underline;text-underline-offset:3px;
+text-decoration-thickness:1px;text-decoration-color:var(--rose-line)}
+.legal-body a:hover{color:var(--rose);text-decoration-color:var(--rose)}
+/* Пилюлята за изтегляне на формуляра е бутон, не връзка в текста: правилото
+   отгоре ѝ слагаше розов текст върху мастилен фон и надписът изчезваше. */
+.legal-body a.btn,.legal-body a.btn:hover{text-decoration:none}
+.legal-body a.btn-primary,.legal-body a.btn-primary:hover{color:#fff}
+/* Абзац след списък - без това редът се долепваше до последната точка. */
+.legal-body ul+p,.legal-body ol+p,.legal-body table+p,.legal-body div+p{margin-top:14px}
+.legal-body strong{color:var(--ink);font-weight:600}
+
+/* Фирмените данни: два стълба, разделени с косъм, без рамка наоколо. */
+.legal-dl{margin:16px 0 0;display:grid;grid-template-columns:auto 1fr;gap:0 26px;
+font-size:14px}
+.legal-dl dt{color:var(--ink-45);padding:9px 0;font-size:11px;letter-spacing:.14em;
+text-transform:uppercase;align-self:center;border-bottom:1px solid var(--line)}
+.legal-dl dd{margin:0;padding:9px 0;color:var(--ink);border-bottom:1px solid var(--line)}
+.legal-dl dt:last-of-type,.legal-dl dd:last-of-type{border-bottom:0}
+
+.legal-tbl{width:100%;border-collapse:collapse;margin-top:16px;font-size:13.5px}
+.legal-tbl th{text-align:left;font-family:var(--font-ui);font-size:10px;font-weight:600;
+letter-spacing:.18em;text-transform:uppercase;color:var(--ink-45);
+padding:0 16px 10px 0;border-bottom:1px solid var(--rose-line)}
+.legal-tbl td{padding:12px 16px 12px 0;border-bottom:1px solid var(--line);
+color:var(--ink-70);vertical-align:top;line-height:1.6}
+.legal-tbl td:first-child{color:var(--ink)}
+.legal-tbl-scroll{overflow-x:auto}
+
+/* Датата на последна редакция - тя е това, което човек търси, за да разбере
+   коя версия чете. */
+.legal-stamp{margin-top:34px;padding-top:20px;border-top:1px solid var(--rose-line);
+font-size:12.5px;color:var(--ink-45)}
+
+/* Стъпките за връщане делят стила на .oflow от „Как стига поръчката до вас",
+   но вървят вертикално: тук всяка стъпка носи повече текст. */
+.rsteps{display:flex;flex-direction:column;margin-top:8px}
+.rstep{display:flex;gap:22px;padding:26px 0}
+.rstep+.rstep{border-top:1px solid var(--line)}
+.rstep .oflow-n{margin-top:2px}
+.rstep h3{font-family:var(--font-display);font-size:22px;font-weight:500;margin:0 0 7px}
+.rstep p{font-size:14.5px;color:var(--ink-70);margin:0}
+.rstep p+p{margin-top:10px}
+.rstep .btn{margin-top:16px}
+
+@media(max-width:1080px){
+.legal-grid{grid-template-columns:1fr;gap:34px}
+.legal-toc{position:static;border-bottom:1px solid var(--line);padding-bottom:22px}
+.legal-toc ol{display:grid;grid-template-columns:repeat(2,1fr);gap:0 26px}
+}
+@media(max-width:760px){
+.legal-toc ol{grid-template-columns:1fr}
+.legal-dl{grid-template-columns:1fr;gap:0}
+.legal-dl dt{padding-bottom:0;border-bottom:0}
+.legal-dl dd{padding-top:3px}
+.rstep{gap:16px}
+}
+
+/* ─── Съгласие за бисквитки ──────────────────────────────────────────────────
+   Лента долу, не модал върху цялата страница: сайтът не поставя нищо, което
+   да чака отговор, затова четенето не бива да се спира.
+   z-index е над лепкавата шапка (40) - тя е единственото, което иначе стои
+   по-високо от съдържанието. */
+.cc{position:fixed;left:0;right:0;bottom:0;z-index:60;
+background:rgba(251,249,248,.97);backdrop-filter:blur(16px);
+border-top:1px solid var(--rose-line);box-shadow:var(--sh-2);
+transform:translateY(102%);transition:transform .6s var(--ease-settle)}
+.cc.in{transform:none}
+.cc .wrap{display:flex;align-items:center;gap:32px;padding-top:22px;padding-bottom:22px;
+flex-wrap:wrap}
+.cc-copy{flex:1 1 380px;min-width:0}
+.cc-copy b{display:block;font-family:var(--font-display);font-weight:500;font-size:20px;
+letter-spacing:-.01em;margin-bottom:6px}
+.cc-copy p{font-size:13.5px;color:var(--ink-70);max-width:72ch}
+.cc-copy a{color:var(--rose-deep);text-decoration:underline;text-underline-offset:3px;
+text-decoration-color:var(--rose-line)}
+.cc-copy a:hover{color:var(--rose)}
+.cc-acts{display:flex;gap:10px;align-items:center;flex-wrap:wrap;flex:0 0 auto}
+/* „Само необходимите" тежи колкото „Приемам всички": отказът не бива да е
+   по-труден от съгласието - това е изискване, не любезност. */
+.cc-acts .btn{padding:13px 24px;font-size:11.5px}
+/* „Запази избора" има смисъл само когато превключвателите се виждат. */
+.cc-acts [data-cc="save"]{display:none}
+.cc.open .cc-acts [data-cc="save"]{display:inline-flex}
+/* Третото действие отваря настройки, не избира - затова е връзка, не пилюля. */
+.cc-more{background:none;border:0;padding:0;font-family:var(--font-ui);font-size:12px;
+letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:var(--ink-45);
+cursor:pointer;text-decoration:underline;text-underline-offset:4px;
+text-decoration-color:var(--line);transition:color .22s var(--ease)}
+.cc-more:hover{color:var(--rose)}
+
+/* Панелът с категориите - разгъва се на място, над реда с бутоните. */
+.cc-cats{flex:1 1 100%;order:-1;display:none;padding-bottom:6px}
+.cc.open .cc-cats{display:block}
+.cc-cat{display:flex;gap:16px;align-items:flex-start;padding:16px 0;
+border-top:1px solid var(--line)}
+.cc-cat:first-child{border-top:0}
+.cc-cat b{display:block;font-size:14px;font-weight:600;color:var(--ink);margin-bottom:3px}
+.cc-cat p{font-size:13px;color:var(--ink-70)}
+.cc-cat .cc-sw{margin-left:auto}
+/* Превключвателят е истински checkbox под маска - клавиатурата и екранните
+   четци го намират такъв, какъвто е. */
+.cc-sw{position:relative;width:46px;height:26px;flex:0 0 auto}
+.cc-sw input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;
+cursor:pointer}
+.cc-sw span{position:absolute;inset:0;border-radius:var(--r-pill);background:var(--cream);
+border:1px solid var(--line);transition:background .25s var(--ease),border-color .25s var(--ease);
+pointer-events:none}
+.cc-sw span::after{content:"";position:absolute;left:3px;top:3px;width:18px;height:18px;
+border-radius:50%;background:var(--white);box-shadow:var(--sh-1);
+transition:transform .25s var(--ease)}
+.cc-sw input:checked+span{background:var(--rose);border-color:var(--rose)}
+.cc-sw input:checked+span::after{transform:translateX(20px)}
+.cc-sw input:focus-visible+span{outline:2px solid var(--rose-deep);outline-offset:2px}
+.cc-sw input:disabled{cursor:default}
+.cc-sw input:disabled+span{background:var(--rose-line);border-color:transparent;opacity:.75}
+
+@media(prefers-reduced-motion:reduce){.cc{transition:none}}
+@media(max-width:760px){
+.cc .wrap{gap:18px}
+.cc-acts{width:100%}
+.cc-acts .btn{flex:1 1 auto;justify-content:center}
+.cc-more{width:100%;text-align:center;margin-top:2px}
+}
+
+/* Бутон насред изречение в правния текст - чете се като връзка, защото
+   това е, което прави: отваря лентата с настройките. */
+.cc-inline{background:none;border:0;padding:0;font:inherit;cursor:pointer;
+color:var(--rose-deep);text-decoration:underline;text-underline-offset:3px;
+text-decoration-color:var(--rose-line);transition:color .22s var(--ease)}
+.cc-inline:hover{color:var(--rose);text-decoration-color:var(--rose)}
+
+/* Връзката за настройките в подложката е бутон - изглежда като съседите си. */
+.flist button{background:none;border:0;padding:0;margin:0;font:inherit;font-size:14px;
+color:rgba(250,244,242,.7);text-align:left;cursor:pointer;
+transition:color .22s var(--ease)}
+.flist button:hover{color:var(--sakura)}
+
+/* ─── Разгъване на въпросите ─────────────────────────────────────────────────
+   `<details>` по подразбиране изщраква - отговорът се появява и изчезва в
+   един кадър. Тук той се утаява по същата крива, с която се появява всичко
+   останало при скрол, и се прибира по същия път.
+
+   Двата механизма са нарочно отделени:
+
+   1. Височината минава през `::details-content`. За да се стигне от 0 до
+      `auto`, е нужно `interpolate-size:allow-keywords` - където браузърът не
+      го поддържа, преходът просто не тръгва и се получава днешното мигновено
+      отваряне. Тоест по-старият браузър губи анимацията, не отговора.
+   2. Текстът избледнява и се повдига отделно. Това не зависи от
+      `interpolate-size` и работи навсякъде, където има `@starting-style` -
+      така дори без плавна височина отговорът не изниква рязко.
+
+   `content-visibility` се пуска с `allow-discrete`: без него съдържанието се
+   скрива в първия кадър на затварянето и височината няма какво да свива. */
+:root{interpolate-size:allow-keywords}
+
+.faq details::details-content{
+block-size:0;overflow:hidden;
+transition:block-size .42s var(--ease-settle),content-visibility .42s allow-discrete}
+.faq details[open]::details-content{block-size:auto}
+
+/* Отговорът тръгва 6px по-ниско и полупрозрачен, и се връща там при затваряне. */
+.faq details>:not(summary){
+opacity:1;transform:none;
+transition:opacity .38s var(--ease-settle) 60ms,transform .38s var(--ease-settle) 60ms}
+@starting-style{.faq details[open]>:not(summary){opacity:0;transform:translateY(6px)}}
+.faq details:not([open])>:not(summary){opacity:0;transform:translateY(6px);
+transition-delay:0ms}
+
+/* Стрелката ✦ вече се завърта - само забавя малко, за да върви с височината. */
+.faq summary::after{transition:transform .42s var(--ease-settle)}
+
+@media(prefers-reduced-motion:reduce){
+.faq details::details-content,.faq details>:not(summary),.faq summary::after{
+transition:none}
+.faq details:not([open])>:not(summary){opacity:1;transform:none}
+}

@@ -22,6 +22,12 @@ export function urlFor(page, lang, param) {
     case 'about': return p + '/about';
     case 'contact': return p + '/contact';
     case 'cart': return p + '/cart';
+    /* Правните страници делят един път на трите езика, както about и contact.
+       Пътят е един и същ навсякъде, за да няма трето място, което да се
+       разминава с картата - преводът е на съдържанието, не на адреса. */
+    case 'privacy': return p + '/privacy';
+    case 'terms': return p + '/terms';
+    case 'returns': return p + '/returns';
     /* Шаблонът product.html сам по себе си - noindex, зареждан по ?p= от
        стари връзки. Различен е от конкретна продуктова страница и затова
        има свой ключ: urlFor('product') без слъг даваше /product/undefined/. */
